@@ -9,3 +9,14 @@ pub(crate) fn generate_secure_seed() -> Result<SecureSeed, rand::Error> {
     thread_rng().try_fill_bytes(&mut seed)?;
     Ok(seed)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn generate_secure_seed_works() {
+        let seed = generate_secure_seed().unwrap();
+        assert_ne!(seed, SecureSeed::default());
+    }
+}
