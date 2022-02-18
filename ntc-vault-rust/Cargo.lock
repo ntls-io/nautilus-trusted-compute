@@ -227,6 +227,7 @@ dependencies = [
  "clap",
  "confy",
  "ntc-vault-core",
+ "rand",
  "rusty-sodalite",
  "serde",
  "serde_with",
@@ -236,7 +237,6 @@ dependencies = [
 name = "ntc-vault-core"
 version = "0.1.0"
 dependencies = [
- "rand",
  "rusty-sodalite",
 ]
 

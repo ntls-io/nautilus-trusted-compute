@@ -15,6 +15,9 @@ serde_with = { version = "1.12", features = ["base64"] }
 # XXX: Waiting for release 0.5.0: <https://github.com/rust-cli/confy/issues/41>
 confy = { git = "https://github.com/rust-cli/confy", branch = "master" }
 
+# Crypto libraries
+rand = "0.8"
 rusty-sodalite = { git = "https://github.com/PiDelport/rusty-sodalite", branch = "initial-version" }
 
+# Local libraries
 ntc-vault-core = { path = "../ntc-vault-core" }
