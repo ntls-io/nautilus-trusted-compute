@@ -9,7 +9,7 @@
 
 use clap::{Parser, Subcommand};
 
-use crate::cli::actions;
+use crate::actions;
 
 /// Top-level entrypoint.
 pub fn main() -> anyhow::Result<()> {
@@ -21,10 +21,10 @@ pub fn main() -> anyhow::Result<()> {
 #[clap(version, about)]
 #[clap(disable_help_subcommand = true)]
 #[clap(infer_subcommands = true)]
-pub(crate) struct VaultInvocation {
+struct VaultInvocation {
     // TODO: Allow overriding identity file with global arg or env var.
     #[clap(subcommand)]
-    pub(crate) command: VaultCommand,
+    command: VaultCommand,
 }
 
 impl VaultInvocation {
@@ -34,7 +34,7 @@ impl VaultInvocation {
 }
 
 #[derive(Debug, Subcommand)]
-pub(crate) enum VaultCommand {
+enum VaultCommand {
     #[clap(subcommand)]
     Identity(IdentityCommand),
 
@@ -43,7 +43,7 @@ pub(crate) enum VaultCommand {
 }
 
 impl VaultCommand {
-    pub(crate) fn invoke(self) -> anyhow::Result<()> {
+    fn invoke(self) -> anyhow::Result<()> {
         match self {
             VaultCommand::Identity(command) => command.invoke(),
             VaultCommand::Data(command) => command.invoke(),
@@ -53,7 +53,7 @@ impl VaultCommand {
 
 /// Manage identities
 #[derive(Debug, Subcommand)]
-pub(crate) enum IdentityCommand {
+enum IdentityCommand {
     /// Create a new identity
     Create {
         /// Public name to attach to this identity.
@@ -66,7 +66,7 @@ pub(crate) enum IdentityCommand {
 }
 
 impl IdentityCommand {
-    pub(crate) fn invoke(self) -> anyhow::Result<()> {
+    fn invoke(self) -> anyhow::Result<()> {
         match self {
             IdentityCommand::Create { name } => actions::identity_create(name),
             IdentityCommand::Show => actions::identity_show(),
@@ -76,7 +76,7 @@ impl IdentityCommand {
 
 /// Manage data packages
 #[derive(Debug, Subcommand)]
-pub(crate) enum DataCommand {
+enum DataCommand {
     /// Create a new data package
     Create,
 
@@ -85,7 +85,7 @@ pub(crate) enum DataCommand {
 }
 
 impl DataCommand {
-    pub(crate) fn invoke(&self) -> anyhow::Result<()> {
+    fn invoke(&self) -> anyhow::Result<()> {
         match self {
             DataCommand::Create => todo!(),
             DataCommand::Inspect => todo!(),

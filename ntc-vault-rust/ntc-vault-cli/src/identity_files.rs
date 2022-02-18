@@ -4,12 +4,11 @@ use std::path::{Path, PathBuf};
 
 use anyhow::Context;
 use confy::ConfyError;
+use ntc_vault_core::identity::VaultIdentity;
 use rusty_sodalite::types::SecureSeed;
 use serde::{Deserialize, Serialize};
 use serde_with::base64::Base64;
 use serde_with::serde_as;
-
-use crate::core::identity::VaultIdentity;
 
 #[derive(Default, Debug)] // core
 #[serde_as]

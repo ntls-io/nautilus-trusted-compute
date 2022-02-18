@@ -226,11 +226,18 @@ dependencies = [
  "base64",
  "clap",
  "confy",
- "rand",
+ "ntc-vault-core",
  "rusty-sodalite",
  "serde",
  "serde_with",
- "thiserror",
+]
+
+[[package]]
+name = "ntc-vault-core"
+version = "0.1.0"
+dependencies = [
+ "rand",
+ "rusty-sodalite",
 ]
 
 [[package]]

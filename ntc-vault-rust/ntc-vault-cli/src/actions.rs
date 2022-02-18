@@ -6,10 +6,10 @@ use std::io;
 use std::path::Path;
 
 use anyhow::anyhow;
+use ntc_vault_core::crypto::generate_secure_seed;
+use ntc_vault_core::identity::VaultIdentity;
 
-use crate::cli::identity_files::VaultIdentityConfig;
-use crate::core::crypto::generate_secure_seed;
-use crate::core::identity::VaultIdentity;
+use crate::identity_files::VaultIdentityConfig;
 
 pub(crate) fn identity_create(name: String) -> anyhow::Result<()> {
     let path = &VaultIdentityConfig::get_default_path()?;
