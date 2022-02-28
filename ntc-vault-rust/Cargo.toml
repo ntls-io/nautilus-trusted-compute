@@ -1,3 +1,0 @@
-[workspace]
-
-members = ['ntc-vault-cli', 'ntc-vault-core']
