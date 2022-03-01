@@ -20,4 +20,4 @@ rand = "0.8"
 rusty-sodalite = { git = "https://github.com/PiDelport/rusty-sodalite", branch = "initial-version" }
 
 # Local libraries
-ntc-vault-core = { path = "../ntc-vault-core" }
+ntc-data-packages = { path = "../ntc-data-packages" }

@@ -618,6 +618,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "ntc-data-packages"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "jsonschema",
+ "rusty-sodalite",
+ "serde_json",
+]
+
+[[package]]
 name = "ntc-vault-cli"
 version = "0.1.0"
 dependencies = [
@@ -625,21 +635,11 @@ dependencies = [
  "base64",
  "clap 3.1.0",
  "confy",
- "ntc-vault-core",
+ "ntc-data-packages",
  "rand",
  "rusty-sodalite",
  "serde",
  "serde_with",
-]
-
-[[package]]
-name = "ntc-vault-core"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "jsonschema",
- "rusty-sodalite",
- "serde_json",
 ]
 
 [[package]]

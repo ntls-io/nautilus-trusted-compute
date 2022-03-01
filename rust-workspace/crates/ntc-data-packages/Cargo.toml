@@ -1,5 +1,5 @@
 [package]
-name = "ntc-vault-core"
+name = "ntc-data-packages"
 version = "0.1.0"
 edition = "2021"
 

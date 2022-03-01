@@ -6,7 +6,7 @@ use std::io;
 use std::path::Path;
 
 use anyhow::anyhow;
-use ntc_vault_core::identity::VaultIdentity;
+use ntc_data_packages::identity::VaultIdentity;
 
 use crate::crypto::generate_secure_seed;
 use crate::identity_files::VaultIdentityConfig;
