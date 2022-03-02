@@ -1,4 +1,4 @@
-//! CLI functionality.
+//! Nautilus Trusted Compute Vault CLI.
 
 mod actions;
 pub mod commands;
