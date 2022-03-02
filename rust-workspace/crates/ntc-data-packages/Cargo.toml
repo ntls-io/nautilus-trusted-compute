@@ -6,8 +6,12 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-anyhow = "1.0" # FIXME: temporary
 jsonschema = "0.15"
 serde_json = "1.0"
+thiserror = "1.0"
 
 rusty-sodalite = { git = "https://github.com/PiDelport/rusty-sodalite", branch = "initial-version" }
+
+[dev-dependencies]
+anyhow = "1.0"
+k9 = "0.11"

@@ -8,8 +8,8 @@
 //! 2. <https://crates.io/crates/valico>: Inactive (~1 year), less comprehensive.
 //! 3. <https://crates.io/crates/jsonschema-valid>: Inactive (~2 years), less comprehensive.
 
-use anyhow::anyhow;
 use jsonschema::JSONSchema;
+use thiserror::Error;
 
 use crate::data_packages::common::{DataType, Dataset, SchemaType};
 
@@ -20,7 +20,7 @@ pub struct JsonDataset {
 }
 
 impl TryFrom<Dataset> for JsonDataset {
-    type Error = anyhow::Error;
+    type Error = JsonDatasetParseError;
 
     fn try_from(
         Dataset {
@@ -31,26 +31,66 @@ impl TryFrom<Dataset> for JsonDataset {
         }: Dataset,
     ) -> Result<Self, Self::Error> {
         match (schema_type, data_type) {
-            (SchemaType::JsonSchema, DataType::Json) => Ok(Self {
-                schema: serde_json::from_slice(schema.as_ref())?,
-                data: serde_json::from_slice(data.as_ref())?,
-            }),
+            (SchemaType::JsonSchema, DataType::Json) => {
+                let schema = serde_json::from_slice(&schema)
+                    .map_err(JsonDatasetParseError::ParseSchemaFailed)?;
+                let data = serde_json::from_slice(&data)
+                    .map_err(JsonDatasetParseError::ParseDataFailed)?;
+                Ok(Self { schema, data })
+            }
         }
     }
 }
 
 impl JsonDataset {
-    pub fn validate(&self) -> anyhow::Result<()> {
+    pub fn validate(&self) -> Result<(), JsonDatasetValidationError> {
         let compiled = JSONSchema::compile(&self.schema)
-            // XXX: Convert validation error to a string, to avoid lifetime leaking out.
-            .map_err(|err| anyhow!("Compiling schema failed").context(err.to_string()))?;
+            .map_err(|err| JsonDatasetValidationError::CompileSchemaFailed(err.into()))?;
         compiled
             .validate(&self.data)
-            // Convert validation errors into a single error.
-            .map_err(move |errs| {
-                let messages: String = errs.map(move |err| format!("{}\n", err)).collect();
-                anyhow!("Validation failed").context(messages)
-            })
+            .map_err(|errs| JsonDatasetValidationError::InvalidData(errs.into()))
+    }
+}
+
+#[derive(Debug, Error)]
+pub enum JsonDatasetParseError {
+    #[error("failed to parse schema as JSON")]
+    ParseSchemaFailed(#[source] serde_json::Error),
+
+    #[error("failed to parse data as JSON")]
+    ParseDataFailed(#[source] serde_json::Error),
+}
+
+#[derive(Debug, Error)]
+pub enum JsonDatasetValidationError {
+    #[error("failed to compile JSON Schema")]
+    CompileSchemaFailed(#[source] ValidationErrorMessage),
+
+    #[error("data validation failed")]
+    InvalidData(#[source] ValidationErrorMessages),
+}
+
+/// This contains the message from [`jsonschema::ValidationError`] as a string,
+/// to avoid propagating the error's lifetime.
+#[derive(Debug, Error)]
+#[error("validation error: {0}")]
+pub struct ValidationErrorMessage(String);
+
+impl From<jsonschema::ValidationError<'_>> for ValidationErrorMessage {
+    fn from(err: jsonschema::ValidationError) -> Self {
+        Self(err.to_string())
+    }
+}
+
+/// This contains messages from [`jsonschema::ErrorIterator`] as strings,
+/// to avoid propagating the iterator's lifetime.
+#[derive(Debug, Error)]
+#[error("validation errors: {}", .0.join(", "))]
+pub struct ValidationErrorMessages(Box<[String]>);
+
+impl From<jsonschema::ErrorIterator<'_>> for ValidationErrorMessages {
+    fn from(errs: jsonschema::ErrorIterator) -> Self {
+        Self(errs.map(|err| err.to_string()).collect())
     }
 }
 
@@ -69,9 +109,14 @@ mod tests {
             data: "".as_bytes().into(),
         };
         let err = JsonDataset::try_from(dataset).unwrap_err();
-        assert_eq!(
-            err.to_string(),
-            "EOF while parsing a value at line 1 column 0"
+        k9::snapshot!(
+            format_err(err),
+            "
+failed to parse schema as JSON
+
+Caused by:
+    EOF while parsing a value at line 1 column 0
+"
         );
     }
 
@@ -104,6 +149,19 @@ mod tests {
             data: json!({}),
         };
         let err = json_dataset.validate().unwrap_err();
-        assert_eq!(err.to_string(), "False schema does not allow {}\n");
+        k9::snapshot!(
+            format_err(err),
+            "
+data validation failed
+
+Caused by:
+    validation errors: False schema does not allow {}
+"
+        );
+    }
+
+    /// Helper: Format an error chain as a readable string.
+    fn format_err(err: impl Into<anyhow::Error>) -> String {
+        format!("{:?}", err.into())
     }
 }
