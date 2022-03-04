@@ -1,0 +1,56 @@
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+
+name: rust-workspace (test)
+
+on: push
+
+# Action docs:
+# https://github.com/actions/checkout#readme
+# https://github.com/actions-rs/toolchain#readme
+# https://github.com/Swatinem/rust-cache#readme
+# https://github.com/actions-rs/cargo#readme
+
+# NOTE: This uses the <https://github.com/MarcoPolo/cargo> fork to work around <https://github.com/actions-rs/cargo/issues/86>
+
+jobs:
+
+  # "cargo build" and "cargo test" pass on all supported Rust toolchain channels.
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      # No fail-fast: We want to see test results for all toolchain channels, even if one fails.
+      fail-fast: false
+      matrix:
+        rust:
+          - '1.57' # MSRV
+          - stable
+          - nightly
+    steps:
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.rust }}
+          profile: minimal
+          default: true
+      -
+        uses: Swatinem/rust-cache@v1
+        with:
+          working-directory: rust-workspace
+          sharedKey: test
+          key: ${{ github.ref }}
+      -
+        name: cargo build
+        uses: MarcoPolo/cargo@a527bf4d534717ff4424a84446c5d710f8833139
+        with:
+          working-directory: rust-workspace
+          command: build
+          args: ${{ matrix.cargo-flags }} --all-targets
+      -
+        name: cargo test
+        uses: MarcoPolo/cargo@a527bf4d534717ff4424a84446c5d710f8833139
+        with:
+          working-directory: rust-workspace
+          command: test
+          args: ${{ matrix.cargo-flags }}

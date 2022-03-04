@@ -1,0 +1,93 @@
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+
+name: rust-workspace (check)
+
+on: push
+
+# Action docs:
+# https://github.com/actions/checkout#readme
+# https://github.com/actions-rs/toolchain#readme
+# https://github.com/Swatinem/rust-cache#readme
+# https://github.com/actions-rs/cargo#readme
+
+# NOTE: This uses the <https://github.com/MarcoPolo/cargo> fork to work around <https://github.com/actions-rs/cargo/issues/86>
+
+jobs:
+
+  # "cargo fmt" produces no changes
+  rustfmt-check:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions-rs/toolchain@v1
+        with:
+          # Use nightly toolchain, for unstable features in rustfmt.toml
+          toolchain: nightly
+          profile: minimal
+          components: rustfmt
+          default: true
+      -
+        name: cargo fmt
+        uses: MarcoPolo/cargo@a527bf4d534717ff4424a84446c5d710f8833139
+        with:
+          working-directory: rust-workspace
+          command: fmt
+          args: -- --check
+
+  # "cargo clippy" produces no errors or warnings (for all targets)
+  clippy:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          components: clippy
+          default: true
+      -
+        uses: Swatinem/rust-cache@v1
+        with:
+          working-directory: rust-workspace
+          sharedKey: clippy
+          key: ${{ github.ref }}
+      -
+        name: cargo clippy
+        uses: MarcoPolo/cargo@a527bf4d534717ff4424a84446c5d710f8833139
+        with:
+          working-directory: rust-workspace
+          command: clippy
+          args: --all-targets -- --deny warnings
+
+  # "cargo doc" builds cleanly (including private items)
+  doc-check:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          components: rust-docs
+          default: true
+      -
+        uses: Swatinem/rust-cache@v1
+        with:
+          working-directory: rust-workspace
+          sharedKey: doc-check
+          key: ${{ github.ref }}
+      -
+        name: cargo doc
+        uses: MarcoPolo/cargo@a527bf4d534717ff4424a84446c5d710f8833139
+        with:
+          working-directory: rust-workspace
+          command: doc
+          args: --no-deps --document-private-items
+        env:
+          RUSTDOCFLAGS: --deny warnings
