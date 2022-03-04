@@ -1,6 +1,6 @@
 //! CLI action implementations.
 //!
-//! These provide the functionality invoked by [`crate::cli::commands`].
+//! These provide the functionality invoked by [`crate::commands`].
 
 use std::io;
 use std::path::Path;
@@ -11,7 +11,7 @@ use ntc_data_packages::identity::VaultIdentity;
 use crate::crypto::generate_secure_seed;
 use crate::identity_files::VaultIdentityConfig;
 
-pub(crate) fn identity_create(name: String) -> anyhow::Result<()> {
+pub fn identity_create(name: String) -> anyhow::Result<()> {
     let path = &VaultIdentityConfig::get_default_path()?;
     if try_exists(path)? {
         Err(anyhow!("File exists: {}", path.to_string_lossy())
@@ -25,7 +25,7 @@ pub(crate) fn identity_create(name: String) -> anyhow::Result<()> {
     }
 }
 
-pub(crate) fn identity_show() -> anyhow::Result<()> {
+pub fn identity_show() -> anyhow::Result<()> {
     let path = &VaultIdentityConfig::get_default_path()?;
     if try_exists(path)? {
         let config = VaultIdentityConfig::load(path)?;

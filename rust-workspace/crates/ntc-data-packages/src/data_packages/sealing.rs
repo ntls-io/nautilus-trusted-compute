@@ -10,6 +10,8 @@ pub struct Seal {
 }
 
 /// A [`DataPackage`] with a sealed dataset.
+///
+/// [`DataPackage`]: crate::data_packages::common::DataPackage
 pub struct SealedDataPackage {
     pub seal: Seal,
     pub metadata: Metadata,
@@ -17,6 +19,8 @@ pub struct SealedDataPackage {
 }
 
 /// A [`Dataset`] with sealed data.
+///
+/// [`Dataset`]: crate::data_packages::common::Dataset
 pub struct SealedDataset {
     pub schema_type: SchemaType,
     pub schema: Box<[u8]>,

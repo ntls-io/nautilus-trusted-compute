@@ -1,6 +1,6 @@
 //! [`clap`] command and argument definitions.
 //!
-//! See [`crate::cli::actions`] for the implementations of these commands.
+//! See [`crate::actions`] for the implementations of these commands.
 //!
 //! Quick reference:
 //!
