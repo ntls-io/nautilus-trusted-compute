@@ -1,0 +1,16 @@
+[package]
+# name matches ENCLAVE_CARGO_LIB in Makefile
+name = "ntc-tee-server-enclave"
+version = "0.1.0"
+edition = "2018"
+
+[lib]
+crate-type = ["staticlib"]
+test = false
+
+[features]
+default = []
+
+[dependencies]
+sgx_types = { git = "https://github.com/apache/incubator-teaclave-sgx-sdk" }
+sgx_tstd = { git = "https://github.com/apache/incubator-teaclave-sgx-sdk", features = ["backtrace"] }
