@@ -1,2 +1,8 @@
 [workspace]
-members = ['crates/*']
+members = [
+#    'crates/*',
+    'projects/*/app',
+    'projects/*/enclave',
+]
+
+[patch.'https://github.com/apache/teaclave-sgx-sdk.git']
