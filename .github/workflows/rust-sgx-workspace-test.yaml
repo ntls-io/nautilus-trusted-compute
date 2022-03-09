@@ -1,0 +1,78 @@
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+
+name: rust-sgx-workspace (test)
+
+on: push
+
+# Action docs:
+# https://github.com/actions/checkout#readme
+# https://github.com/actions-rs/toolchain#readme
+# https://github.com/Swatinem/rust-cache#readme
+# https://github.com/actions-rs/cargo#readme
+
+# NOTE: This uses the <https://github.com/MarcoPolo/cargo> fork to work around <https://github.com/actions-rs/cargo/issues/86>
+
+jobs:
+
+  # "cargo build" and "cargo test" pass on all supported Rust toolchain channels.
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      # No fail-fast: We want to see test results for all toolchain channels, even if one fails.
+      fail-fast: false
+      matrix:
+        rust:
+          # Use same toolchain as rust-sgx-workspace/rust-toolchain.toml
+          - nightly-2021-11-01
+    steps:
+      -
+        name: Checkout rust-sgx-sdk-dev-env
+        uses: actions/checkout@v3
+        with:
+          repository: PiDelport/rust-sgx-sdk-dev-env
+          path: _temp/rust-sgx-sdk-dev-env
+      -
+        name: Prepare SGX environment
+        working-directory: _temp/rust-sgx-sdk-dev-env
+        run: |
+          ./prepare-1.1.4-intel-2.15.1.sh
+          . environment
+          # Persist environment to following steps.
+          echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >>$GITHUB_ENV
+          echo "SGX_SDK=$SGX_SDK" >>$GITHUB_ENV
+          echo "SGX_MODE=$SGX_MODE" >>$GITHUB_ENV
+          echo "CUSTOM_COMMON_PATH=$CUSTOM_COMMON_PATH" >>$GITHUB_ENV
+          echo "CUSTOM_EDL_PATH=$CUSTOM_EDL_PATH" >>$GITHUB_ENV
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.rust }}
+          profile: minimal
+          default: true
+      -
+        uses: Swatinem/rust-cache@v1
+        with:
+          working-directory: rust-sgx-workspace
+          sharedKey: test
+          key: ${{ github.ref }}
+      -
+        name: Generate untrusted C EDL static library
+        working-directory: rust-sgx-workspace/projects/ntc-tee-server/app
+        run: |
+          make ../build/lib/libEnclave_u.a
+      -
+        name: cargo build
+        uses: MarcoPolo/cargo@a527bf4d534717ff4424a84446c5d710f8833139
+        with:
+          working-directory: rust-sgx-workspace
+          command: build
+          args: ${{ matrix.cargo-flags }} --all-targets
+      -
+        name: cargo test
+        uses: MarcoPolo/cargo@a527bf4d534717ff4424a84446c5d710f8833139
+        with:
+          working-directory: rust-sgx-workspace
+          command: test
+          args: ${{ matrix.cargo-flags }}

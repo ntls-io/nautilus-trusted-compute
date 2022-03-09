@@ -1,0 +1,159 @@
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+
+name: rust-sgx-workspace (check)
+
+on: push
+
+# Action docs:
+# https://github.com/actions/checkout#readme
+# https://github.com/actions-rs/toolchain#readme
+# https://github.com/Swatinem/rust-cache#readme
+# https://github.com/actions-rs/cargo#readme
+
+# NOTE: This uses the <https://github.com/MarcoPolo/cargo> fork to work around <https://github.com/actions-rs/cargo/issues/86>
+
+jobs:
+
+  # "cargo fmt" produces no changes
+  rustfmt-check:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout rust-sgx-sdk-dev-env
+        uses: actions/checkout@v3
+        with:
+          repository: PiDelport/rust-sgx-sdk-dev-env
+          path: _temp/rust-sgx-sdk-dev-env
+      -
+        name: Prepare SGX environment
+        working-directory: _temp/rust-sgx-sdk-dev-env
+        run: |
+          ./prepare-1.1.4-intel-2.15.1.sh
+          . environment
+          # Persist environment to following steps.
+          echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >>$GITHUB_ENV
+          echo "SGX_SDK=$SGX_SDK" >>$GITHUB_ENV
+          echo "SGX_MODE=$SGX_MODE" >>$GITHUB_ENV
+          echo "CUSTOM_COMMON_PATH=$CUSTOM_COMMON_PATH" >>$GITHUB_ENV
+          echo "CUSTOM_EDL_PATH=$CUSTOM_EDL_PATH" >>$GITHUB_ENV
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions-rs/toolchain@v1
+        with:
+          # Use same toolchain as rust-sgx-workspace/rust-toolchain.toml
+          toolchain: nightly-2021-11-01
+          profile: minimal
+          components: rustfmt
+          default: true
+      -
+        name: cargo fmt
+        uses: MarcoPolo/cargo@a527bf4d534717ff4424a84446c5d710f8833139
+        with:
+          working-directory: rust-sgx-workspace
+          command: fmt
+          args: -- --check
+
+  # "cargo clippy" produces no errors or warnings (for all targets)
+  clippy:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout rust-sgx-sdk-dev-env
+        uses: actions/checkout@v3
+        with:
+          repository: PiDelport/rust-sgx-sdk-dev-env
+          path: _temp/rust-sgx-sdk-dev-env
+      -
+        name: Prepare SGX environment
+        working-directory: _temp/rust-sgx-sdk-dev-env
+        run: |
+          ./prepare-1.1.4-intel-2.15.1.sh
+          . environment
+          # Persist environment to following steps.
+          echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >>$GITHUB_ENV
+          echo "SGX_SDK=$SGX_SDK" >>$GITHUB_ENV
+          echo "SGX_MODE=$SGX_MODE" >>$GITHUB_ENV
+          echo "CUSTOM_COMMON_PATH=$CUSTOM_COMMON_PATH" >>$GITHUB_ENV
+          echo "CUSTOM_EDL_PATH=$CUSTOM_EDL_PATH" >>$GITHUB_ENV
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions-rs/toolchain@v1
+        with:
+          # Use same toolchain as rust-sgx-workspace/rust-toolchain.toml
+          toolchain: nightly-2021-11-01
+          profile: minimal
+          components: clippy
+          default: true
+      -
+        uses: Swatinem/rust-cache@v1
+        with:
+          working-directory: rust-sgx-workspace
+          sharedKey: clippy
+          key: ${{ github.ref }}
+      -
+        name: Generate untrusted C EDL static library
+        working-directory: rust-sgx-workspace/projects/ntc-tee-server/app
+        run: |
+          make ../build/lib/libEnclave_u.a
+      -
+        name: cargo clippy
+        uses: MarcoPolo/cargo@a527bf4d534717ff4424a84446c5d710f8833139
+        with:
+          working-directory: rust-sgx-workspace
+          command: clippy
+          args: --all-targets -- --deny warnings
+
+  # "cargo doc" builds cleanly (including private items)
+  doc-check:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout rust-sgx-sdk-dev-env
+        uses: actions/checkout@v3
+        with:
+          repository: PiDelport/rust-sgx-sdk-dev-env
+          path: _temp/rust-sgx-sdk-dev-env
+      -
+        name: Prepare SGX environment
+        working-directory: _temp/rust-sgx-sdk-dev-env
+        run: |
+          ./prepare-1.1.4-intel-2.15.1.sh
+          . environment
+          # Persist environment to following steps.
+          echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >>$GITHUB_ENV
+          echo "SGX_SDK=$SGX_SDK" >>$GITHUB_ENV
+          echo "SGX_MODE=$SGX_MODE" >>$GITHUB_ENV
+          echo "CUSTOM_COMMON_PATH=$CUSTOM_COMMON_PATH" >>$GITHUB_ENV
+          echo "CUSTOM_EDL_PATH=$CUSTOM_EDL_PATH" >>$GITHUB_ENV
+      -
+        uses: actions/checkout@v3
+      -
+        uses: actions-rs/toolchain@v1
+        with:
+          # Use same toolchain as rust-sgx-workspace/rust-toolchain.toml
+          toolchain: nightly-2021-11-01
+          profile: minimal
+          components: rust-docs
+          default: true
+      -
+        uses: Swatinem/rust-cache@v1
+        with:
+          working-directory: rust-sgx-workspace
+          sharedKey: doc-check
+          key: ${{ github.ref }}
+      -
+        name: Generate untrusted C EDL static library
+        working-directory: rust-sgx-workspace/projects/ntc-tee-server/app
+        run: |
+          make ../build/lib/libEnclave_u.a
+      -
+        name: cargo doc
+        uses: MarcoPolo/cargo@a527bf4d534717ff4424a84446c5d710f8833139
+        with:
+          working-directory: rust-sgx-workspace
+          command: doc
+          args: --no-deps --document-private-items
+        env:
+          RUSTDOCFLAGS: --deny warnings
