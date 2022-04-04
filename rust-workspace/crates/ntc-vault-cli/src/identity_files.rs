@@ -13,7 +13,7 @@ use serde_with::serde_as;
 #[derive(Default, Debug)] // core
 #[serde_as]
 #[derive(Serialize, Deserialize)] // serde
-pub(crate) struct VaultIdentityConfig {
+pub struct VaultIdentityConfig {
     pub(crate) name: String,
 
     #[serde_as(as = "Base64")]
@@ -21,7 +21,7 @@ pub(crate) struct VaultIdentityConfig {
 }
 
 impl VaultIdentityConfig {
-    pub(crate) fn load(path: impl AsRef<Path>) -> anyhow::Result<Self> {
+    pub fn load(path: impl AsRef<Path>) -> anyhow::Result<Self> {
         let path = path.as_ref();
         confy::load_path(path).with_context(|| format!("Failed to load {}", path.to_string_lossy()))
     }
