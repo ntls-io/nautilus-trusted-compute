@@ -2,12 +2,15 @@
 //!
 //! These provide the functionality invoked by [`crate::commands`].
 
-use anyhow::anyhow;
+use std::fs;
+use std::path::Path;
+
+use anyhow::{anyhow, Context};
 use ntc_data_packages::identity::VaultIdentity;
 
-use crate::compat;
 use crate::crypto::generate_secure_seed;
 use crate::identity_files::VaultIdentityConfig;
+use crate::{compat, fs_io};
 
 pub fn identity_create(name: String) -> anyhow::Result<()> {
     let path = &VaultIdentityConfig::get_default_path()?;
@@ -38,4 +41,23 @@ pub fn identity_show() -> anyhow::Result<()> {
         Err(anyhow!("File not found: {}", path.to_string_lossy())
             .context("Identity not configured"))
     }
+}
+
+pub(crate) fn data_create(
+    metadata: &Path,
+    schema: &Path,
+    data: &Path,
+    output: &Path,
+) -> anyhow::Result<()> {
+    fs_io::read_metadata(metadata).context(anyhow!("failed to read metadata from {metadata:?}"))?;
+    fs::read(schema)?;
+    fs::read(data)?;
+    fs::write(output, "")?;
+    Ok(())
+}
+
+pub fn data_inspect(path: &Path) -> anyhow::Result<()> {
+    fs::read(path)
+        .with_context(|| format!("failed to inspect file: {}", path.to_string_lossy()))?;
+    Ok(())
 }

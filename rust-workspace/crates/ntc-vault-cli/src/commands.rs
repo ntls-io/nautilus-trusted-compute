@@ -7,6 +7,8 @@
 //! * <https://github.com/clap-rs/clap/blob/master/examples/tutorial_derive/README.md>
 //! * <https://github.com/clap-rs/clap/blob/master/examples/derive_ref/README.md>
 
+use std::path::PathBuf;
+
 use clap::{Parser, Subcommand};
 
 use crate::actions;
@@ -78,17 +80,37 @@ impl IdentityCommand {
 #[derive(Debug, Subcommand)]
 enum DataCommand {
     /// Create a new data package
-    Create,
+    Create {
+        #[clap(long, short)]
+        metadata: PathBuf,
+
+        #[clap(long, short)]
+        schema: PathBuf,
+
+        #[clap(long, short)]
+        data: PathBuf,
+
+        #[clap(long, short)]
+        output: PathBuf,
+    },
 
     /// Inspect a data package
-    Inspect,
+    Inspect {
+        #[clap(long, short)]
+        file: PathBuf,
+    },
 }
 
 impl DataCommand {
     fn invoke(&self) -> anyhow::Result<()> {
         match self {
-            DataCommand::Create => todo!(),
-            DataCommand::Inspect => todo!(),
+            DataCommand::Create {
+                metadata,
+                schema,
+                data,
+                output,
+            } => actions::data_create(metadata, schema, data, output),
+            DataCommand::Inspect { file } => actions::data_inspect(file),
         }
     }
 }
