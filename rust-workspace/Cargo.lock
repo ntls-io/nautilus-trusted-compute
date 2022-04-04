@@ -487,6 +487,7 @@ dependencies = [
  "jsonschema",
  "k9",
  "rusty-sodalite",
+ "serde",
  "serde_json",
  "thiserror",
 ]
