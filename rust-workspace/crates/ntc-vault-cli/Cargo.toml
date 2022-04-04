@@ -25,3 +25,9 @@ rusty-sodalite = { git = "https://github.com/PiDelport/rusty-sodalite", branch =
 
 # Local libraries
 ntc-data-packages = { path = "../ntc-data-packages" }
+
+[dev-dependencies]
+assert_cmd = "2"
+k9 = "0.11"
+tempfile = "3"
+walkdir = "2"
