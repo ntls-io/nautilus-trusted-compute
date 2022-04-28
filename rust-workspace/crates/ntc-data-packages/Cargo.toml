@@ -8,7 +8,7 @@ description = "Support for working with Nautilus Trusted Compute data packages"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-jsonschema = { version = "0.15", default-features = false }
+jsonschema = { version = "0.16", default-features = false }
 serde = "1.0"
 serde_json = "1.0"
 thiserror = "1.0"
