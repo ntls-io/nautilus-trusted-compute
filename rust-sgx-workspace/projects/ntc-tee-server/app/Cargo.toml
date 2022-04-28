@@ -1,0 +1,10 @@
+[package]
+# name matches APP_U in Makefile
+name = "ntc-tee-server-app"
+version = "0.1.0"
+edition = "2021"
+build = "build.rs"
+
+[dependencies]
+sgx_types = { git = "https://github.com/apache/incubator-teaclave-sgx-sdk" }
+sgx_urts = { git = "https://github.com/apache/incubator-teaclave-sgx-sdk" }
