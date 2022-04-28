@@ -53,7 +53,8 @@ pub(crate) fn data_create(
     fs::read(schema)?;
     fs::read(data)?;
     fs::write(output, "")?;
-    Ok(())
+    todo!();
+    // Ok(())
 }
 
 pub fn data_inspect(path: &Path) -> anyhow::Result<()> {

@@ -17,6 +17,7 @@ pub struct Metadata {
     pub creator: String,
     pub timestamp: String,
     pub description: String,
+    // TODO: Add oracle node URIs and public keys
 }
 
 impl Metadata {
