@@ -25,6 +25,10 @@ jobs:
           # Use same toolchain as rust-sgx-workspace/rust-toolchain.toml
           - nightly-2021-11-01
     steps:
+      # Checkout the workspace first to prevent temp files from being deleted.
+      # See: https://github.com/actions/checkout#checkout-multiple-repos-nested
+      -
+        uses: actions/checkout@v3
       -
         name: Checkout rust-sgx-sdk-dev-env
         uses: actions/checkout@v3
@@ -43,8 +47,6 @@ jobs:
           echo "SGX_MODE=$SGX_MODE" >>$GITHUB_ENV
           echo "CUSTOM_COMMON_PATH=$CUSTOM_COMMON_PATH" >>$GITHUB_ENV
           echo "CUSTOM_EDL_PATH=$CUSTOM_EDL_PATH" >>$GITHUB_ENV
-      -
-        uses: actions/checkout@v3
       -
         uses: actions-rs/toolchain@v1
         with:
