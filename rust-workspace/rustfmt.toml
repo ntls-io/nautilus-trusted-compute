@@ -1,0 +1,6 @@
+# https://rust-lang.github.io/rustfmt/
+# Use "cargo +nightly fmt" to take advantage of the group_imports feature.
+
+imports_layout = "HorizontalVertical"
+imports_granularity = "Module"
+group_imports = "StdExternalCrate"

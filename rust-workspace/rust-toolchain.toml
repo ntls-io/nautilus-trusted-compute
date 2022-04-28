@@ -1,0 +1,4 @@
+# Docs: https://rust-lang.github.io/rustup/overrides.html#the-toolchain-file
+[toolchain]
+# This workspace should work with the latest stable Rust.
+channel = "stable"
