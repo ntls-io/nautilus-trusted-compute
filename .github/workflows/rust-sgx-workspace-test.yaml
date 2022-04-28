@@ -70,7 +70,8 @@ jobs:
         with:
           working-directory: rust-sgx-workspace
           command: build
-          args: ${{ matrix.cargo-flags }} --all-targets
+          # Do not use --all-targets to prevent enclave builds from failing
+          args: ${{ matrix.cargo-flags }}
       -
         name: cargo test
         uses: MarcoPolo/cargo@a527bf4d534717ff4424a84446c5d710f8833139
