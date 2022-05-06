@@ -1,0 +1,12 @@
+[package]
+name = "ntc-oracle-node"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dotenv = "0.15.0"
+algonaut = { git = "https://github.com/manuelmauro/algonaut", revision = "30a251e438df9bb7af8b3aafc53bb9945a74c963" }
+algonaut_client = { git = "https://github.com/manuelmauro/algonaut", revision = "30a251e438df9bb7af8b3aafc53bb9945a74c963" }
+tokio = { version = "1.18.1", features = ["full"] }
