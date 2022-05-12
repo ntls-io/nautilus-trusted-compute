@@ -6,7 +6,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dotenv = "0.15.0"
-algonaut = { git = "https://github.com/manuelmauro/algonaut", revision = "30a251e438df9bb7af8b3aafc53bb9945a74c963" }
-algonaut_client = { git = "https://github.com/manuelmauro/algonaut", revision = "30a251e438df9bb7af8b3aafc53bb9945a74c963" }
+algonaut = { git = "https://github.com/manuelmauro/algonaut", rev = "30a251e438df9bb7af8b3aafc53bb9945a74c963" }
+algonaut_client = { git = "https://github.com/manuelmauro/algonaut", rev = "30a251e438df9bb7af8b3aafc53bb9945a74c963" }
 tokio = { version = "1.18.1", features = ["full"] }
+config = "0.13.1"
+serde = { version = "1.0", features = ["derive"] }
+serde_derive = "1.0"
