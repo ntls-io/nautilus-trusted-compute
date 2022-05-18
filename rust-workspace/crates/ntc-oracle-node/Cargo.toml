@@ -8,7 +8,10 @@ edition = "2021"
 [dependencies]
 algonaut = { git = "https://github.com/manuelmauro/algonaut", rev = "30a251e438df9bb7af8b3aafc53bb9945a74c963" }
 algonaut_client = { git = "https://github.com/manuelmauro/algonaut", rev = "30a251e438df9bb7af8b3aafc53bb9945a74c963" }
-tokio = { version = "1.18.1", features = ["full"] }
+axum = "0.5.6"
+tokio = { version = "1", features = ["full"] }
 config = "0.13.1"
 serde = { version = "1.0", features = ["derive"] }
 serde_derive = "1.0"
+
+env-var-helpers = { git = "https://github.com/PiDelport/rust-env-var-helpers" }
