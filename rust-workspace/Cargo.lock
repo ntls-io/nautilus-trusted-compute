@@ -1182,10 +1182,12 @@ dependencies = [
  "algonaut",
  "algonaut_client",
  "axum",
+ "base64",
  "config",
  "env-var-helpers",
  "serde",
  "serde_derive",
+ "serde_json",
  "tokio",
 ]
 
