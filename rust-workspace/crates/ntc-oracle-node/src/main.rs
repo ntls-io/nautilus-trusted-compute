@@ -1,8 +1,11 @@
 //! Standalone binary that exposes HTTP interface that reads information from Algorand and
 //! signs the resulting authorization data
 
+extern crate core;
+
 mod helpers;
 mod settings;
+mod signer;
 
 use algonaut::core::Address;
 use algonaut::crypto::Signature;
@@ -11,12 +14,16 @@ use algonaut::model::indexer::v2::{QueryAssetTransaction, QueryAssetsInfo};
 use algonaut_client::Headers;
 use axum::http::StatusCode;
 use axum::{response::IntoResponse, routing::get, Json, Router};
+use ring_compat::ring::rand;
+use ring_compat::ring::signature::Ed25519KeyPair;
+use ring_compat::signature::ed25519::SigningKey;
 use serde::{Deserialize, Serialize};
 use settings::Settings;
 use std::error::Error;
 use std::str::FromStr;
 
 use crate::helpers::bind_addr_from_env;
+use crate::signer::AuthDataSigner;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
@@ -31,8 +38,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
 }
 
 async fn auth_data(Json(payload): Json<AuthInput>) -> impl IntoResponse {
-    let auth_data = sign_auth_data(get_auth_data(payload).await);
-    (StatusCode::OK, Json(auth_data))
+    let signed_auth_data = sign_auth_data(get_auth_data(payload).await);
+    (StatusCode::OK, Json(signed_auth_data))
 }
 
 async fn get_auth_data(auth_input: AuthInput) -> AuthData {
@@ -88,16 +95,13 @@ async fn get_auth_data(auth_input: AuthInput) -> AuthData {
 
     let config_transaction = asset_transactions.transactions;
     let note_base64 = config_transaction[0].clone().note.unwrap();
-    println!("Note_Base64: {}", note_base64);
     let note = base64::decode(note_base64).unwrap();
-    println!("Note: {:?}", note);
-    let note_drtnote: Result<DrtNote, _> = serde_json::from_slice(note.as_slice());
     let DrtNote {
         binary,
         binary_url,
         data_package,
         data_url,
-    } = note_drtnote.unwrap();
+    } = serde_json::from_slice(note.as_slice()).unwrap();
 
     AuthData {
         redeemed,
@@ -111,9 +115,23 @@ async fn get_auth_data(auth_input: AuthInput) -> AuthData {
 }
 
 fn sign_auth_data(auth_data: AuthData) -> SignedAuthData {
+    // Generate a key pair in PKCS#8 (v2) format.
+    let rng = rand::SystemRandom::new();
+    let pkcs8_bytes = Ed25519KeyPair::generate_pkcs8(&rng).unwrap();
+
+    // TODO:    Normally the application would store the PKCS#8 file persistently.
+    //          Later it would read the PKCS#8 file from persistent storage to use it.
+
+    pub type RingAuthDataSigner = AuthDataSigner<SigningKey>;
+    let signing_key = SigningKey::from_pkcs8(pkcs8_bytes.as_ref()).unwrap();
+
+    let signer = RingAuthDataSigner { signing_key };
+    let signature = signer.sign(&auth_data);
+    println!("Signature: {}", signature);
+
     SignedAuthData {
         auth_data,
-        signature: Signature([1; 64]),
+        signature: Signature(signature.to_bytes()),
     }
 }
 
@@ -132,7 +150,7 @@ struct AuthInput {
 }
 
 #[derive(Serialize)]
-struct AuthData {
+pub struct AuthData {
     redeemed: bool,
     drt_creator: Address,
     drt_redeemer: Address,
