@@ -1,8 +1,9 @@
 // https://github.com/mehcode/config-rs/blob/master/examples/hierarchical-env/settings.rs
 
+use std::env;
+
 use config::{Config, ConfigError, File};
 use serde_derive::Deserialize;
-use std::env;
 
 #[derive(Debug, Deserialize)]
 pub struct Purestake {

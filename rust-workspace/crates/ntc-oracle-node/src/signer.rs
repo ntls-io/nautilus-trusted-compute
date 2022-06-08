@@ -1,5 +1,6 @@
-use crate::AuthData;
 use ed25519::signature::{Signer, Verifier};
+
+use crate::AuthData;
 
 pub struct AuthDataSigner<S>
 where
