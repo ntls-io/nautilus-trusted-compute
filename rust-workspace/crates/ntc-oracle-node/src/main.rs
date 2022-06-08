@@ -7,20 +7,23 @@ mod helpers;
 mod settings;
 mod signer;
 
+use std::error::Error;
+use std::str::FromStr;
+
 use algonaut::core::Address;
 use algonaut::crypto::Signature;
 use algonaut::indexer::v2::Indexer;
 use algonaut::model::indexer::v2::{QueryAssetTransaction, QueryAssetsInfo};
 use algonaut_client::Headers;
 use axum::http::StatusCode;
-use axum::{response::IntoResponse, routing::get, Json, Router};
+use axum::response::IntoResponse;
+use axum::routing::get;
+use axum::{Json, Router};
 use ring_compat::ring::rand;
 use ring_compat::ring::signature::Ed25519KeyPair;
 use ring_compat::signature::ed25519::SigningKey;
 use serde::{Deserialize, Serialize};
 use settings::Settings;
-use std::error::Error;
-use std::str::FromStr;
 
 use crate::helpers::bind_addr_from_env;
 use crate::signer::AuthDataSigner;
