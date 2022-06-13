@@ -690,6 +690,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1e9c280362032ea4203659fc489832d0204ef09f247a0506f170dafcac08c369"
 dependencies = [
  "pkcs8",
+ "serde",
+ "serde_bytes",
  "signature",
 ]
 
