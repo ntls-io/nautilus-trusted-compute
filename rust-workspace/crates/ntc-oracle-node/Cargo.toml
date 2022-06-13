@@ -11,12 +11,13 @@ algonaut_client = { git = "https://github.com/manuelmauro/algonaut", rev = "30a2
 anyhow = "1.0"
 axum = "0.5"
 base64 = "0.13"
-config = "0.13"
+config = { version = "0.13", default-features = false, features = ["toml"] }
 ed25519 = { version = "1.5", features = ["pkcs8", "serde_bytes"] }
 ring-compat = "0.4"
 serde = { version = "1.0", features = ["derive"] }
 serde_derive = "1.0"
 serde_json = "1.0"
+serde_with = { version = "1.14", features = ["base64"]}
 tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
 tower-http = { version = "0.3", features = ["cors"] }
 

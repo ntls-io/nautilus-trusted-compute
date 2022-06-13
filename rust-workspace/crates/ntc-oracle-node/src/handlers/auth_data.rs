@@ -9,6 +9,9 @@ use axum::Json;
 use ed25519::Signature;
 use ring_compat::signature::ed25519::SigningKey;
 use serde::{Deserialize, Serialize};
+use serde_with::base64::Base64;
+use serde_with::serde_as;
+use tokio::try_join;
 
 use crate::errors::AnyhowErrorResponse;
 use crate::settings::Settings;
@@ -22,9 +25,12 @@ pub(crate) struct AuthInput {
 }
 
 /// Response of [`auth_data`]
+#[serde_as]
 #[derive(Serialize)]
 pub(crate) struct SignedAuthData {
+    #[serde_as(as = "Base64")]
     auth_data: Vec<u8>,
+    #[serde_as(as = "Base64")]
     signature: Signature,
 }
 
@@ -39,10 +45,13 @@ pub(crate) struct AuthData {
     data_url: String,
 }
 
+#[serde_as]
 #[derive(Deserialize)]
 struct DrtNote {
+    #[serde_as(as = "Base64")]
     binary: Vec<u8>,
     binary_url: String,
+    #[serde_as(as = "Base64")]
     data_package: Vec<u8>,
     data_url: String,
 }
@@ -54,7 +63,7 @@ pub(crate) async fn auth_data(
     Json(auth_input): Json<AuthInput>,
 ) -> Result<Json<SignedAuthData>, AnyhowErrorResponse> {
     // Read key from PKCS#8 der file
-    let pkcs8_bytes = read_file(Path::new("/tmp/pkcs8.der"))?;
+    let pkcs8_bytes = read_file(Path::new("/etc/ntc-oracle/pkcs8.der"))?;
     let signing_key = SigningKey::from_pkcs8(pkcs8_bytes.as_ref())?;
 
     let auth_data = get_auth_data(auth_input).await?;
@@ -82,11 +91,13 @@ async fn get_auth_data(auth_input: AuthInput) -> Result<AuthData, AnyhowErrorRes
     let txn_id = auth_input.txn_id;
     let asset_id = auth_input.asset_id;
 
-    let transaction_info = indexer.transaction_info(&txn_id).await?;
-
-    let asset_info = indexer
-        .assets_info(asset_id, &QueryAssetsInfo::default())
-        .await?;
+    let query_assets_info = QueryAssetsInfo::default();
+    let query_asset_transaction = QueryAssetTransaction::default();
+    let (transaction_info, asset_info, asset_transactions) = try_join!(
+        indexer.transaction_info(&txn_id),
+        indexer.assets_info(asset_id, &query_assets_info),
+        indexer.asset_transactions(asset_id, &query_asset_transaction),
+    )?;
 
     // `redeemed` - check txn receiver is same as reserve address of DRT
     let txn_receiver = transaction_info
@@ -118,10 +129,6 @@ async fn get_auth_data(auth_input: AuthInput) -> Result<AuthData, AnyhowErrorRes
 
     // Get information encoded in the DRT
     // Find first config transaction for DRT to get Note field
-    let asset_transactions = indexer
-        .asset_transactions(asset_id, &QueryAssetTransaction::default())
-        .await?;
-
     let config_transaction = asset_transactions.transactions;
     let note_base64 = config_transaction[0]
         .clone()
