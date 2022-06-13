@@ -1284,6 +1284,7 @@ version = "0.1.0"
 dependencies = [
  "algonaut",
  "algonaut_client",
+ "anyhow",
  "axum",
  "base64",
  "config",

@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 algonaut = { git = "https://github.com/manuelmauro/algonaut", rev = "30a251e438df9bb7af8b3aafc53bb9945a74c963" }
 algonaut_client = { git = "https://github.com/manuelmauro/algonaut", rev = "30a251e438df9bb7af8b3aafc53bb9945a74c963" }
+anyhow = "1.0"
 axum = "0.5"
 base64 = "0.13"
 config = "0.13"
