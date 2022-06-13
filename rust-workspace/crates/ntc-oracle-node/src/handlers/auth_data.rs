@@ -1,12 +1,12 @@
 use std::io::Error;
 use std::path::Path;
 
-use algonaut::crypto::Signature;
 use algonaut::indexer::v2::Indexer;
 use algonaut::model::indexer::v2::{QueryAssetTransaction, QueryAssetsInfo};
 use algonaut_client::Headers;
 use anyhow::Context;
 use axum::Json;
+use ed25519::Signature;
 use ring_compat::signature::ed25519::SigningKey;
 use serde::{Deserialize, Serialize};
 
@@ -69,9 +69,6 @@ fn sign_auth_data(auth_data: Vec<u8>, signing_key: SigningKey) -> SignedAuthData
     let signer = RingAuthDataSigner { signing_key };
     let signature = signer.sign(&auth_data);
     println!("Signature: {}", signature);
-
-    // convert ed25519::Signature to algonaut_crypto::Signature (Ed25519)
-    let signature = Signature(signature.to_bytes());
 
     SignedAuthData {
         auth_data,
@@ -166,4 +163,36 @@ fn read_file(path: &Path) -> Result<Vec<u8>, Error> {
     let mut contents: Vec<u8> = Vec::new();
     file.read_to_end(&mut contents)?;
     Ok(contents)
+}
+
+#[cfg(test)]
+mod tests {
+    use ring_compat::signature::ed25519::VerifyingKey;
+
+    use super::*;
+    use crate::signer::AuthDataVerifier;
+
+    #[test]
+    fn test_sign_auth_data_success() {
+        // Setup dummy serialized auth data
+        let auth_data = vec![7u8; 32];
+
+        // Create signing key
+        let seed = &[2u8; 32];
+        let signing_key = SigningKey::from_seed(seed).unwrap();
+
+        // Create verifying key and verifier
+        let verify_key = signing_key.verify_key();
+        type RingAuthDataVerifier = AuthDataVerifier<VerifyingKey>;
+        let verifier = RingAuthDataVerifier { verify_key };
+
+        // Run sign_auth_data function
+        let signed_auth_data = sign_auth_data(auth_data.clone(), signing_key);
+
+        // Asserts
+        assert_eq!(auth_data, signed_auth_data.auth_data);
+        assert!(verifier
+            .verify(&auth_data, &signed_auth_data.signature)
+            .is_ok());
+    }
 }
