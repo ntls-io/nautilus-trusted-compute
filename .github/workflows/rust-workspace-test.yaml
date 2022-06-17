@@ -43,6 +43,8 @@ jobs:
       -
         name: cargo build
         uses: MarcoPolo/cargo@a527bf4d534717ff4424a84446c5d710f8833139
+        env:
+          ALGORAND_MNEMONIC: ${{ secrets.TEST_ALGORAND_MNEMONIC }}
         with:
           working-directory: rust-workspace
           command: build
