@@ -1,4 +1,3 @@
-use dotenv_codegen::dotenv;
 use ntc_asset_manager::{
     algorand::Address,
     algorand::{Account, Algod, AlgonautAlgod},
@@ -10,13 +9,12 @@ use std::str::FromStr;
 
 static ALGO_ENDPOINT: &str = "https://node.testnet.algoexplorerapi.io/";
 static ALGO_API_TOKEN: [char; 64] = ['a'; 64];
-static ALGORAND_MNEMONIC: &str = dotenv!("ALGORAND_MNEMONIC");
 
 #[tokio::test]
 async fn create_new_drt() {
     let api_token: String = ALGO_API_TOKEN.iter().collect();
     let algod = Algod(AlgonautAlgod::new(ALGO_ENDPOINT, &api_token).unwrap());
-    let secret = Secret::from_str(ALGORAND_MNEMONIC).unwrap();
+    let secret = Secret::from_str(&dotenv::var("ALGORAND_MNEMONIC").unwrap()).unwrap();
     let account = Account::from_secret(secret).unwrap();
 
     let note = AsaNote {
