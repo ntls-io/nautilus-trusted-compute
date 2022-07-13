@@ -1,4 +1,4 @@
-use ed25519::signature::{Signer, Verifier};
+use ed25519::signature::Signer;
 
 pub(crate) struct AuthDataSigner<S>
 where
@@ -18,16 +18,21 @@ where
         self.signing_key.sign(auth_data)
     }
 }
-#[allow(dead_code)]
+
+#[cfg(test)]
+use ed25519::signature::Verifier;
+
+#[cfg(test)]
 pub(crate) struct AuthDataVerifier<V> {
     pub verify_key: V,
 }
 
+#[cfg(test)]
 impl<V> AuthDataVerifier<V>
 where
     V: Verifier<ed25519::Signature>,
 {
-    #[allow(dead_code)]
+    #[cfg(test)]
     pub(crate) fn verify(
         &self,
         auth_data: &[u8],
