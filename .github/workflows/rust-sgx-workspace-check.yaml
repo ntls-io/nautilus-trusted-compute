@@ -26,7 +26,7 @@ jobs:
         name: Checkout rust-sgx-sdk-dev-env
         uses: actions/checkout@v3
         with:
-          repository: PiDelport/rust-sgx-sdk-dev-env
+          repository: ntls-io/rust-sgx-sdk-dev-env
           path: _temp/rust-sgx-sdk-dev-env
       -
         name: Prepare SGX environment
@@ -66,7 +66,7 @@ jobs:
         name: Checkout rust-sgx-sdk-dev-env
         uses: actions/checkout@v3
         with:
-          repository: PiDelport/rust-sgx-sdk-dev-env
+          repository: ntls-io/rust-sgx-sdk-dev-env
           path: _temp/rust-sgx-sdk-dev-env
       -
         name: Prepare SGX environment
@@ -118,7 +118,7 @@ jobs:
         name: Checkout rust-sgx-sdk-dev-env
         uses: actions/checkout@v3
         with:
-          repository: PiDelport/rust-sgx-sdk-dev-env
+          repository: ntls-io/rust-sgx-sdk-dev-env
           path: _temp/rust-sgx-sdk-dev-env
       -
         name: Prepare SGX environment
