@@ -1,0 +1,24 @@
+[package]
+name = "ntc-oracle-node"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+algonaut = { git = "https://github.com/manuelmauro/algonaut", rev = "30a251e438df9bb7af8b3aafc53bb9945a74c963" }
+algonaut_client = { git = "https://github.com/manuelmauro/algonaut", rev = "30a251e438df9bb7af8b3aafc53bb9945a74c963" }
+anyhow = "1.0"
+axum = "0.5"
+base64 = "0.13"
+config = { version = "0.13", default-features = false, features = ["toml"] }
+ed25519 = { version = "1.5", features = ["pkcs8", "serde_bytes"] }
+ring-compat = "0.4"
+serde = { version = "1.0", features = ["derive"] }
+serde_derive = "1.0"
+serde_json = "1.0"
+serde_with = { version = "1.14", features = ["base64"]}
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+tower-http = { version = "0.3", features = ["cors"] }
+
+env-var-helpers = { git = "https://github.com/PiDelport/rust-env-var-helpers" }

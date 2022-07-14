@@ -1,0 +1,3 @@
+[purestake]
+indexer_url = "https://testnet-algorand.api.purestake.io/idx2/"
+indexer_token = "purestake-token"
