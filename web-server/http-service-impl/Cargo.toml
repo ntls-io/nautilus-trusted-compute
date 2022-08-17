@@ -1,0 +1,27 @@
+[package]
+name = "http-service-impl"
+version = "0.1.0"
+authors = ["Nautilus team"]
+license = "Apache-2.0"
+
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+# Enable verbose debug output.
+# (DO NOT enable outside of testing: This may expose enclave-sealed data.)
+verbose-debug-logging = []
+
+[dependencies]
+actix = "0.12"
+actix-web = "4.0.0-beta.8"
+actix-cors = "0.6.0-beta.2"
+
+# XXX: Stop-gap
+rmp-serde =  "0.15.5"
+serde = "1.0"
+
+
+# SGX SDK
+sgx_types = { git = "https://github.com/apache/incubator-teaclave-sgx-sdk", rev = "e8a9fc22939befa27ff67f5509b2c2dfe8499945" }

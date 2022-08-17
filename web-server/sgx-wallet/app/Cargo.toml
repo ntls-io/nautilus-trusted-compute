@@ -1,0 +1,23 @@
+[package]
+# name matches APP_U in Makefile
+name = "sgx-wallet-app"
+version = "0.1.0"
+authors = ["Nautilus team"]
+license = "Apache-2.0"
+
+edition = "2021"
+build = "build.rs"
+
+[dependencies]
+actix-web = "4.0.0-beta.8"
+
+env-var-helpers = { git = "https://github.com/PiDelport/rust-env-var-helpers", default-features = false }
+
+# SGX SDK
+sgx_types = { git = "https://github.com/apache/incubator-teaclave-sgx-sdk", rev = "e8a9fc22939befa27ff67f5509b2c2dfe8499945" }
+sgx_urts = { git = "https://github.com/apache/incubator-teaclave-sgx-sdk", rev = "e8a9fc22939befa27ff67f5509b2c2dfe8499945" }
+
+http-service-impl = { path = "../../http-service-impl" }
+sgx-helpers = { path = "../../sgx-helpers" }
+
+[patch.'https://github.com/apache/teaclave-sgx-sdk.git']

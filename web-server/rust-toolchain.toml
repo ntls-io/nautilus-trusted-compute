@@ -1,0 +1,6 @@
+# https://rust-lang.github.io/rustup/overrides.html#the-toolchain-file
+[toolchain]
+# See: https://github.com/registreerocks/nautilus-wallet/wiki/Rust-SGX-SDK-toolchain-support-status
+#
+# This should match RUST_TOOLCHAIN in Dockerfile
+channel = "nightly-2021-11-01"
