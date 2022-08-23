@@ -44,3 +44,7 @@ re: fclean all
 # Dummy rules to let make know that those rules are not files.
 
 .PHONY: host enclave clean clean_host clean_enclave fclean_host fclean_enclave fclean re re_host re_enclave
+
+.PHONY: run
+run: all
+	@(cd build/bin && ./ntc-tee-server-app)
