@@ -7,7 +7,9 @@ members = [
 exclude = [
     'crates/sgx-wallet-impl',
     'projects/sgx-wallet/app',
-    'projects/sgx-wallet/enclave'
+    'projects/sgx-wallet/enclave',
+    'projects/sgx-wallet-test/app',
+    'projects/sgx-wallet-test/enclave',
 ]
 
 [patch.'https://github.com/apache/teaclave-sgx-sdk.git']
