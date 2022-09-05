@@ -47,4 +47,4 @@ re: fclean all
 
 .PHONY: run
 run: all
-	@(cd build/bin && ./ntc-tee-server-app)
+	@(cd build/bin && ./sgx-wallet-app)
