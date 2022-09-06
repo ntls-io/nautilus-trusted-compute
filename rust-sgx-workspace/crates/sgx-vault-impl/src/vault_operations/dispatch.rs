@@ -9,9 +9,7 @@ use crate::schema::msgpack::{FromMessagePack, ToMessagePack};
 use crate::schema::sealing::{seal_from_enclave, unseal_to_enclave, SealedMessage};
 use crate::vault_operations::create_vault::create_vault;
 use crate::vault_operations::errors;
-use crate::vault_operations::load_onfido_check::load_onfido_check;
 use crate::vault_operations::open_vault::open_vault;
-use crate::vault_operations::save_onfido_check::save_onfido_check;
 use crate::vault_operations::sign_transaction::sign_transaction;
 
 /// Implementation for [`crate::ecalls::vault_operation::vault_operation`].
@@ -109,7 +107,5 @@ fn vault_operation_impl_dispatch(vault_request: &VaultRequest) -> VaultResponse 
         VaultRequest::CreateVault(request) => create_vault(request).into(),
         VaultRequest::OpenVault(request) => open_vault(request).into(),
         VaultRequest::SignTransaction(request) => sign_transaction(request).into(),
-        VaultRequest::SaveOnfidoCheck(request) => save_onfido_check(request).into(),
-        VaultRequest::LoadOnfidoCheck(request) => load_onfido_check(request).into(),
     }
 }
