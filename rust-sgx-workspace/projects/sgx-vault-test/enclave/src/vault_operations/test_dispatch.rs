@@ -28,7 +28,8 @@ pub(crate) fn vault_operation_sealing_works() {
     assert_eq!(
         unsealed_message,
         OpenVaultResult::Failed(
-            "key_from_id failed for vault_id = \"123456\": decode error".to_string()
+            "key_from_id failed for vault_id = \"123456\": Error decoding base32: DecodeError { position: 5, kind: Length }"
+                .to_string()
         )
         .into()
     );
