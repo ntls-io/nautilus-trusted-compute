@@ -12,7 +12,7 @@ pub(crate) async fn get_enclave_report(
         target_info: Default::default(),
     };
     let (report, enclave_data) = app_state
-        .wallet_enclave_addr
+        .vault_enclave_addr
         .send(message)
         .await
         .map_err(|mailbox_error| {
@@ -49,7 +49,7 @@ mod attestation_report {
     use serde::{Deserialize, Serialize};
     use sgx_types::*;
 
-    /// See [`../../crates/sgx_wallet_impl::schema::msgpack::ToMessagePack::to_msgpack`]
+    /// See [`../../crates/sgx_vault_impl::schema::msgpack::ToMessagePack::to_msgpack`]
     pub(crate) fn to_msgpack(message: &impl Serialize) -> Result<Box<[u8]>, encode::Error> {
         // XXX: Like rmp_serde::to_vec_named, but we need string variants too.
         let mut wr = Vec::with_capacity(128);
