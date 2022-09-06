@@ -2,7 +2,6 @@ use std::prelude::v1::ToString;
 
 use sgx_vault_impl::schema::actions;
 use sgx_vault_impl::schema::actions::CreateVaultResult as Result;
-use sgx_vault_impl::schema::entities::XrplAccountDisplay;
 use sgx_vault_impl::vault_operations::create_vault::create_vault;
 use sgx_vault_impl::vault_operations::store::load_vault;
 
@@ -25,13 +24,5 @@ pub(crate) fn create_vault_works() {
     assert_eq!(
         display.algorand_address_base32,
         stored.algorand_account.address_base32()
-    );
-    assert_eq!(
-        display.xrpl_account,
-        XrplAccountDisplay {
-            key_type: stored.xrpl_account.key_type,
-            public_key_hex: stored.xrpl_account.to_public_key_hex(),
-            address_base58: stored.xrpl_account.to_address_base58()
-        }
     );
 }
