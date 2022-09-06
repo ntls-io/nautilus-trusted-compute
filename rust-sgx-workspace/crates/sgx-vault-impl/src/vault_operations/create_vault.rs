@@ -13,7 +13,7 @@ pub fn create_vault(request: &CreateVault) -> Result {
     let new_xrpl_account = XrplAccount::generate_default();
 
     let storable = VaultStorable {
-        vault_id: new_xrpl_account.to_address_base58(),
+        vault_id: new_algorand_account.address_base32(),
         owner_name: request.owner_name.clone(),
         auth_pin: request.auth_pin.clone(),
         phone_number: request.phone_number.clone(),

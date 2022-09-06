@@ -1,6 +1,8 @@
 use std::io;
 use std::prelude::v1::Box;
+use std::str::FromStr;
 
+use algonaut::core::Address;
 use sgx_trts::memeq::ConsttimeMemEq;
 use thiserror::Error;
 
@@ -37,8 +39,8 @@ pub fn load_vault(vault_id: &str) -> Result<Option<VaultStorable>, io::Error> {
 }
 
 pub fn key_from_id(vault_id: &str) -> Result<Box<Key>, io::Error> {
-    // XXX: Assume XRP address, for now.
-    let address = ripple_address_codec::decode_account_id(vault_id).map_err(|err| {
+    // XXX: Assume ALGO address, for now.
+    let Address(address) = Address::from_str(vault_id).map_err(|err| {
         io::Error::new(
             io::ErrorKind::InvalidInput,
             format!("key_from_id failed for vault_id = {:?}: {}", vault_id, err),
