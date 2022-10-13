@@ -1,3 +1,8 @@
+use mongodb::error::Error;
+use mongodb::options::ClientOptions;
+use mongodb::{Client, Collection};
+
+
 fn main() {
     println!("Hello, world!");
 }
