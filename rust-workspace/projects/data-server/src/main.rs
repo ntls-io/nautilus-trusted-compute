@@ -1,3 +1,7 @@
+fn main() {
+    println!("Hello, world!");
+}
+
 // Upload data pool API //
 // Encryt from client to enclave - seal using enclave key - upload to Azure Blob (or Cosmos DB)
 // Data is uploaded in JSON format
