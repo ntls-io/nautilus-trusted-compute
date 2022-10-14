@@ -1,7 +1,12 @@
-use mongodb::error::Error;
-use mongodb::options::ClientOptions;
-use mongodb::{Client, Collection};
+use bson::{doc, Bson, Document};
+use env_var_helpers::env_vars;
+use mongodb::{error::Error, options::ClientOptions, Client, Collection, Database};
 
+pub struct CosmosDBMongo {
+    connection_string: String,
+    database_name: String,
+    collection_name: String,
+}
 
 fn main() {
     println!("Hello, world!");

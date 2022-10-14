@@ -8,3 +8,7 @@ edition = "2021"
 
 [dependencies]
 mongodb = "2.3"
+bson = "2.4"
+serde = { version = "1.0", features = ["derive"] }
+
+env-var-helpers = { git = "https://github.com/PiDelport/rust-env-var-helpers" }
