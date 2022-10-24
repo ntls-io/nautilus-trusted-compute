@@ -8,6 +8,11 @@ use serde::Deserialize;
 use std::env;
 
 #[derive(Deserialize)]
+pub struct UserData {
+    pub id: String,
+}
+
+#[derive(Deserialize)]
 pub struct NewDataPool {
     pub id: String,
     pub poolName: String, //User defined pool name
@@ -28,15 +33,15 @@ pub fn scoped_config(cfg: &mut web::ServiceConfig) {
 }
 
 // This function accepts application data
-async fn get_data(data: web::Data<Mutex<Client>>) -> impl Responder {
+async fn get_data(data: web::Data<Mutex<Client>>, existingUser: web::Json<UserData>) -> impl Responder {
     let data_collection = data
         .lock()
         .unwrap()
         .database(MONGO_DB)
         .collection(MONGO_COLLECTION);
 
-    let filter = doc! { };
-    // Tweak find options to find specific user's data
+    let userId = &existingUser.id;
+    let filter = doc! {"userId": userId};
     let find_options = FindOptions::builder().sort(doc! { "_id": -1}).build();
     let mut cursor = data_collection.find(filter, find_options).await.unwrap();
 
