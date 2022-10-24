@@ -2,27 +2,26 @@ use bson::{doc, Bson, Document};
 use mongodb::{error::Error, options::ClientOptions, Client, Collection, Database};
 use actix_web::{get, web, App, HttpServer, Responder};
 use std::env;
+use std::sync::*;
 
-pub struct CosmosDBMongo {
-    connection_string: String,
-    database_name: String,
-    collection_name: String,
-}
+mod logs_handlers;
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
     // Create log for actix to output errors
     env::set_var("RUST_LOG", "actix_web=debug");
-    HttpServer::new(|| 
-        App::new().route("/", web::get().to(hello)))
-        .bind("127.0.0.1:8000")?
-        .run()
-        .await
-}
-
-
-async fn hello() -> impl Responder {
-    format!("Hello fellow Rustacean!")
+    //Will remove connection string for production - included for testing
+    let mut client_options = ClientOptions::parse("mongodb://ntc-data:zkicQepvrK6B1SySo3vDLQpycrEsSt3WByUE1Zg7SYs47CceytRCzIuP3cu3p09GtY2cREJyJtdc9zSjqlxcvA==@ntc-data.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@ntc-data@").await.unwrap();
+    client_options.app_name = Some("ntc-data".to_string());
+    let client = web::Data::new(Mutex::new(Client::with_options(client_options).unwrap()));
+    HttpServer::new(move || {
+        App::new()
+            .app_data(client.clone())
+            .service(web::scope("/api").configure(logs_handlers::scoped_config))
+    })
+    .bind("127.0.0.1:8000")?
+    .run()
+    .await
 }
 
 // Upload data pool API //
