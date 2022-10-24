@@ -8,8 +8,9 @@ edition = "2021"
 
 [dependencies]
 mongodb = "1.0.0" #Change version for compatibility
-bson = "2.4"
+bson = "1.0.0"
 serde = { version = "1.0", features = ["derive"] }
 actix-rt = "1.1.1"
 actix-web = "2.0"
 futures = "0.3.5"
+chrono = "0.4.11"

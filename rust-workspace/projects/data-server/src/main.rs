@@ -10,9 +10,8 @@ mod logs_handlers;
 async fn main() -> std::io::Result<()> {
     // Create log for actix to output errors
     env::set_var("RUST_LOG", "actix_web=debug");
-    //Will remove connection string for production - included for testing
-    let mut client_options = ClientOptions::parse("mongodb://ntc-data:zkicQepvrK6B1SySo3vDLQpycrEsSt3WByUE1Zg7SYs47CceytRCzIuP3cu3p09GtY2cREJyJtdc9zSjqlxcvA==@ntc-data.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@ntc-data@").await.unwrap();
-    client_options.app_name = Some("ntc-data".to_string());
+    let mongo_url = env::var("CONNECTION_STRING_LOGS").unwrap();
+    let mut client_options = ClientOptions::parse(&mongo_url).await.unwrap();
     let client = web::Data::new(Mutex::new(Client::with_options(client_options).unwrap()));
     HttpServer::new(move || {
         App::new()
