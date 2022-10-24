@@ -720,26 +720,7 @@ dependencies = [
  "rand 0.7.3",
  "serde",
  "serde_json",
- "uuid 0.8.2",
-]
-
-[[package]]
-name = "bson"
-version = "2.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "99d76085681585d39016f4d3841eb019201fc54d2dd0d92ad1e4fab3bfb32754"
-dependencies = [
- "ahash",
- "base64 0.13.0",
- "hex",
- "indexmap",
- "lazy_static",
- "rand 0.8.5",
- "serde",
- "serde_bytes",
- "serde_json",
- "time 0.3.9",
- "uuid 1.2.1",
+ "uuid",
 ]
 
 [[package]]
@@ -1091,7 +1072,8 @@ version = "0.1.0"
 dependencies = [
  "actix-rt",
  "actix-web",
- "bson 2.4.0",
+ "bson",
+ "chrono",
  "futures",
  "mongodb",
  "serde",
@@ -1934,7 +1916,7 @@ dependencies = [
  "serde_json",
  "time 0.3.9",
  "url",
- "uuid 0.8.2",
+ "uuid",
 ]
 
 [[package]]
@@ -2154,7 +2136,7 @@ dependencies = [
  "async-trait",
  "base64 0.11.0",
  "bitflags",
- "bson 1.2.4",
+ "bson",
  "chrono",
  "derivative",
  "err-derive",
@@ -2185,7 +2167,7 @@ dependencies = [
  "trust-dns-proto 0.19.7",
  "trust-dns-resolver 0.19.7",
  "typed-builder",
- "uuid 0.8.2",
+ "uuid",
  "version_check",
  "webpki",
  "webpki-roots 0.21.1",
@@ -3530,7 +3512,6 @@ version = "0.3.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2702e08a7a860f005826c6815dcac101b19b5eb330c27fe4a5928fec1d20ddd"
 dependencies = [
- "itoa 1.0.2",
  "libc",
  "num_threads",
  "time-macros",
@@ -3959,16 +3940,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bc5cf98d8186244414c848017f0e2676b3fcb46807f6668a97dfe67359a3c4b7"
 dependencies = [
  "getrandom 0.2.6",
-]
-
-[[package]]
-name = "uuid"
-version = "1.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "feb41e78f93363bb2df8b0e86a2ca30eed7806ea16ea0c790d757cf93f79be83"
-dependencies = [
- "getrandom 0.2.6",
- "serde",
 ]
 
 [[package]]
