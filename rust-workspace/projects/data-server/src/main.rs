@@ -1,6 +1,5 @@
-use bson::{doc, Bson, Document};
-use mongodb::{error::Error, options::ClientOptions, Client, Collection, Database};
-use actix_web::{get, web, App, HttpServer, Responder};
+use mongodb::{options::ClientOptions, Client};
+use actix_web::{web, App, HttpServer};
 use std::env;
 use std::sync::*;
 

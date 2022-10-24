@@ -7,9 +7,10 @@ use chrono::prelude::*;
 use serde::Deserialize;
 
 #[derive(Deserialize)]
-pub struct NewLog {
+pub struct NewDataPool {
     pub id: String,
-    pub sealedString: String,
+    pub poolName: String, //User defined pool name
+    pub sealedString: String, //Update data format to match sealed data
 }
 
 // Name for Mongo DB (CosmosDB)
@@ -52,6 +53,24 @@ async fn get_logs(data: web::Data<Mutex<Client>>) -> impl Responder {
     HttpResponse::Ok().json(results)
 }
 
-async fn add_log() -> impl Responder {
-    format!("Not yet implemented!")
+async fn add_log(data: web::Data<Mutex<Client>>, new_log: web::Json<NewDataPool>) -> impl Responder {
+    let logs_collection = data
+        .lock()
+        .unwrap()
+        .database(MONGO_DB)
+        .collection(MONGO_COLL_LOGS);
+
+    match logs_collection.insert_one(doc! {"deviceId": &new_log.id, "poolName": &new_log.poolName, "sealedString": &new_log.sealedString, "createdOn": Bson::DateTime(Utc::now())}, None).await {
+        Ok(db_result) => {
+            if let Some(new_id) = db_result.inserted_id.as_object_id() {
+                println!("New document inserted with id {}", new_id);   
+            }
+            return HttpResponse::Created().json(db_result.inserted_id)
+        }
+        Err(err) =>
+        {
+            println!("Failed! {}", err);
+            return HttpResponse::InternalServerError().finish()
+        }
+    }
 }
