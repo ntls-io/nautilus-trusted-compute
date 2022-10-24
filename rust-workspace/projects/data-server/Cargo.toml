@@ -10,5 +10,5 @@ edition = "2021"
 mongodb = "2.3"
 bson = "2.4"
 serde = { version = "1.0", features = ["derive"] }
-
-env-var-helpers = { git = "https://github.com/PiDelport/rust-env-var-helpers" }
+actix-rt = "1.1.1"
+actix-web = "2.0"

@@ -1,6 +1,7 @@
 use bson::{doc, Bson, Document};
-use env_var_helpers::env_vars;
 use mongodb::{error::Error, options::ClientOptions, Client, Collection, Database};
+use actix_web::{get, web, App, HttpServer, Responder};
+use std::env;
 
 pub struct CosmosDBMongo {
     connection_string: String,
@@ -8,8 +9,20 @@ pub struct CosmosDBMongo {
     collection_name: String,
 }
 
-fn main() {
-    println!("Hello, world!");
+#[actix_rt::main]
+async fn main() -> std::io::Result<()> {
+    // Create log for actix to output errors
+    env::set_var("RUST_LOG", "actix_web=debug");
+    HttpServer::new(|| 
+        App::new().route("/", web::get().to(hello)))
+        .bind("127.0.0.1:8000")?
+        .run()
+        .await
+}
+
+
+async fn hello() -> impl Responder {
+    format!("Hello fellow Rustacean!")
 }
 
 // Upload data pool API //
