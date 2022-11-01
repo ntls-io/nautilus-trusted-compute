@@ -1,5 +1,5 @@
-use mongodb::{options::ClientOptions, Client};
 use actix_web::{web, App, HttpServer};
+use mongodb::{options::ClientOptions, Client};
 use std::env;
 use std::sync::*;
 
@@ -11,7 +11,7 @@ async fn main() -> std::io::Result<()> {
     env::set_var("RUST_LOG", "actix_web=debug");
     // Remember to set connection string when starting the server
     let mongo_url = env::var("CONNECTION_STRING").unwrap();
-    let mut client_options = ClientOptions::parse(&mongo_url).await.unwrap();
+    let client_options = ClientOptions::parse(&mongo_url).await.unwrap();
     let client = web::Data::new(Mutex::new(Client::with_options(client_options).unwrap()));
     HttpServer::new(move || {
         App::new()
