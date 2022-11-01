@@ -755,6 +755,7 @@ dependencies = [
 name = "ntc-tee-server-enclave"
 version = "0.1.0"
 dependencies = [
+ "serde_json",
  "sgx_tstd",
  "sgx_types",
 ]
