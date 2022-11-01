@@ -1,20 +1,20 @@
 extern crate sgx_types;
 extern crate sgx_urts;
-
-#[path = "../codegen/Enclave_u.rs"]
-mod enclave_u;
-
-use enclave_u::ecall_test;
-use sgx_types::{
-    sgx_attributes_t,
-    sgx_launch_token_t,
-    sgx_misc_attribute_t,
-    sgx_status_t,
-    SgxResult,
-};
+use sgx_types::*;
 use sgx_urts::SgxEnclave;
 
 static ENCLAVE_FILE: &str = "enclave.signed.so";
+
+extern "C" {
+
+    fn ecall_test(
+        eid: sgx_enclave_id_t,
+        retval: *mut sgx_status_t,
+        input_string: *const u8,
+        input_length: usize,
+    ) -> sgx_status_t;
+
+}
 
 fn init_enclave() -> SgxResult<SgxEnclave> {
     let mut launch_token: sgx_launch_token_t = [0; 1024];
@@ -61,14 +61,14 @@ fn main() {
     };
 
     match result {
-        sgx_status_t::SGX_SUCCESS => {}
+        sgx_status_t::SGX_SUCCESS => {
+            println!("[+] Ecall success...");
+        }
         _ => {
             println!("[-] ECALL Enclave Failed {}!", result.as_str());
             return;
         }
     }
-
-    println!("[+] ecall_test success...");
 
     enclave.destroy();
 }
