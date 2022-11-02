@@ -3,7 +3,7 @@
 use sgx_types::*;
 
 extern "C" {
-    pub fn ecall_test(
+    pub fn append_data(
         eid: sgx_enclave_id_t,
         retval: *mut sgx_status_t,
         some_string: *const u8,
