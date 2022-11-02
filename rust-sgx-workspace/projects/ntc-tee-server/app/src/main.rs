@@ -7,7 +7,7 @@ static ENCLAVE_FILE: &str = "enclave.signed.so";
 
 extern "C" {
 
-    fn ecall_test(
+    fn append_data(
         eid: sgx_enclave_id_t,
         retval: *mut sgx_status_t,
         input_string: *const u8,
@@ -52,7 +52,7 @@ fn main() {
     let mut retval = sgx_status_t::SGX_SUCCESS;
 
     let result = unsafe {
-        ecall_test(
+        append_data(
             enclave.geteid(),
             &mut retval,
             input_string.as_ptr() as *const u8,
