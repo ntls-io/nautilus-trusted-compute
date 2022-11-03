@@ -7,6 +7,8 @@ static ENCLAVE_FILE: &str = "enclave.signed.so";
 
 extern "C" {
 
+    // Update function to ecall two (sealed) data pools from CosmosDB
+    // Use Data API in nautilus-trusted-compute/rust-workspace/projects/data-server/src/data_handlers
     fn append_data(
         eid: sgx_enclave_id_t,
         retval: *mut sgx_status_t,
@@ -47,6 +49,7 @@ fn main() {
         }
     };
 
+    // Update - send sealed binary data into enclave (from CosmosDB)
     let input_string = String::from("Sending this string to the enclave then printing it\n");
 
     let mut retval = sgx_status_t::SGX_SUCCESS;

@@ -13,9 +13,6 @@ use std::string::String;
 use serde_json::Value;
 use sgx_types::sgx_status_t;
 
-
-/// Does a test ecall
-///
 /// # Safety
 /// Caller needs to ensure that `some_string` points to a valid slice of length `some_len`
 #[no_mangle]
