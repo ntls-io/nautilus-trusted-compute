@@ -8,8 +8,9 @@ extern crate serde_json;
 
 use std::io::{self, Write};
 use std::slice;
-use std::vec::Vec;
 use std::string::String;
+use std::vec::Vec;
+
 use serde_json::Value;
 use sgx_types::sgx_status_t;
 
@@ -100,7 +101,7 @@ pub unsafe extern "C" fn append_data(some_string: *const u8, some_len: usize) ->
 
     let pool_1 = serde_json::from_str::<Value>(&json_pool_1).expect("JSON was not well-formatted");
     let pool_2 = serde_json::from_str::<Value>(&json_pool_2).expect("JSON was not well-formatted");
-    
+
     let pool_1_length = pool_1["pool"].as_array().unwrap().len();
     let pool_2_length = pool_1["pool"].as_array().unwrap().len();
 
