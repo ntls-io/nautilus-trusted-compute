@@ -933,7 +933,7 @@ static const struct {
 		(void*)Enclave_u_fstatat64_ocall,
 	}
 };
-sgx_status_t append_data(sgx_enclave_id_t eid, sgx_status_t* retval, const uint8_t* some_string, size_t len)
+sgx_status_t append_data(sgx_enclave_id_t eid, sgx_status_t* retval, const uint8_t* pool_one, size_t len)
 {
 	sgx_status_t status;
 	ms_append_data_t ms;

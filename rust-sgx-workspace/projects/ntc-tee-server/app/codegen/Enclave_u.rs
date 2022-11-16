@@ -6,7 +6,9 @@ extern "C" {
     pub fn append_data(
         eid: sgx_enclave_id_t,
         retval: *mut sgx_status_t,
-        some_string: *const u8,
+        pool_one: *const u8,
         len: size_t,
+        pool_two: *const u8,
+        len_two: size_t,
     ) -> sgx_status_t;
 }
