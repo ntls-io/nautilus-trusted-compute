@@ -78,6 +78,27 @@ fn validate_example_person_schema() {
 }
 
 #[test]
+fn validate_example_person_schema_age_missing() {
+    let json_dataset = JsonDataset {
+        schema: example_person_schema(),
+        data: json!({
+          "firstName": "Jane",
+          "lastName": "Doe",
+        }),
+    };
+    let err = json_dataset.validate().unwrap_err();
+    k9::snapshot!(
+        format_err(err),
+        r#"
+data validation failed
+
+Caused by:
+    validation errors: "age" is a required property (path= schema=/required)
+"#
+    );
+}
+
+#[test]
 fn validate_example_person_schema_invalid() {
     let json_dataset = JsonDataset {
         schema: example_person_schema(),
@@ -120,7 +141,8 @@ fn example_person_schema() -> Value {
           "type": "integer",
           "minimum": 0
         }
-      }
+      },
+      "required": [ "firstName", "lastName", "age" ],
     })
 }
 
