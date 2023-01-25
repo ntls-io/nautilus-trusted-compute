@@ -72,7 +72,7 @@ $(CODEGEN_U)Enclave_u.rs: $(CODEGEN_U)Enclave_u.h
 	@bindgen \
 		--no-recursive-allowlist \
 		--raw-line 'use sgx_types::*;' \
-		--allowlist-function ecall_test \
+		--allowlist-function append_data \
 		--output $@ \
 		$? \
 		-- -I$(SGX_SDK)/include -I$(CUSTOM_EDL_PATH)

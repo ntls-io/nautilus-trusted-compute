@@ -27,11 +27,11 @@
 )
 
 
-typedef struct ms_ecall_test_t {
+typedef struct ms_append_data_t {
 	sgx_status_t ms_retval;
 	const uint8_t* ms_some_string;
 	size_t ms_len;
-} ms_ecall_test_t;
+} ms_append_data_t;
 
 typedef struct ms_t_global_init_ecall_t {
 	uint64_t ms_id;
@@ -447,14 +447,14 @@ typedef struct ms_u_fstatat64_ocall_t {
 	int ms_flags;
 } ms_u_fstatat64_ocall_t;
 
-static sgx_status_t SGX_CDECL sgx_ecall_test(void* pms)
+static sgx_status_t SGX_CDECL sgx_append_data(void* pms)
 {
-	CHECK_REF_POINTER(pms, sizeof(ms_ecall_test_t));
+	CHECK_REF_POINTER(pms, sizeof(ms_append_data_t));
 	//
 	// fence after pointer checks
 	//
 	sgx_lfence();
-	ms_ecall_test_t* ms = SGX_CAST(ms_ecall_test_t*, pms);
+	ms_append_data_t* ms = SGX_CAST(ms_append_data_t*, pms);
 	sgx_status_t status = SGX_SUCCESS;
 	const uint8_t* _tmp_some_string = ms->ms_some_string;
 	size_t _tmp_len = ms->ms_len;
@@ -487,7 +487,7 @@ static sgx_status_t SGX_CDECL sgx_ecall_test(void* pms)
 
 	}
 
-	ms->ms_retval = ecall_test((const uint8_t*)_in_some_string, _tmp_len);
+	ms->ms_retval = append_data((const uint8_t*)_in_some_string, _tmp_len);
 
 err:
 	if (_in_some_string) free(_in_some_string);
@@ -555,7 +555,7 @@ SGX_EXTERNC const struct {
 } g_ecall_table = {
 	3,
 	{
-		{(void*)(uintptr_t)sgx_ecall_test, 0, 0},
+		{(void*)(uintptr_t)sgx_append_data, 0, 0},
 		{(void*)(uintptr_t)sgx_t_global_init_ecall, 0, 0},
 		{(void*)(uintptr_t)sgx_t_global_exit_ecall, 0, 0},
 	}

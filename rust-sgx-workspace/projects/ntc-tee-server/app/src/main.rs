@@ -1,20 +1,22 @@
 extern crate sgx_types;
 extern crate sgx_urts;
-
-#[path = "../codegen/Enclave_u.rs"]
-mod enclave_u;
-
-use enclave_u::ecall_test;
-use sgx_types::{
-    sgx_attributes_t,
-    sgx_launch_token_t,
-    sgx_misc_attribute_t,
-    sgx_status_t,
-    SgxResult,
-};
+use sgx_types::*;
 use sgx_urts::SgxEnclave;
 
 static ENCLAVE_FILE: &str = "enclave.signed.so";
+
+extern "C" {
+
+    // Update function to ecall two (sealed) data pools from CosmosDB
+    // Use Data API in nautilus-trusted-compute/rust-workspace/projects/data-server/src/data_handlers
+    fn append_data(
+        eid: sgx_enclave_id_t,
+        retval: *mut sgx_status_t,
+        input_string: *const u8,
+        input_length: usize,
+    ) -> sgx_status_t;
+
+}
 
 fn init_enclave() -> SgxResult<SgxEnclave> {
     let mut launch_token: sgx_launch_token_t = [0; 1024];
@@ -47,12 +49,13 @@ fn main() {
         }
     };
 
+    // Update - send sealed binary data into enclave (from CosmosDB)
     let input_string = String::from("Sending this string to the enclave then printing it\n");
 
     let mut retval = sgx_status_t::SGX_SUCCESS;
 
     let result = unsafe {
-        ecall_test(
+        append_data(
             enclave.geteid(),
             &mut retval,
             input_string.as_ptr() as *const u8,
@@ -61,14 +64,14 @@ fn main() {
     };
 
     match result {
-        sgx_status_t::SGX_SUCCESS => {}
+        sgx_status_t::SGX_SUCCESS => {
+            println!("[+] Ecall success...");
+        }
         _ => {
             println!("[-] ECALL Enclave Failed {}!", result.as_str());
             return;
         }
     }
-
-    println!("[+] ecall_test success...");
 
     enclave.destroy();
 }
