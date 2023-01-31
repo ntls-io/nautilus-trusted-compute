@@ -1,7 +1,8 @@
 from pydantic import BaseModel, validator
 
 from common.types import WalletAddress
-from datetime import date
+from datetime import datetime
+
 
 class CreateDataset(BaseModel):
     """
@@ -10,10 +11,12 @@ class CreateDataset(BaseModel):
 
     wallet_id: WalletAddress
     data_pool_id: str
+    data_schema_id: str
     name: str
     description: str
-    length: int
-    created: date
+    num_of_rows: int
+    data_pool_position: int
+    created: datetime
 
 
 class DeleteDataset(BaseModel):
@@ -33,6 +36,7 @@ class DeleteDataset(BaseModel):
             )
         return v
 
+
 class CreateDatapool(BaseModel):
     """
     Datpool creation parameters.
@@ -41,9 +45,12 @@ class CreateDatapool(BaseModel):
     creator_wallet_id: WalletAddress
     name: str
     description: str
-    length: int
     datapool_hash: str
-    created: date
+    smart_contract_id: str
+    smart_contract_address: str
+    sealed_data: str
+    total_rows: int
+    created: datetime
 
 
 class DeleteDatapool(BaseModel):
@@ -63,12 +70,30 @@ class DeleteDatapool(BaseModel):
             )
         return v
 
+
 class CreateDataschema(BaseModel):
     """
     Schema creation parameters.
     """
 
     name: str
-    length: int
     data_schema: str
-    created: date
+    created: datetime
+
+
+class DeleteDataschema(BaseModel):
+    """
+    Datapool deletion parameters.
+    """
+
+    delete_id: str
+
+    @validator("delete_id")
+    @classmethod
+    def valid_object_id_hex_representation(cls: type, v: str) -> str:
+        int(v, 16)
+        if len(v) != 24:
+            raise AssertionError(
+                f"expected a 24 character hexadecimal string but '{v}' has length {len(v)}"
+            )
+        return v

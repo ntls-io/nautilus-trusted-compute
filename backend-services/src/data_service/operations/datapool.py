@@ -12,7 +12,15 @@ async def create_datapool(engine: Engine, params: CreateDatapool) -> Datapool:
     Create a new datapool.
     """
     new_datapool = Datapool(
-        creator_wallet_id=params.creator_wallet_id, name=params.name, description=params.description, length=params.length, datapool_hash=params.datapool_hash, created=params.created
+        creator_wallet_id=params.creator_wallet_id,
+        name=params.name,
+        description=params.description,
+        datapool_hash=params.datapool_hash,
+        smart_contract_id=params.smart_contract_id,
+        smart_contract_address=params.smart_contract_address,
+        sealed_data=params.sealed_data,
+        total_rows=params.total_rows,
+        created=params.created
     )
     await engine.save(new_datapool)
     return new_datapool
