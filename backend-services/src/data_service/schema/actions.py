@@ -1,7 +1,7 @@
 from pydantic import BaseModel, validator
 
 from common.types import WalletAddress
-from datetime import date
+from datetime import datetime
 
 class CreateDataset(BaseModel):
     """
@@ -13,7 +13,7 @@ class CreateDataset(BaseModel):
     name: str
     description: str
     length: int
-    created: date
+    created: datetime
 
 
 class DeleteDataset(BaseModel):
@@ -43,7 +43,7 @@ class CreateDatapool(BaseModel):
     description: str
     length: int
     datapool_hash: str
-    created: date
+    created: datetime
 
 
 class DeleteDatapool(BaseModel):
@@ -71,4 +71,4 @@ class CreateDataschema(BaseModel):
     name: str
     length: int
     data_schema: str
-    created: date
+    created: datetime

@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 from common.types import WalletAddress
 
-from datetime import date
+from datetime import datetime
 
 class Dataset(Model):
     """
@@ -17,7 +17,7 @@ class Dataset(Model):
     name: str
     description: str
     length: int
-    created: date
+    created: datetime
 
 
 DatasetList: TypeAlias = list[Dataset]
@@ -41,7 +41,7 @@ class Datapool(Model):
     description: str
     length: int
     datapool_hash: str
-    created: date
+    created: datetime
 
 
 DatapoolList: TypeAlias = list[Datapool]
@@ -62,4 +62,4 @@ class Dataschema(Model):
 
     name: str
     data_schema: str
-    created: date
+    created: datetime
