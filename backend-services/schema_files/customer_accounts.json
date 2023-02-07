@@ -1,0 +1,37 @@
+[
+    {
+        "Name": "John Smith",
+        "Email": "johnsmith@email.com",
+        "Account": 25098313,
+        "Balance": 50000,
+        "Credit Score": 300
+    },
+    {
+        "name": "Jane Doe",
+        "Email": "janedoe@email.com",
+        "Account": 25023515,
+        "Balance": 20500,
+        "Credit Score": 290
+    },
+    {
+        "name": "Bob Johnson",
+        "Email": "bobjohnson@email.com",
+        "Account": 25092814,
+        "Balance": 24000,
+        "Credit Score": 200
+    },
+    {
+        "name": "Sara Lee",
+        "Email": "saralee@email.com",
+        "Account": 25068194,
+        "Balance": 54000,
+        "Credit Score": 302
+    },
+    {
+        "name": "Tom Brown",
+        "Email": "tombrown@email.com",
+        "Account": 25020920,
+        "Balance": 33000,
+        "Credit Score": 360
+    }
+]

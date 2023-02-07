@@ -1,0 +1,182 @@
+[
+    {
+        "index": 0,
+        "FID": "P554",
+        "IID": "P554",
+        "Miss_Pheno": "N",
+        "N_Miss": 4096,
+        "N_Geno": 97722,
+        "MAF": 0.02191
+    },
+    {
+        "index": 1,
+        "FID": "P557",
+        "IID": "P557",
+        "Miss_Pheno": "N",
+        "N_Miss": 4011,
+        "N_Geno": 97722,
+        "MAF": 0.02105
+    },
+    {
+        "index": 2,
+        "FID": "P558",
+        "IID": "P558",
+        "Miss_Pheno": "N",
+        "N_Miss": 4327,
+        "N_Geno": 97722,
+        "MAF": 0.02428
+    },
+    {
+        "index": 3,
+        "FID": "P562",
+        "IID": "P562",
+        "Miss_Pheno": "N",
+        "N_Miss": 4099,
+        "N_Geno": 97722,
+        "MAF": 0.02195
+    },
+    {
+        "index": 4,
+        "FID": "P564",
+        "IID": "P564",
+        "Miss_Pheno": "N",
+        "N_Miss": 4100,
+        "N_Geno": 97722,
+        "MAF": 0.02391
+    },
+    {
+        "index": 5,
+        "FID": "P567",
+        "IID": "P567",
+        "Miss_Pheno": "N",
+        "N_Miss": 4013,
+        "N_Geno": 97722,
+        "MAF": 0.02705
+    },
+    {
+        "index": 6,
+        "FID": "P568",
+        "IID": "P568",
+        "Miss_Pheno": "Y",
+        "N_Miss": 4227,
+        "N_Geno": 97722,
+        "MAF": 0.02478
+    },
+    {
+        "index": 7,
+        "FID": "P572",
+        "IID": "P572",
+        "Miss_Pheno": "N",
+        "N_Miss": 4199,
+        "N_Geno": 97722,
+        "MAF": 0.02096
+    },
+    {
+        "index": 8,
+        "FID": "P574",
+        "IID": "P574",
+        "Miss_Pheno": "N",
+        "N_Miss": 4034,
+        "N_Geno": 97722,
+        "MAF": 0.02783
+    },
+    {
+        "index": 9,
+        "FID": "P577",
+        "IID": "P577",
+        "Miss_Pheno": "N",
+        "N_Miss": 4245,
+        "N_Geno": 97722,
+        "MAF": 0.02209
+    },
+    {
+        "index": 10,
+        "FID": "P578",
+        "IID": "P578",
+        "Miss_Pheno": "N",
+        "N_Miss": 4127,
+        "N_Geno": 97722,
+        "MAF": 0.02109
+    },
+    {
+        "index": 11,
+        "FID": "P582",
+        "IID": "P582",
+        "Miss_Pheno": "N",
+        "N_Miss": 4091,
+        "N_Geno": 97722,
+        "MAF": 0.02164
+    },
+    {
+        "index": 12,
+        "FID": "P584",
+        "IID": "P584",
+        "Miss_Pheno": "Y",
+        "N_Miss": 4024,
+        "N_Geno": 97722,
+        "MAF": 0.02309
+    },
+    {
+        "index": 13,
+        "FID": "P587",
+        "IID": "P587",
+        "Miss_Pheno": "Y",
+        "N_Miss": 4123,
+        "N_Geno": 97722,
+        "MAF": 0.02037
+    },
+    {
+        "index": 14,
+        "FID": "P588",
+        "IID": "P588",
+        "Miss_Pheno": "N",
+        "N_Miss": 4330,
+        "N_Geno": 97722,
+        "MAF": 0.02023
+    },
+    {
+        "index": 15,
+        "FID": "P592",
+        "IID": "P592",
+        "Miss_Pheno": "N",
+        "N_Miss": 4013,
+        "N_Geno": 97722,
+        "MAF": 0.02283
+    },
+    {
+        "index": 16,
+        "FID": "P594",
+        "IID": "P594",
+        "Miss_Pheno": "N",
+        "N_Miss": 4056,
+        "N_Geno": 97722,
+        "MAF": 0.02923
+    },
+    {
+        "index": 17,
+        "FID": "P597",
+        "IID": "P597",
+        "Miss_Pheno": "N",
+        "N_Miss": 4163,
+        "N_Geno": 97722,
+        "MAF": 0.02501
+    },
+    {
+        "index": 18,
+        "FID": "P598",
+        "IID": "P598",
+        "Miss_Pheno": "N",
+        "N_Miss": 4356,
+        "N_Geno": 97722,
+        "MAF": 0.0284
+    },
+    {
+        "index": 19,
+        "FID": "P602",
+        "IID": "P602",
+        "Miss_Pheno": "N",
+        "N_Miss": 4037,
+        "N_Geno": 97722,
+        "MAF": 0.02152
+    }
+]
