@@ -1,0 +1,10 @@
+{
+    "type": "object",
+    "properties": {
+        "Name": {"type": "string"},
+        "Email": {"type": "string"},
+        "Account": {"type": "number"},
+        "Balance": {"type": "number"},
+        "Credit Score": {"type": "number"},
+    },
+}
