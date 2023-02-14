@@ -1,0 +1,12 @@
+schema = {
+    "type": "object",
+    "properties": {
+        "FID": {"type": "number"},
+        "IID": {"type": "string"},
+        "Miss_Pheno": {"type": "number"},
+        "N_Miss": {"type": "number"},
+        "N_Geno": {"type": "number"},
+        "MAF": {"type": "string"},
+    },
+    "required": ["FID", "TID", "MAF"]
+}
