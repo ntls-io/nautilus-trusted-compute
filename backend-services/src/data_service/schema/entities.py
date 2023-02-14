@@ -1,11 +1,11 @@
 from typing import TypeAlias
 
 from odmantic import Model
-from pydantic import BaseModel
 
 from common.types import WalletAddress
 
 from datetime import datetime
+
 
 class Dataset(Model):
     """
@@ -14,22 +14,16 @@ class Dataset(Model):
 
     wallet_id: WalletAddress
     data_pool_id: str
+    data_schema_id: str
     name: str
     description: str
-    length: int
+    num_of_rows: int
+    data_pool_position: int
     created: datetime
 
 
 DatasetList: TypeAlias = list[Dataset]
 
-
-class DatasetDocument(BaseModel):
-    """
-    Database representation of a single dataset.
-    """
-
-    wallet_id: WalletAddress
-    dataset: Dataset
 
 class Datapool(Model):
     """
@@ -39,21 +33,16 @@ class Datapool(Model):
     creator_wallet_id: WalletAddress
     name: str
     description: str
-    length: int
     datapool_hash: str
+    smart_contract_id: str
+    smart_contract_address: str
+    sealed_data: str
+    total_rows: int
     created: datetime
 
 
 DatapoolList: TypeAlias = list[Datapool]
 
-
-class DatapoolDocument(BaseModel):
-    """
-    Database representation of a single datapool.
-    """
-
-    creator_wallet_id: WalletAddress
-    datapool: Datapool
 
 class Dataschema(Model):
     """
