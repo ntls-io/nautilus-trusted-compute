@@ -12,7 +12,14 @@ async def create_dataset(engine: Engine, params: CreateDataset) -> Dataset:
     Create a new dataset.
     """
     new_dataset = Dataset(
-        wallet_id=params.wallet_id, data_pool_id=params.data_pool_id, name=params.name, description=params.description, length=params.length, created=params.created
+        wallet_id=params.wallet_id,
+        data_pool_id=params.data_pool_id,
+        data_schema_id=params.data_schema_id,
+        name=params.name,
+        description=params.description,
+        num_of_rows=params.num_of_rows,
+        data_pool_position=params.data_pool_position,
+        created=params.created,
     )
     await engine.save(new_dataset)
     return new_dataset
@@ -23,7 +30,7 @@ async def delete_dataset(engine: Engine, params: DeleteDataset) -> None:
     Delete a specified dataset.
     """
     # XXX: assumes `params.id` is a 24 character hex string
-    id_to_delete = ObjectId(params.dataset_id)
+    id_to_delete = ObjectId(params.delete_id)
     existing_dataset = await engine.find_one(Dataset, Dataset.id == id_to_delete)
     if existing_dataset is None:
         raise HTTPException(404)
