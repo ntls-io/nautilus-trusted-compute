@@ -1,0 +1,110 @@
+[
+    {
+        "name": "John Smith",
+        "gpa": 3.5,
+        "age": 25,
+        "salary": 50000
+    },
+    {
+        "name": "Jane Doe",
+        "gpa": 3.2,
+        "age": 22,
+        "salary": 45000
+    },
+    {
+        "name": "Bob Johnson",
+        "gpa": 3.8,
+        "age": 30,
+        "salary": 55000
+    },
+    {
+        "name": "Sara Lee",
+        "gpa": 3.0,
+        "age": 27,
+        "salary": 40000
+    },
+    {
+        "name": "Tom Brown",
+        "gpa": 3.7,
+        "age": 32,
+        "salary": 60000
+    },
+    {
+        "name": "Emily Davis",
+        "gpa": 3.4,
+        "age": 23,
+        "salary": 42000
+    },
+    {
+        "name": "Michael Miller",
+        "gpa": 3.9,
+        "age": 28,
+        "salary": 65000
+    },
+    {
+        "name": "Jessica Wilson",
+        "gpa": 3.1,
+        "age": 24,
+        "salary": 46000
+    },
+    {
+        "name": "Matthew Anderson",
+        "gpa": 3.6,
+        "age": 29,
+        "salary": 58000
+    },
+    {
+        "name": "Nicholas Thompson",
+        "gpa": 3.3,
+        "age": 26,
+        "salary": 49000
+    },
+    {
+        "name": "Ashley Moore",
+        "gpa": 3.8,
+        "age": 35,
+        "salary": 62000
+    },
+    {
+        "name": "David Taylor",
+        "gpa": 3.0,
+        "age": 31,
+        "salary": 52000
+    },
+    {
+        "name": "Joseph Hernandez",
+        "gpa": 3.7,
+        "age": 33,
+        "salary": 57000
+    },
+    {
+        "name": "Brian Martinez",
+        "gpa": 3.4,
+        "age": 30,
+        "salary": 50000
+    },
+    {
+        "name": "Brandon Lee",
+        "gpa": 3.9,
+        "age": 25,
+        "salary": 60000
+    },
+    {
+        "name": "Adam Clark",
+        "gpa": 3.1,
+        "age": 22,
+        "salary": 45000
+    },
+    {
+        "name": "Natalie Rodriguez",
+        "gpa": 3.6,
+        "age": 27,
+        "salary": 48000
+    },
+    {
+        "name": "Justin Green",
+        "gpa": 3.3,
+        "age": 32,
+        "salary": 55000
+    }
+]
