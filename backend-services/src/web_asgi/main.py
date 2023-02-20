@@ -14,6 +14,10 @@ from data_service.schema.actions import CreateDataset, DeleteDataset, CreateData
 from data_service.schema.entities import Dataset, DatasetList, Datapool, DatapoolList, Dataschema
 
 from data_service.operations.datapool import datapools, create_datapool, delete_datapool
+from data_service.operations.dataschema import create_dataschema
+
+from user_auth_service.schema.actions import CreateNewUser, CreateNewUserResult, AuthenticateUser, AuthenticateUserResult
+from user_auth_service.operations import create_new_user, authenticate_user
 
 from web_asgi.settings import AppSettings
 
@@ -36,6 +40,20 @@ app.add_middleware(
     allow_methods=["GET", "POST", "HEAD", "DELETE"],
     allow_headers=["*"],
 )
+
+
+@app.post(
+    "/auth/create", response_model=CreateNewUserResult, status_code=status.HTTP_201_CREATED
+)
+async def post_create_new_user(request: CreateNewUser) -> CreateNewUserResult:
+    return await create_new_user(mongo_engine, request)
+
+
+@app.post(
+    "/auth/login", response_model=AuthenticateUserResult, status_code=status.HTTP_201_CREATED
+)
+async def post_authenticate_user(request: AuthenticateUser) -> AuthenticateUserResult:
+    return await authenticate_user(mongo_engine, request)
 
 
 @app.get("/datasets", response_model=DatasetList, status_code=status.HTTP_200_OK)
