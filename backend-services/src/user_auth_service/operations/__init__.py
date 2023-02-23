@@ -1,3 +1,3 @@
 """
-The collection of operations provided by the user authenticatioin service.
+The collection of operations provided by the user authentication service.
 """
