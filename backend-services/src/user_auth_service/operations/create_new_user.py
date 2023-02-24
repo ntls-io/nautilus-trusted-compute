@@ -1,8 +1,9 @@
+from fastapi import HTTPException
 from user_auth_service.schema.actions import CreateNewUser, CreateNewUserResult, CreateNewUserSuccess, CreateNewUserFailure
 from user_auth_service.schema.entities import UserDetailsStorable, UserDisplay
 from data_service.schema.types import Engine
 from passlib.context import CryptContext
-from odmantic.bson import ObjectId
+
 
 argon2_context = CryptContext(schemes=['argon2'], deprecated='auto')
 
@@ -14,6 +15,10 @@ async def create_new_user(engine: Engine, params: CreateNewUser) -> CreateNewUse
     """
     User Creation.
     """
+    existing_email = await engine.find_one(UserDetailsStorable,
+                                           UserDetailsStorable.email_address == params.email_address)
+    if existing_email is not None:
+        raise HTTPException(status_code=400, detail="This email address is already used.")
     hash_password = password_hash(params.password)
 
     new_user = UserDetailsStorable(
