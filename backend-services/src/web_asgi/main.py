@@ -17,7 +17,9 @@ from data_service.operations.datapool import datapools, create_datapool, delete_
 from data_service.operations.dataschema import create_dataschema
 
 from user_auth_service.schema.actions import CreateNewUser, CreateNewUserResult, AuthenticateUser, AuthenticateUserResult
-from user_auth_service.operations import create_new_user, authenticate_user
+from user_auth_service.schema.entities import UserDetailsStorable
+from user_auth_service.operations.create_new_user import create_new_user
+from user_auth_service.operations.authenticate_user import authenticate_user
 
 from web_asgi.settings import AppSettings
 

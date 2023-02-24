@@ -1,8 +1,6 @@
-from user_auth_service.schema.entites import UserDisplay
+from user_auth_service.schema.entities import UserDisplay
 from pydantic import BaseModel
 
-from common.types import WalletAddress
-from datetime import datetime
 from typing import TypeAlias
 
 
@@ -52,4 +50,5 @@ class AuthenticateUserFailure(BaseModel):
 
     Failed: str
 
-class AuthenticateUserResult: TypeAlias = AuthenticateUserSuccess | AuthenticateUserFailure
+class AuthenticateUserResult(BaseModel):
+    Result: AuthenticateUserSuccess | AuthenticateUserFailure
