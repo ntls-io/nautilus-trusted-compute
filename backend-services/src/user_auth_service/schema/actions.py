@@ -1,4 +1,4 @@
-from user_auth_service.schema.entities import UserDisplay
+from user_auth_service.schema.entities import UserDisplay, UserDetailsStorable
 from pydantic import BaseModel
 
 from typing import TypeAlias
@@ -41,7 +41,7 @@ class AuthenticateUserSuccess(BaseModel):
     Successfully authenticated user.
     """
 
-    Opened: str
+    Opened: UserDisplay
 
 class AuthenticateUserFailure(BaseModel):
     """
@@ -50,5 +50,4 @@ class AuthenticateUserFailure(BaseModel):
 
     Failed: str
 
-class AuthenticateUserResult(BaseModel):
-    Result: AuthenticateUserSuccess | AuthenticateUserFailure
+AuthenticateUserResult: TypeAlias = AuthenticateUserSuccess | AuthenticateUserFailure

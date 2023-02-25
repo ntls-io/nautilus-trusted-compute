@@ -52,7 +52,7 @@ async def post_create_new_user(request: CreateNewUser) -> CreateNewUserResult:
 
 
 @app.post(
-    "/auth/login", response_model=AuthenticateUserResult, status_code=status.HTTP_201_CREATED
+    "/auth/login", response_model=AuthenticateUserResult, status_code=status.HTTP_200_OK
 )
 async def post_authenticate_user(request: AuthenticateUser) -> AuthenticateUserResult:
     return await authenticate_user(mongo_engine, request)

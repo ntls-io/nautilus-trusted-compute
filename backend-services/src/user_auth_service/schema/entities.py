@@ -1,5 +1,5 @@
 from odmantic import Model
-from odmantic.bson import ObjectId
+from odmantic import ObjectId
 import pydantic
 pydantic.json.ENCODERS_BY_TYPE[ObjectId]=str
 from pydantic import BaseModel
