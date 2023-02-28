@@ -1,7 +1,8 @@
+from datetime import datetime
+
 from pydantic import BaseModel, validator
 
 from common.types import WalletAddress
-from datetime import datetime
 
 
 class CreateDataset(BaseModel):

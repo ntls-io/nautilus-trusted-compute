@@ -1,13 +1,17 @@
 from fastapi import HTTPException
-from user_auth_service.schema.actions import CreateNewUser, CreateNewUserResult, CreateNewUserSuccess, CreateNewUserFailure
-from user_auth_service.schema.entities import UserDetailsStorable, UserDisplay
-from data_service.schema.types import Engine
 from passlib.context import CryptContext
 
+from data_service.schema.types import Engine
+from user_auth_service.schema.actions import (
+    CreateNewUser,
+    CreateNewUserResult,
+    CreateNewUserSuccess,
+)
+from user_auth_service.schema.entities import UserDetailsStorable, UserDisplay
 
-argon2_context = CryptContext(schemes=['argon2'], deprecated='auto')
+argon2_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
-def password_hash(password: str):
+def password_hash(password: str) -> str:
     return argon2_context.hash(password)
 
 

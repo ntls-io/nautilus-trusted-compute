@@ -1,7 +1,8 @@
-from user_auth_service.schema.entities import UserDisplay, UserDetailsStorable
+from typing import TypeAlias
+
 from pydantic import BaseModel
 
-from typing import TypeAlias
+from user_auth_service.schema.entities import UserDisplay
 
 
 class CreateNewUser(BaseModel):

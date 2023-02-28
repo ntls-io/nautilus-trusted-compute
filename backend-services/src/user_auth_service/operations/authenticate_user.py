@@ -1,8 +1,15 @@
 from fastapi import HTTPException
+
 from common.types import Engine
-from .create_new_user import argon2_context
-from user_auth_service.schema.actions import AuthenticateUser, AuthenticateUserResult, AuthenticateUserFailure, AuthenticateUserSuccess
+from user_auth_service.schema.actions import (
+    AuthenticateUser,
+    AuthenticateUserResult,
+    AuthenticateUserSuccess,
+)
 from user_auth_service.schema.entities import UserDetailsStorable, UserDisplay
+
+from .create_new_user import argon2_context
+
 
 def verify_password(password_attempt: str, hashed_password: str) -> bool:
     return argon2_context.verify(password_attempt, hashed_password)

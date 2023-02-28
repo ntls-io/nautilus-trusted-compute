@@ -1,4 +1,5 @@
 from typing import NewType, TypeAlias
+
 from odmantic import AIOEngine
 
 WalletAddress = NewType("WalletAddress", str)
