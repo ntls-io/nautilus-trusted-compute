@@ -25,7 +25,7 @@ class UserDisplay(BaseModel):
     Return User credentials when user is created or opened.
     """
 
-    user_id: ObjectId | str
+    user_id: str
     email_address: str
     owner_name: str
     phone_number: str

@@ -29,7 +29,7 @@ async def create_new_user(engine: Engine, params: CreateNewUser) -> CreateNewUse
     )
     await engine.save(new_user)
     user_display = UserDisplay(
-        user_id=new_user.id,
+        user_id=str(new_user.id),
         email_address=new_user.email_address,
         owner_name=new_user.full_name,
         phone_number=new_user.phone_number

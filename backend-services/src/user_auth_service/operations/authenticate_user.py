@@ -14,13 +14,13 @@ async def authenticate_user(engine: Engine, params: AuthenticateUser) -> Authent
     """
     existing_user = await engine.find_one(UserDetailsStorable, UserDetailsStorable.email_address == params.email_address)
     if existing_user is None:
-        raise HTTPException(status_code=400, detail="This email address does not exist.")
+        raise HTTPException(status_code=404, detail="This email address does not exist.")
     
     if not verify_password(params.password, existing_user.password_hash_string):
-        raise HTTPException(status_code=400, detail="Incorrect Password.")
+        raise HTTPException(status_code=401, detail="Incorrect Password.")
 
     user_display = UserDisplay(
-        user_id=existing_user.id,
+        user_id=str(existing_user.id),
         email_address=existing_user.email_address,
         owner_name=existing_user.full_name,
         phone_number=existing_user.phone_number
