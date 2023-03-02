@@ -19,13 +19,13 @@ jobs:
       - id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ghcr.io/${{ github.repository_owner }}/backend-services
+          images: ghcr.io/${{ github.repository_owner }}/vault-backend-services
       - uses: docker/setup-buildx-action@v2
 
-      - name: "Build container: backend-services"
+      - name: "Build container: vault-backend-services"
         uses: docker/build-push-action@v3
         with:
-          context: "https://github.com/${{ github.repository }}.git#${{ github.sha }}:backend-services"
+          context: "https://github.com/${{ github.repository }}.git#${{ github.sha }}:vault-backend-services"
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
