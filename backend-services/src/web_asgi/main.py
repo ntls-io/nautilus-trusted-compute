@@ -8,13 +8,32 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from odmantic import AIOEngine
 
 from common.types import WalletAddress
-from data_service.operations.dataset import datasets, create_dataset
+from data_service.operations.datapool import create_datapool, datapools, delete_datapool
+from data_service.operations.dataschema import create_dataschema
+from data_service.operations.dataset import create_dataset, datasets
 from data_service.operations.dataset import delete_dataset as data_delete_dataset
-from data_service.schema.actions import CreateDataset, DeleteDataset, CreateDatapool, DeleteDatapool, CreateDataschema
-from data_service.schema.entities import Dataset, DatasetList, Datapool, DatapoolList, Dataschema
-
-from data_service.operations.datapool import datapools, create_datapool, delete_datapool
-
+from data_service.schema.actions import (
+    CreateDatapool,
+    CreateDataschema,
+    CreateDataset,
+    DeleteDatapool,
+    DeleteDataset,
+)
+from data_service.schema.entities import (
+    Datapool,
+    DatapoolList,
+    Dataschema,
+    Dataset,
+    DatasetList,
+)
+from user_auth_service.operations.authenticate_user import authenticate_user
+from user_auth_service.operations.create_new_user import create_new_user
+from user_auth_service.schema.actions import (
+    AuthenticateUser,
+    AuthenticateUserResult,
+    CreateNewUser,
+    CreateNewUserResult,
+)
 from web_asgi.settings import AppSettings
 
 app_settings = AppSettings()
@@ -36,6 +55,20 @@ app.add_middleware(
     allow_methods=["GET", "POST", "HEAD", "DELETE"],
     allow_headers=["*"],
 )
+
+
+@app.post(
+    "/auth/create", response_model=CreateNewUserResult, status_code=status.HTTP_201_CREATED
+)
+async def post_create_new_user(request: CreateNewUser) -> CreateNewUserResult:
+    return await create_new_user(mongo_engine, request)
+
+
+@app.post(
+    "/auth/login", response_model=AuthenticateUserResult, status_code=status.HTTP_200_OK
+)
+async def post_authenticate_user(request: AuthenticateUser) -> AuthenticateUserResult:
+    return await authenticate_user(mongo_engine, request)
 
 
 @app.get("/datasets", response_model=DatasetList, status_code=status.HTTP_200_OK)

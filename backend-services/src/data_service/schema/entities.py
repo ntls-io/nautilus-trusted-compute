@@ -1,10 +1,9 @@
+from datetime import datetime
 from typing import TypeAlias
 
 from odmantic import Model
 
 from common.types import WalletAddress
-
-from datetime import datetime
 
 
 class Dataset(Model):

@@ -1,7 +1,6 @@
 from fastapi import HTTPException
 from odmantic import ObjectId
 
-from common.types import WalletAddress
 from data_service.schema.actions import CreateDataschema, DeleteDataschema
 from data_service.schema.entities import Dataschema
 from data_service.schema.types import Engine
@@ -32,7 +31,7 @@ async def delete_dataschema(engine: Engine, params: DeleteDataschema) -> None:
     await engine.delete(existing_dataschema)
 
 
-async def find_by_pool(engine: Engine, data_schema_id: str) -> DataschemaList:
+async def find_by_pool(engine: Engine, data_schema_id: str) -> list[Dataschema]:
     """
     Retrieve a list of all dataschemas for a given user from the database.
     """
