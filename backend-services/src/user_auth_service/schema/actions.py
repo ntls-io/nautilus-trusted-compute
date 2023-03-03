@@ -42,7 +42,7 @@ class AuthenticateUserSuccess(BaseModel):
     Successfully authenticated user.
     """
 
-    Opened: UserDisplay
+    Opened: str
 
 class AuthenticateUserFailure(BaseModel):
     """
