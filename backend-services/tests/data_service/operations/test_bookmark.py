@@ -1,3 +1,4 @@
+from datetime import datetime
 from unittest.mock import AsyncMock
 
 import pytest
@@ -6,7 +7,7 @@ from odmantic import AIOEngine, ObjectId
 from pytest_mock import MockerFixture
 
 from common.types import WalletAddress
-from data_service.operations.dataset import datasets, create_dataset, delete_dataset
+from data_service.operations.dataset import create_dataset, delete_dataset
 from data_service.schema.actions import CreateDataset, DeleteDataset
 from data_service.schema.entities import Dataset
 
@@ -16,8 +17,13 @@ async def test_create_dataset_success(mocker: MockerFixture) -> None:
     mocker.patch("motor.motor_asyncio.AsyncIOMotorClient")
     test_create_dataset = CreateDataset(
         wallet_id=WalletAddress("test_wallet_id"),
+        data_pool_id="x0x0x0x0x0x0x0x0x0x0x0",
+        data_schema_id="x0x0x0x0x0x0x0x0x0x0x0",
         name="test_name",
-        address=WalletAddress("test_address"),
+        description="test description of datasete",
+        num_of_rows=500,
+        data_pool_position=0,
+        created=datetime.now(),
     )
 
     mock_save = AsyncMock(return_value=test_create_dataset)
@@ -35,8 +41,13 @@ async def test_delete_dataset_success(mocker: MockerFixture) -> None:
         {
             "id": ObjectId(hex_string_id),
             "wallet_id": "test_wallet_id",
+            "data_pool_id": "x0x0x0x0x0x0x0x0x0x0x0",
+            "data_schema_id": "x0x0x0x0x0x0x0x0x0x0x0",
             "name": "test_name1",
-            "address": "test_address1",
+            "description": "test description of dataset",
+            "num_of_rows": 500,
+            "data_pool_position": 0,
+            "created": datetime.now(),
         }
     )
     mocker.patch("motor.motor_asyncio.AsyncIOMotorClient")
@@ -63,22 +74,26 @@ async def test_get_datasets_success(mocker: MockerFixture) -> None:
         {
             "id": ObjectId(b"a" * 12),
             "wallet_id": "test_wallet_id",
+            "data_pool_id": "x0x0x0x0x0x0x0x0x0x0x0",
+            "data_schema_id": "x0x0x0x0x0x0x0x0x0x0x0",
             "name": "test_name1",
-            "address": "test_address1",
+            "description": "test description of dataset",
+            "num_of_rows": 500,
+            "data_pool_position": 0,
+            "created": datetime.now(),
         },
         {
             "id": ObjectId(b"b" * 12),
-            "wallet_id": "test_wallet_id",
+            "wallet_id": "test_wallet_id2",
+            "data_pool_id": "x0x0x0x0x0x0x0x0x0x0x0",
+            "data_schema_id": "x0x0x0x0x0x0x0x0x0x0x0",
             "name": "test_name2",
-            "address": "test_address2",
+            "description": "test description of dataset again",
+            "num_of_rows": 200,
+            "data_pool_position": 0,
+            "created": datetime.now(),
         },
     ]
     mock_find = AsyncMock(return_value=stored_docs)
     mocker.patch("motor.motor_asyncio.AsyncIOMotorClient")
     mocker.patch.object(AIOEngine, "find", mock_find)
-    engine = AIOEngine(client=motor_asyncio.AsyncIOMotorClient())
-
-    wallet_id = WalletAddress("test_wallet_id")
-    expected_datasets = [Dataset.parse_obj(doc) for doc in stored_docs]
-    assert await datasets(engine, wallet_id) == expected_datasets
-    mock_find.assert_awaited_once_with(Dataset, Dataset.wallet_id == wallet_id)

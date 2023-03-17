@@ -20,7 +20,7 @@ async def create_datapool(engine: Engine, params: CreateDatapool) -> Datapool:
         smart_contract_address=params.smart_contract_address,
         sealed_data=params.sealed_data,
         total_rows=params.total_rows,
-        created=params.created
+        created=params.created,
     )
     await engine.save(new_datapool)
     return new_datapool

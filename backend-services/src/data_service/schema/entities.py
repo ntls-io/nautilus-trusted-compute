@@ -1,10 +1,9 @@
+from datetime import datetime
 from typing import TypeAlias
 
 from odmantic import Model
 
 from common.types import WalletAddress
-
-from datetime import datetime
 
 
 class Dataset(Model):
@@ -52,3 +51,6 @@ class Dataschema(Model):
     name: str
     data_schema: str
     created: datetime
+
+
+DataschemaList: TypeAlias = list[Dataschema]
