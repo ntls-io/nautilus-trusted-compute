@@ -12,7 +12,7 @@ use crate::vault_operations::sign_transaction_algorand::sign_algorand;
 use crate::vault_operations::store::unlock_vault;
 
 pub fn sign_transaction(request: &SignTransaction) -> SignTransactionResult {
-    let stored = match unlock_vault(&request.vault_id, &request.auth_pin) {
+    let stored = match unlock_vault(&request.vault_id, &request.auth_password) {
         Ok(stored) => stored,
         Err(err) => return err.into(),
     };

@@ -13,7 +13,7 @@ pub(crate) fn open_vault_works() {
 
     let request = &actions::OpenVault {
         vault_id: existing.vault_id.clone(),
-        auth_pin: "123456".to_string(),
+        auth_password: "123456".to_string(),
     };
     let display = &match open_vault(request) {
         Result::Opened(opened) => opened,
@@ -26,7 +26,7 @@ pub(crate) fn open_vault_works() {
 pub(crate) fn open_vault_malformed_vault_id() {
     let request = &actions::OpenVault {
         vault_id: "malformed".to_string(),
-        auth_pin: "123456".to_string(),
+        auth_password: "123456".to_string(),
     };
 
     match open_vault(request) {
@@ -40,7 +40,7 @@ pub(crate) fn open_vault_bad_pin() {
 
     let request = &actions::OpenVault {
         vault_id: existing.vault_id.clone(),
-        auth_pin: "000000".to_string(),
+        auth_password: "000000".to_string(),
     };
 
     match open_vault(request) {

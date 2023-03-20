@@ -10,7 +10,7 @@ use serde::{Deserialize, Serialize};
 use zeroize::{Zeroize, ZeroizeOnDrop};
 
 use crate::schema::entities::VaultDisplay;
-use crate::schema::types::{Bytes, VaultId, VaultPin};
+use crate::schema::types::{Bytes, VaultId, VaultPassword};
 use crate::vault_operations::store::UnlockVaultError;
 
 #[derive(Clone, Eq, PartialEq, Debug)] // core
@@ -18,7 +18,7 @@ use crate::vault_operations::store::UnlockVaultError;
 #[derive(Zeroize, ZeroizeOnDrop)] // zeroize
 pub struct CreateVault {
     pub owner_name: String,
-    pub auth_pin: VaultPin,
+    pub auth_password: VaultPassword,
     pub phone_number: Option<String>,
 }
 
@@ -34,7 +34,7 @@ pub enum CreateVaultResult {
 #[derive(Zeroize, ZeroizeOnDrop)] // zeroize
 pub struct OpenVault {
     pub vault_id: VaultId,
-    pub auth_pin: VaultPin,
+    pub auth_password: VaultPassword,
 }
 
 #[derive(Clone, Eq, PartialEq, Debug)] // core
@@ -50,7 +50,7 @@ impl From<UnlockVaultError> for OpenVaultResult {
         use UnlockVaultError::*;
         match err {
             InvalidVaultId => Self::InvalidAuth,
-            InvalidAuthPin => Self::InvalidAuth,
+            InvalidAuthPassword => Self::InvalidAuth,
             IoError(err) => Self::Failed(err.to_string()),
         }
     }
@@ -61,7 +61,7 @@ impl From<UnlockVaultError> for OpenVaultResult {
 #[derive(Zeroize, ZeroizeOnDrop)] // zeroize
 pub struct SignTransaction {
     pub vault_id: VaultId,
-    pub auth_pin: VaultPin,
+    pub auth_password: VaultPassword,
 
     #[zeroize(skip)]
     pub transaction_to_sign: TransactionToSign,
@@ -72,7 +72,7 @@ impl From<UnlockVaultError> for SignTransactionResult {
         use UnlockVaultError::*;
         match err {
             InvalidVaultId => Self::InvalidAuth,
-            InvalidAuthPin => Self::InvalidAuth,
+            InvalidAuthPassword => Self::InvalidAuth,
             IoError(err) => Self::Failed(err.to_string()),
         }
     }

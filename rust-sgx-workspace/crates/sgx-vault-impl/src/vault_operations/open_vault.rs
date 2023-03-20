@@ -3,7 +3,7 @@ use crate::schema::entities::VaultDisplay;
 use crate::vault_operations::store::unlock_vault;
 
 pub fn open_vault(request: &OpenVault) -> OpenVaultResult {
-    let stored = match unlock_vault(&request.vault_id, &request.auth_pin) {
+    let stored = match unlock_vault(&request.vault_id, &request.auth_password) {
         Ok(stored) => stored,
         Err(err) => return err.into(),
     };

@@ -8,7 +8,7 @@ use sgx_vault_impl::vault_operations::store::load_vault;
 pub(crate) fn create_vault_works() {
     let request = &actions::CreateVault {
         owner_name: "New Owner".to_string(),
-        auth_pin: "123456".to_string(),
+        auth_password: "123456".to_string(),
         phone_number: None,
     };
     let display = &match create_vault(request) {
