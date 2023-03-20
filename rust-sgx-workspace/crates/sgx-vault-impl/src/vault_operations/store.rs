@@ -25,8 +25,8 @@ pub fn save_new_vault(new_vault: &VaultStorable) -> Result<(), io::Error> {
     match store.try_insert(key, new_vault)? {
         None => Ok(()),
         Some(existing) => panic!(
-            "save_vault: key conflict! key = {:?}, existing owner = {:?}, new owner = {:?}",
-            key, existing.owner_name, new_vault.owner_name
+            "save_vault: key conflict! key = {:?}, existing username = {:?}, new username = {:?}",
+            key, existing.username, new_vault.username
         ),
     }
 }

@@ -17,9 +17,8 @@ use crate::vault_operations::store::UnlockVaultError;
 #[derive(Deserialize, Serialize)] // serde
 #[derive(Zeroize, ZeroizeOnDrop)] // zeroize
 pub struct CreateVault {
-    pub owner_name: String,
+    pub username: String,
     pub auth_password: VaultPassword,
-    pub phone_number: Option<String>,
 }
 
 #[derive(Clone, Eq, PartialEq, Debug)] // core

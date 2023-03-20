@@ -21,8 +21,7 @@ use crate::schema::types::{
 #[derive(Deserialize, Serialize)] // serde
 pub struct VaultDisplay {
     pub vault_id: VaultId,
-    pub owner_name: String,
-    pub phone_number: Option<String>,
+    pub username: String,
 
     // TODO(Pi): Decouple for multiple accounts per vault.
     pub algorand_address_base32: AlgorandAddressBase32,
@@ -32,8 +31,7 @@ impl From<VaultStorable> for VaultDisplay {
     fn from(storable: VaultStorable) -> Self {
         Self {
             vault_id: storable.vault_id.clone(),
-            owner_name: storable.owner_name.clone(),
-            phone_number: storable.phone_number.clone(),
+            username: storable.username.clone(),
 
             algorand_address_base32: storable.algorand_account.address_base32(),
         }
@@ -50,8 +48,7 @@ pub struct VaultStorable {
     pub vault_id: VaultId,
     pub auth_password: VaultPassword,
 
-    pub owner_name: String,
-    pub phone_number: Option<String>,
+    pub username: String,
 
     pub algorand_account: AlgorandAccount,
 }

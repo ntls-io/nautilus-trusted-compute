@@ -9,9 +9,8 @@ pub fn create_test_vault() -> VaultDisplay {
     type Result = CreateVaultResult;
 
     let request = &actions::CreateVault {
-        owner_name: "New Owner".to_string(),
+        username: "New Username".to_string(),
         auth_password: "123456".to_string(),
-        phone_number: None,
     };
     match create_vault(request) {
         Result::Created(created) => created,
