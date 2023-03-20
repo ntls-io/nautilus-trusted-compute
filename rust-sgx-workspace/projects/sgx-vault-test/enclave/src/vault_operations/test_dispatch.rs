@@ -12,7 +12,7 @@ pub(crate) fn vault_operation_sealing_works() {
     // Seal
     let vault_request = &VaultRequest::OpenVault(OpenVault {
         vault_id: "123456".to_string(),
-        auth_pin: "1234".to_string(),
+        auth_password: "1234".to_string(),
     });
     let sealed_request_bytes =
         &seal_msgpack(vault_request, &enclave_crypto.get_pubkey(), client_crypto).unwrap();

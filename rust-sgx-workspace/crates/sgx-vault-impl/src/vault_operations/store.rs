@@ -50,12 +50,12 @@ pub fn key_from_id(vault_id: &str) -> Result<Box<Key>, io::Error> {
 }
 
 /// Load and authenticate access to a vault.
-pub fn unlock_vault(vault_id: &str, auth_pin: &str) -> Result<VaultStorable, UnlockVaultError> {
+pub fn unlock_vault(vault_id: &str, auth_password: &str) -> Result<VaultStorable, UnlockVaultError> {
     let stored: VaultStorable = load_vault(vault_id)?.ok_or(UnlockVaultError::InvalidVaultId)?;
 
-    match ConsttimeMemEq::consttime_memeq(stored.auth_pin.as_bytes(), auth_pin.as_bytes()) {
+    match ConsttimeMemEq::consttime_memeq(stored.auth_password.as_bytes(), auth_password.as_bytes()) {
         true => Ok(stored),
-        false => Err(UnlockVaultError::InvalidAuthPin),
+        false => Err(UnlockVaultError::InvalidAuthPassword),
     }
 }
 
@@ -72,7 +72,7 @@ pub enum UnlockVaultError {
     InvalidVaultId,
 
     #[error("invalid authentication PIN provided")]
-    InvalidAuthPin,
+    InvalidAuthPassword,
 
     #[error("I/O error while opening vault")]
     IoError(#[from] io::Error),

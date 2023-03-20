@@ -11,7 +11,7 @@ use crate::schema::types::{
     AlgorandAddressBase32,
     AlgorandAddressBytes,
     VaultId,
-    VaultPin,
+    VaultPassword,
 };
 
 /// A Nautilus vault's basic displayable details.
@@ -48,7 +48,7 @@ impl From<VaultStorable> for VaultDisplay {
 #[derive(Zeroize, ZeroizeOnDrop)] // zeroize
 pub struct VaultStorable {
     pub vault_id: VaultId,
-    pub auth_pin: VaultPin,
+    pub auth_password: VaultPassword,
 
     pub owner_name: String,
     pub phone_number: Option<String>,

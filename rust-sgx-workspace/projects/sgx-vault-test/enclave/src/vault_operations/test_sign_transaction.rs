@@ -24,7 +24,7 @@ pub(crate) fn sign_transaction_works() {
 
     let request = &actions::SignTransaction {
         vault_id: existing.vault_id.clone(),
-        auth_pin: "123456".to_string(),
+        auth_password: "123456".to_string(),
         transaction_to_sign,
     };
     let signed = sign_transaction(request).unwrap_signed();
@@ -49,7 +49,7 @@ pub(crate) fn sign_transaction_without_tag() {
 
     let request = &actions::SignTransaction {
         vault_id: existing.vault_id.clone(),
-        auth_pin: "123456".to_string(),
+        auth_password: "123456".to_string(),
         transaction_to_sign,
     };
     match sign_transaction(request) {
@@ -75,7 +75,7 @@ pub(crate) fn sign_transaction_empty() {
 
     let request = &actions::SignTransaction {
         vault_id: existing.vault_id.clone(),
-        auth_pin: "123456".to_string(),
+        auth_password: "123456".to_string(),
         transaction_to_sign,
     };
     match sign_transaction(request) {
@@ -99,7 +99,7 @@ pub(crate) fn sign_transaction_malformed_transaction() {
 
     let request = &actions::SignTransaction {
         vault_id: existing.vault_id.clone(),
-        auth_pin: "123456".to_string(),
+        auth_password: "123456".to_string(),
         transaction_to_sign,
     };
     match sign_transaction(request) {

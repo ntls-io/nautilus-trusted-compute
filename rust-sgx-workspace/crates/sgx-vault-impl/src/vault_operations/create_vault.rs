@@ -14,7 +14,7 @@ pub fn create_vault(request: &CreateVault) -> Result {
     let storable = VaultStorable {
         vault_id: new_algorand_account.address_base32(),
         owner_name: request.owner_name.clone(),
-        auth_pin: request.auth_pin.clone(),
+        auth_password: request.auth_password.clone(),
         phone_number: request.phone_number.clone(),
 
         algorand_account: new_algorand_account,

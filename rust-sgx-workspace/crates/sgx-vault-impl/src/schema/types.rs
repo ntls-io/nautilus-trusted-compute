@@ -8,8 +8,8 @@ pub type Bytes = Box<[u8]>;
 /// Nautilus Vault ID.
 pub type VaultId = String;
 
-/// A vault owner's authenticating PIN.
-pub type VaultPin = String;
+/// A vault owner's authenticating password.
+pub type VaultPassword = String;
 
 /// Algorand account seed, as bytes.
 pub type AlgorandAccountSeedBytes = [u8; 32];

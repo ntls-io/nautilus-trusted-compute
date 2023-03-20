@@ -10,7 +10,7 @@ pub fn create_test_vault() -> VaultDisplay {
 
     let request = &actions::CreateVault {
         owner_name: "New Owner".to_string(),
-        auth_pin: "123456".to_string(),
+        auth_password: "123456".to_string(),
         phone_number: None,
     };
     match create_vault(request) {
