@@ -2,10 +2,12 @@ use std::prelude::v1::ToString;
 
 use algonaut::core::ToMsgPack;
 use algonaut::transaction::SignedTransaction as AlgonautSignedTransaction;
+use sgx_vault_impl::ported::kv_store::KvStore;
 use sgx_vault_impl::schema::actions;
 use sgx_vault_impl::schema::actions::{SignTransactionResult, TransactionToSign};
 use sgx_vault_impl::schema::msgpack::FromMessagePack;
 use sgx_vault_impl::vault_operations::sign_transaction::sign_transaction;
+use sgx_vault_impl::vault_operations::store::{key_from_id, vault_store};
 
 use crate::helpers::algonaut::create_test_transaction;
 use crate::helpers::vault_store::create_test_vault;
@@ -35,6 +37,10 @@ pub(crate) fn sign_transaction_works() {
         algonaut_signed_transaction.transaction,
         algonaut_transaction
     );
+
+    let mut store = vault_store();
+    let key = &key_from_id(&existing.vault_id).unwrap();
+    store.delete(key).unwrap();
 }
 
 pub(crate) fn sign_transaction_without_tag() {
@@ -65,6 +71,10 @@ pub(crate) fn sign_transaction_without_tag() {
         ),
         otherwise => panic!("{:?}", otherwise),
     };
+
+    let mut store = vault_store();
+    let key = &key_from_id(&existing.vault_id).unwrap();
+    store.delete(key).unwrap();
 }
 
 pub(crate) fn sign_transaction_empty() {
@@ -89,6 +99,10 @@ pub(crate) fn sign_transaction_empty() {
         }
         otherwise => panic!("{:?}", otherwise),
     };
+
+    let mut store = vault_store();
+    let key = &key_from_id(&existing.vault_id).unwrap();
+    store.delete(key).unwrap();
 }
 
 pub(crate) fn sign_transaction_malformed_transaction() {
@@ -113,4 +127,8 @@ pub(crate) fn sign_transaction_malformed_transaction() {
         }
         otherwise => panic!("{:?}", otherwise),
     };
+
+    let mut store = vault_store();
+    let key = &key_from_id(&existing.vault_id).unwrap();
+    store.delete(key).unwrap();
 }

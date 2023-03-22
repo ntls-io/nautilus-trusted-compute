@@ -17,3 +17,16 @@ pub fn create_test_vault() -> VaultDisplay {
         otherwise => panic!("{:?}", otherwise),
     }
 }
+
+pub fn create_test_vault_with_username(username: &str) -> VaultDisplay {
+    type Result = CreateVaultResult;
+
+    let request = &actions::CreateVault {
+        username: username.to_string(),
+        auth_password: "123456".to_string(),
+    };
+    match create_vault(request) {
+        Result::Created(created) => created,
+        otherwise => panic!("{:?}", otherwise),
+    }
+}

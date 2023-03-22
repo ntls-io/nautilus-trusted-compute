@@ -1,9 +1,10 @@
+use sgx_vault_impl::ported::kv_store::KvStore;
 use std::prelude::v1::ToString;
 
 use sgx_vault_impl::schema::actions;
 use sgx_vault_impl::schema::actions::CreateVaultResult as Result;
 use sgx_vault_impl::vault_operations::create_vault::create_vault;
-use sgx_vault_impl::vault_operations::store::load_vault;
+use sgx_vault_impl::vault_operations::store::{key_from_id, load_vault, vault_store};
 
 pub(crate) fn create_vault_works() {
     let request = &actions::CreateVault {
@@ -24,4 +25,8 @@ pub(crate) fn create_vault_works() {
         display.algorand_address_base32,
         stored.algorand_account.address_base32()
     );
+
+    let mut store = vault_store();
+    let key = &key_from_id(&display.vault_id).unwrap();
+    store.delete(key).unwrap();
 }

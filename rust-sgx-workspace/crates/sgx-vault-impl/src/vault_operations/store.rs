@@ -1,8 +1,6 @@
 use std::io;
 use std::prelude::v1::Box;
-use std::str::FromStr;
 
-use algonaut::core::Address;
 use sgx_trts::memeq::ConsttimeMemEq;
 use thiserror::Error;
 
@@ -39,14 +37,9 @@ pub fn load_vault(vault_id: &str) -> Result<Option<VaultStorable>, io::Error> {
 }
 
 pub fn key_from_id(vault_id: &str) -> Result<Box<Key>, io::Error> {
-    // XXX: Assume ALGO address, for now.
-    let Address(address) = Address::from_str(vault_id).map_err(|err| {
-        io::Error::new(
-            io::ErrorKind::InvalidInput,
-            format!("key_from_id failed for vault_id = {:?}: {}", vault_id, err),
-        )
-    })?;
-    Ok(address.into())
+    // XXX: Assume general username string, for now.
+    let username_as_bytes = vault_id.as_bytes();
+    Ok(username_as_bytes.into())
 }
 
 /// Load and authenticate access to a vault.

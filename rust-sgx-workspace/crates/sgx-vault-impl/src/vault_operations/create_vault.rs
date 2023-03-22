@@ -12,7 +12,7 @@ pub fn create_vault(request: &CreateVault) -> Result {
     let new_algorand_account = AlgorandAccount::generate();
 
     let storable = VaultStorable {
-        vault_id: new_algorand_account.address_base32(),
+        vault_id: request.username.clone(),
         username: request.username.clone(),
         auth_password: request.auth_password.clone(),
 
