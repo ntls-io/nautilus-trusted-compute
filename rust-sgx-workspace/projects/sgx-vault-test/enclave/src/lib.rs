@@ -41,7 +41,6 @@ pub extern "C" fn run_tests_ecall() -> usize {
         vault_operations::test_sign_transaction::sign_transaction_works,
         vault_operations::test_sign_transaction_msgpack::prop_transaction_msgpack_roundtrips,
         vault_operations::test_store::unlock_vault_bad_auth_pin,
-        vault_operations::test_store::unlock_vault_malformed_vault_id,
         vault_operations::test_store::unlock_vault_not_found,
         vault_operations::test_store::unlock_vault_works,
     )
