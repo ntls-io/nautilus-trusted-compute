@@ -39,16 +39,15 @@
 # Pre-stage build args:
 
 # This should match rust-toolchain.toml
-ARG RUST_TOOLCHAIN="nightly-2021-11-01"
+ARG RUST_TOOLCHAIN="nightly-2022-10-01"
 
-# Intel SGX SDK 2.15.1
-# Docs: https://01.org/intel-softwareguard-extensions/downloads/intel-sgx-linux-2.15.1-release
-ARG INTEL_SGX_SDK_INSTALLER_URL="https://download.01.org/intel-sgx/sgx-linux/2.15.1/distro/ubuntu20.04-server/sgx_linux_x64_sdk_2.15.101.1.bin"
+# Intel SGX SDK 2.18
+# Docs: https://download.01.org/intel-sgx/sgx-linux/2.18/docs/Intel_SGX_SDK_Release_Notes_Linux_2.18_Open_Source.pdf
+ARG INTEL_SGX_SDK_INSTALLER_URL="https://download.01.org/intel-sgx/sgx-linux/2.18/distro/ubuntu20.04-server/sgx_linux_x64_sdk_2.18.100.3.bin"
 
-# Rust SGX SDK 1.1.4 (merge of v1.1.4-testing branch)
-# Upstream issue: https://github.com/apache/incubator-teaclave-sgx-sdk/issues/360
-# Latest compatible revision since then: https://github.com/apache/incubator-teaclave-sgx-sdk/commit/e8a9fc22939befa27ff67f5509b2c2dfe8499945
-ARG RUST_SGX_SDK_REVISION="e8a9fc22939befa27ff67f5509b2c2dfe8499945"
+# Rust SGX SDK 1.1.6
+# Latest compatible revision since then: https://github.com/apache/incubator-teaclave-sgx-sdk/commit/f1776a7cec1caab2959813f87bb4924805b92011
+ARG RUST_SGX_SDK_REVISION="f1776a7cec1caab2959813f87bb4924805b92011"
 
 ARG SGX_MODE="SW"
 

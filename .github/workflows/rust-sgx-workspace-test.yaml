@@ -23,7 +23,7 @@ jobs:
       matrix:
         rust:
           # Use same toolchain as rust-sgx-workspace/rust-toolchain.toml
-          - nightly-2021-11-01
+          - nightly-2022-10-01
     steps:
       # Checkout the workspace first to prevent temp files from being deleted.
       # See: https://github.com/actions/checkout#checkout-multiple-repos-nested
@@ -39,7 +39,7 @@ jobs:
         name: Prepare SGX environment
         working-directory: _temp/rust-sgx-sdk-dev-env
         run: |
-          ./prepare-1.1.4-intel-2.15.1.sh
+          ./prepare-1.1.6-intel-2.18.sh
           . environment
           # Persist environment to following steps.
           echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >>$GITHUB_ENV

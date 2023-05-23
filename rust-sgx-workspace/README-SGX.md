@@ -3,17 +3,17 @@
 This workspace requires mutually-compatible versions of the following tools,
 listed here with their current versions:
 
-1. **Rust SGX SDK:** 1.1.4 + updates (revision [e8a9fc22939befa27ff67f5509b2c2dfe8499945])
-2. **Rust toolchain:** `nightly-2021-11-01`
-3. **Intel SGX SDK:** [2.15.1]
+1. **Rust SGX SDK:** 1.1.6 + updates (revision [f1776a7cec1caab2959813f87bb4924805b92011])
+2. **Rust toolchain:** `nightly-2022-10-01`
+3. **Intel SGX SDK:** [2.18]
 
-[e8a9fc22939befa27ff67f5509b2c2dfe8499945]: https://github.com/apache/incubator-teaclave-sgx-sdk/commit/e8a9fc22939befa27ff67f5509b2c2dfe8499945
+[f1776a7cec1caab2959813f87bb4924805b92011]: https://github.com/apache/incubator-teaclave-sgx-sdk/commit/f1776a7cec1caab2959813f87bb4924805b92011
 
-[2.15.1]: https://01.org/intel-softwareguard-extensions/downloads/intel-sgx-linux-2.15.1-release
+[2.18]: https://download.01.org/intel-sgx/sgx-linux/2.18/docs/Intel_SGX_SDK_Release_Notes_Linux_2.18_Open_Source.pdf
 
 To install and switch between versions of the SDK packages, you can use the [rust-sgx-sdk-dev-env] helper scripts.
 
-[rust-sgx-sdk-dev-env]: https://github.com/PiDelport/rust-sgx-sdk-dev-env
+[rust-sgx-sdk-dev-env]: https://github.com/ntls-io/rust-sgx-sdk-dev-env
 
 ## Notes
 
