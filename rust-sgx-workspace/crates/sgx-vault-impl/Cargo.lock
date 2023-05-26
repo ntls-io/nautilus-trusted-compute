@@ -5,7 +5,7 @@ version = 3
 [[package]]
 name = "algonaut"
 version = "0.3.0"
-source = "git+https://github.com/registreerocks/algonaut-sgx?branch=box-sgx#f7d823e5057673487aea6e0ee33b456d335cb8ae"
+source = "git+https://github.com/registreerocks/algonaut-sgx?branch=main-sgx#4c2a24f5ba08e6623f0103853396f417b10d097b"
 dependencies = [
  "algonaut_core",
  "algonaut_crypto",
@@ -16,7 +16,7 @@ dependencies = [
 [[package]]
 name = "algonaut_core"
 version = "0.3.0"
-source = "git+https://github.com/registreerocks/algonaut-sgx?branch=box-sgx#f7d823e5057673487aea6e0ee33b456d335cb8ae"
+source = "git+https://github.com/registreerocks/algonaut-sgx?branch=main-sgx#4c2a24f5ba08e6623f0103853396f417b10d097b"
 dependencies = [
  "algonaut_crypto",
  "algonaut_encoding",
@@ -33,7 +33,7 @@ dependencies = [
 [[package]]
 name = "algonaut_crypto"
 version = "0.3.0"
-source = "git+https://github.com/registreerocks/algonaut-sgx?branch=box-sgx#f7d823e5057673487aea6e0ee33b456d335cb8ae"
+source = "git+https://github.com/registreerocks/algonaut-sgx?branch=main-sgx#4c2a24f5ba08e6623f0103853396f417b10d097b"
 dependencies = [
  "algonaut_encoding",
  "data-encoding",
@@ -51,7 +51,7 @@ dependencies = [
 [[package]]
 name = "algonaut_encoding"
 version = "0.3.0"
-source = "git+https://github.com/registreerocks/algonaut-sgx?branch=box-sgx#f7d823e5057673487aea6e0ee33b456d335cb8ae"
+source = "git+https://github.com/registreerocks/algonaut-sgx?branch=main-sgx#4c2a24f5ba08e6623f0103853396f417b10d097b"
 dependencies = [
  "data-encoding",
  "serde",
@@ -61,7 +61,7 @@ dependencies = [
 [[package]]
 name = "algonaut_transaction"
 version = "0.3.0"
-source = "git+https://github.com/registreerocks/algonaut-sgx?branch=box-sgx#f7d823e5057673487aea6e0ee33b456d335cb8ae"
+source = "git+https://github.com/registreerocks/algonaut-sgx?branch=main-sgx#4c2a24f5ba08e6623f0103853396f417b10d097b"
 dependencies = [
  "algonaut_core",
  "algonaut_crypto",
@@ -343,18 +343,18 @@ source = "git+https://github.com/mesalock-linux/cryptocorrosion-sgx#32d7de50b5f0
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.59"
+version = "1.0.58"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6aeca18b86b413c660b781aa319e4e2648a3e6f9eadc9b47e9038e6fe9f3451b"
+checksum = "fa1fb82fc0c281dd9671101b66b771ebbe1eaf967b96ac8740dcba4b70005ca8"
 dependencies = [
  "unicode-ident",
 ]
 
 [[package]]
 name = "quote"
-version = "1.0.28"
+version = "1.0.27"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1b9ab9c7eadfd8df19006f1cf1a4aed13540ed5cbc047010ece5826e10825488"
+checksum = "8f4f29d145265ec1c483c7c654450edde0bfe043d3938d6972630663356d9500"
 dependencies = [
  "proc-macro2",
 ]
@@ -664,9 +664,9 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "2.0.17"
+version = "2.0.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "45b6ddbb36c5b969c182aec3c4a0bce7df3fbad4b77114706a49aacc80567388"
+checksum = "a6f671d4b5ffdb8eadec19c0ae67fe2639df8684bd7bc4b83d986b8db549cf01"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -709,9 +709,9 @@ dependencies = [
 
 [[package]]
 name = "unicode-ident"
-version = "1.0.9"
+version = "1.0.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b15811caf2415fb889178633e7724bad2509101cde276048e013b9def5e51fa0"
+checksum = "e5464a87b239f13a63a501f2701565754bae92d243d4bb7eb12f6d57d2269bf4"
 
 [[package]]
 name = "unicode-normalization"
@@ -771,7 +771,7 @@ dependencies = [
  "once_cell",
  "proc-macro2",
  "quote",
- "syn 2.0.17",
+ "syn 2.0.16",
  "wasm-bindgen-shared",
 ]
 
@@ -793,7 +793,7 @@ checksum = "e128beba882dd1eb6200e1dc92ae6c5dbaa4311aa7bb211ca035779e5efc39f8"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.17",
+ "syn 2.0.16",
  "wasm-bindgen-backend",
  "wasm-bindgen-shared",
 ]
@@ -821,5 +821,5 @@ checksum = "ce36e65b0d2999d2aafac989fb249189a141aee1f53c612c1f37d72631959f69"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.17",
+ "syn 2.0.16",
 ]
