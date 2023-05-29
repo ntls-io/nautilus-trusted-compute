@@ -114,37 +114,6 @@ typedef struct ms_u_pwritev64_ocall_t {
 	int64_t ms_offset;
 } ms_u_pwritev64_ocall_t;
 
-typedef struct ms_u_sendfile_ocall_t {
-	size_t ms_retval;
-	int* ms_error;
-	int ms_out_fd;
-	int ms_in_fd;
-	int64_t* ms_offset;
-	size_t ms_count;
-} ms_u_sendfile_ocall_t;
-
-typedef struct ms_u_copy_file_range_ocall_t {
-	size_t ms_retval;
-	int* ms_error;
-	int ms_fd_in;
-	int64_t* ms_off_in;
-	int ms_fd_out;
-	int64_t* ms_off_out;
-	size_t ms_len;
-	unsigned int ms_flags;
-} ms_u_copy_file_range_ocall_t;
-
-typedef struct ms_u_splice_ocall_t {
-	size_t ms_retval;
-	int* ms_error;
-	int ms_fd_in;
-	int64_t* ms_off_in;
-	int ms_fd_out;
-	int64_t* ms_off_out;
-	size_t ms_len;
-	unsigned int ms_flags;
-} ms_u_splice_ocall_t;
-
 typedef struct ms_u_fcntl_arg0_ocall_t {
 	int ms_retval;
 	int* ms_error;
@@ -180,32 +149,6 @@ typedef struct ms_u_close_ocall_t {
 	int* ms_error;
 	int ms_fd;
 } ms_u_close_ocall_t;
-
-typedef struct ms_u_isatty_ocall_t {
-	int ms_retval;
-	int* ms_error;
-	int ms_fd;
-} ms_u_isatty_ocall_t;
-
-typedef struct ms_u_dup_ocall_t {
-	int ms_retval;
-	int* ms_error;
-	int ms_oldfd;
-} ms_u_dup_ocall_t;
-
-typedef struct ms_u_eventfd_ocall_t {
-	int ms_retval;
-	int* ms_error;
-	unsigned int ms_initval;
-	int ms_flags;
-} ms_u_eventfd_ocall_t;
-
-typedef struct ms_u_futimens_ocall_t {
-	int ms_retval;
-	int* ms_error;
-	int ms_fd;
-	const struct timespec* ms_times;
-} ms_u_futimens_ocall_t;
 
 typedef struct ms_u_malloc_ocall_t {
 	void* ms_retval;
@@ -265,14 +208,6 @@ typedef struct ms_u_open64_ocall_t {
 	int ms_oflag;
 	int ms_mode;
 } ms_u_open64_ocall_t;
-
-typedef struct ms_u_openat_ocall_t {
-	int ms_retval;
-	int* ms_error;
-	int ms_dirfd;
-	const char* ms_pathname;
-	int ms_flags;
-} ms_u_openat_ocall_t;
 
 typedef struct ms_u_fstat_ocall_t {
 	int ms_retval;
@@ -392,14 +327,6 @@ typedef struct ms_u_link_ocall_t {
 	const char* ms_newpath;
 } ms_u_link_ocall_t;
 
-typedef struct ms_u_unlinkat_ocall_t {
-	int ms_retval;
-	int* ms_error;
-	int ms_dirfd;
-	const char* ms_pathname;
-	int ms_flags;
-} ms_u_unlinkat_ocall_t;
-
 typedef struct ms_u_linkat_ocall_t {
 	int ms_retval;
 	int* ms_error;
@@ -457,12 +384,6 @@ typedef struct ms_u_rmdir_ocall_t {
 	int* ms_error;
 	const char* ms_pathname;
 } ms_u_rmdir_ocall_t;
-
-typedef struct ms_u_fdopendir_ocall_t {
-	void* ms_retval;
-	int* ms_error;
-	int ms_fd;
-} ms_u_fdopendir_ocall_t;
 
 typedef struct ms_u_opendir_ocall_t {
 	void* ms_retval;
@@ -742,30 +663,6 @@ static sgx_status_t SGX_CDECL Enclave_u_pwritev64_ocall(void* pms)
 	return SGX_SUCCESS;
 }
 
-static sgx_status_t SGX_CDECL Enclave_u_sendfile_ocall(void* pms)
-{
-	ms_u_sendfile_ocall_t* ms = SGX_CAST(ms_u_sendfile_ocall_t*, pms);
-	ms->ms_retval = u_sendfile_ocall(ms->ms_error, ms->ms_out_fd, ms->ms_in_fd, ms->ms_offset, ms->ms_count);
-
-	return SGX_SUCCESS;
-}
-
-static sgx_status_t SGX_CDECL Enclave_u_copy_file_range_ocall(void* pms)
-{
-	ms_u_copy_file_range_ocall_t* ms = SGX_CAST(ms_u_copy_file_range_ocall_t*, pms);
-	ms->ms_retval = u_copy_file_range_ocall(ms->ms_error, ms->ms_fd_in, ms->ms_off_in, ms->ms_fd_out, ms->ms_off_out, ms->ms_len, ms->ms_flags);
-
-	return SGX_SUCCESS;
-}
-
-static sgx_status_t SGX_CDECL Enclave_u_splice_ocall(void* pms)
-{
-	ms_u_splice_ocall_t* ms = SGX_CAST(ms_u_splice_ocall_t*, pms);
-	ms->ms_retval = u_splice_ocall(ms->ms_error, ms->ms_fd_in, ms->ms_off_in, ms->ms_fd_out, ms->ms_off_out, ms->ms_len, ms->ms_flags);
-
-	return SGX_SUCCESS;
-}
-
 static sgx_status_t SGX_CDECL Enclave_u_fcntl_arg0_ocall(void* pms)
 {
 	ms_u_fcntl_arg0_ocall_t* ms = SGX_CAST(ms_u_fcntl_arg0_ocall_t*, pms);
@@ -802,38 +699,6 @@ static sgx_status_t SGX_CDECL Enclave_u_close_ocall(void* pms)
 {
 	ms_u_close_ocall_t* ms = SGX_CAST(ms_u_close_ocall_t*, pms);
 	ms->ms_retval = u_close_ocall(ms->ms_error, ms->ms_fd);
-
-	return SGX_SUCCESS;
-}
-
-static sgx_status_t SGX_CDECL Enclave_u_isatty_ocall(void* pms)
-{
-	ms_u_isatty_ocall_t* ms = SGX_CAST(ms_u_isatty_ocall_t*, pms);
-	ms->ms_retval = u_isatty_ocall(ms->ms_error, ms->ms_fd);
-
-	return SGX_SUCCESS;
-}
-
-static sgx_status_t SGX_CDECL Enclave_u_dup_ocall(void* pms)
-{
-	ms_u_dup_ocall_t* ms = SGX_CAST(ms_u_dup_ocall_t*, pms);
-	ms->ms_retval = u_dup_ocall(ms->ms_error, ms->ms_oldfd);
-
-	return SGX_SUCCESS;
-}
-
-static sgx_status_t SGX_CDECL Enclave_u_eventfd_ocall(void* pms)
-{
-	ms_u_eventfd_ocall_t* ms = SGX_CAST(ms_u_eventfd_ocall_t*, pms);
-	ms->ms_retval = u_eventfd_ocall(ms->ms_error, ms->ms_initval, ms->ms_flags);
-
-	return SGX_SUCCESS;
-}
-
-static sgx_status_t SGX_CDECL Enclave_u_futimens_ocall(void* pms)
-{
-	ms_u_futimens_ocall_t* ms = SGX_CAST(ms_u_futimens_ocall_t*, pms);
-	ms->ms_retval = u_futimens_ocall(ms->ms_error, ms->ms_fd, ms->ms_times);
 
 	return SGX_SUCCESS;
 }
@@ -898,14 +763,6 @@ static sgx_status_t SGX_CDECL Enclave_u_open64_ocall(void* pms)
 {
 	ms_u_open64_ocall_t* ms = SGX_CAST(ms_u_open64_ocall_t*, pms);
 	ms->ms_retval = u_open64_ocall(ms->ms_error, ms->ms_path, ms->ms_oflag, ms->ms_mode);
-
-	return SGX_SUCCESS;
-}
-
-static sgx_status_t SGX_CDECL Enclave_u_openat_ocall(void* pms)
-{
-	ms_u_openat_ocall_t* ms = SGX_CAST(ms_u_openat_ocall_t*, pms);
-	ms->ms_retval = u_openat_ocall(ms->ms_error, ms->ms_dirfd, ms->ms_pathname, ms->ms_flags);
 
 	return SGX_SUCCESS;
 }
@@ -1046,14 +903,6 @@ static sgx_status_t SGX_CDECL Enclave_u_link_ocall(void* pms)
 	return SGX_SUCCESS;
 }
 
-static sgx_status_t SGX_CDECL Enclave_u_unlinkat_ocall(void* pms)
-{
-	ms_u_unlinkat_ocall_t* ms = SGX_CAST(ms_u_unlinkat_ocall_t*, pms);
-	ms->ms_retval = u_unlinkat_ocall(ms->ms_error, ms->ms_dirfd, ms->ms_pathname, ms->ms_flags);
-
-	return SGX_SUCCESS;
-}
-
 static sgx_status_t SGX_CDECL Enclave_u_linkat_ocall(void* pms)
 {
 	ms_u_linkat_ocall_t* ms = SGX_CAST(ms_u_linkat_ocall_t*, pms);
@@ -1114,14 +963,6 @@ static sgx_status_t SGX_CDECL Enclave_u_rmdir_ocall(void* pms)
 {
 	ms_u_rmdir_ocall_t* ms = SGX_CAST(ms_u_rmdir_ocall_t*, pms);
 	ms->ms_retval = u_rmdir_ocall(ms->ms_error, ms->ms_pathname);
-
-	return SGX_SUCCESS;
-}
-
-static sgx_status_t SGX_CDECL Enclave_u_fdopendir_ocall(void* pms)
-{
-	ms_u_fdopendir_ocall_t* ms = SGX_CAST(ms_u_fdopendir_ocall_t*, pms);
-	ms->ms_retval = u_fdopendir_ocall(ms->ms_error, ms->ms_fd);
 
 	return SGX_SUCCESS;
 }
@@ -1352,9 +1193,9 @@ static sgx_status_t SGX_CDECL Enclave_sgx_thread_set_multiple_untrusted_events_o
 
 static const struct {
 	size_t nr_ocall;
-	void * table[89];
+	void * table[79];
 } ocall_table_Enclave = {
-	89,
+	79,
 	{
 		(void*)Enclave_u_thread_set_event_ocall,
 		(void*)Enclave_u_thread_wait_event_ocall,
@@ -1369,18 +1210,11 @@ static const struct {
 		(void*)Enclave_u_pwrite64_ocall,
 		(void*)Enclave_u_writev_ocall,
 		(void*)Enclave_u_pwritev64_ocall,
-		(void*)Enclave_u_sendfile_ocall,
-		(void*)Enclave_u_copy_file_range_ocall,
-		(void*)Enclave_u_splice_ocall,
 		(void*)Enclave_u_fcntl_arg0_ocall,
 		(void*)Enclave_u_fcntl_arg1_ocall,
 		(void*)Enclave_u_ioctl_arg0_ocall,
 		(void*)Enclave_u_ioctl_arg1_ocall,
 		(void*)Enclave_u_close_ocall,
-		(void*)Enclave_u_isatty_ocall,
-		(void*)Enclave_u_dup_ocall,
-		(void*)Enclave_u_eventfd_ocall,
-		(void*)Enclave_u_futimens_ocall,
 		(void*)Enclave_u_malloc_ocall,
 		(void*)Enclave_u_free_ocall,
 		(void*)Enclave_u_mmap_ocall,
@@ -1389,7 +1223,6 @@ static const struct {
 		(void*)Enclave_u_mprotect_ocall,
 		(void*)Enclave_u_open_ocall,
 		(void*)Enclave_u_open64_ocall,
-		(void*)Enclave_u_openat_ocall,
 		(void*)Enclave_u_fstat_ocall,
 		(void*)Enclave_u_fstat64_ocall,
 		(void*)Enclave_u_stat_ocall,
@@ -1407,7 +1240,6 @@ static const struct {
 		(void*)Enclave_u_fchmod_ocall,
 		(void*)Enclave_u_unlink_ocall,
 		(void*)Enclave_u_link_ocall,
-		(void*)Enclave_u_unlinkat_ocall,
 		(void*)Enclave_u_linkat_ocall,
 		(void*)Enclave_u_rename_ocall,
 		(void*)Enclave_u_chmod_ocall,
@@ -1416,7 +1248,6 @@ static const struct {
 		(void*)Enclave_u_realpath_ocall,
 		(void*)Enclave_u_mkdir_ocall,
 		(void*)Enclave_u_rmdir_ocall,
-		(void*)Enclave_u_fdopendir_ocall,
 		(void*)Enclave_u_opendir_ocall,
 		(void*)Enclave_u_readdir64_r_ocall,
 		(void*)Enclave_u_closedir_ocall,

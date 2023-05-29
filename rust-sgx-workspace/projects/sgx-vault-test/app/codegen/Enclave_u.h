@@ -10,7 +10,6 @@
 #include "time.h"
 #include "inc/stat.h"
 #include "sys/uio.h"
-#include "time.h"
 #include "inc/stat.h"
 #include "inc/dirent.h"
 #include "pwd.h"
@@ -75,18 +74,6 @@ size_t SGX_UBRIDGE(SGX_NOCONVENTION, u_writev_ocall, (int* error, int fd, const 
 #define U_PWRITEV64_OCALL_DEFINED__
 size_t SGX_UBRIDGE(SGX_NOCONVENTION, u_pwritev64_ocall, (int* error, int fd, const struct iovec* iov, int iovcnt, int64_t offset));
 #endif
-#ifndef U_SENDFILE_OCALL_DEFINED__
-#define U_SENDFILE_OCALL_DEFINED__
-size_t SGX_UBRIDGE(SGX_NOCONVENTION, u_sendfile_ocall, (int* error, int out_fd, int in_fd, int64_t* offset, size_t count));
-#endif
-#ifndef U_COPY_FILE_RANGE_OCALL_DEFINED__
-#define U_COPY_FILE_RANGE_OCALL_DEFINED__
-size_t SGX_UBRIDGE(SGX_NOCONVENTION, u_copy_file_range_ocall, (int* error, int fd_in, int64_t* off_in, int fd_out, int64_t* off_out, size_t len, unsigned int flags));
-#endif
-#ifndef U_SPLICE_OCALL_DEFINED__
-#define U_SPLICE_OCALL_DEFINED__
-size_t SGX_UBRIDGE(SGX_NOCONVENTION, u_splice_ocall, (int* error, int fd_in, int64_t* off_in, int fd_out, int64_t* off_out, size_t len, unsigned int flags));
-#endif
 #ifndef U_FCNTL_ARG0_OCALL_DEFINED__
 #define U_FCNTL_ARG0_OCALL_DEFINED__
 int SGX_UBRIDGE(SGX_NOCONVENTION, u_fcntl_arg0_ocall, (int* error, int fd, int cmd));
@@ -106,22 +93,6 @@ int SGX_UBRIDGE(SGX_NOCONVENTION, u_ioctl_arg1_ocall, (int* error, int fd, int r
 #ifndef U_CLOSE_OCALL_DEFINED__
 #define U_CLOSE_OCALL_DEFINED__
 int SGX_UBRIDGE(SGX_NOCONVENTION, u_close_ocall, (int* error, int fd));
-#endif
-#ifndef U_ISATTY_OCALL_DEFINED__
-#define U_ISATTY_OCALL_DEFINED__
-int SGX_UBRIDGE(SGX_NOCONVENTION, u_isatty_ocall, (int* error, int fd));
-#endif
-#ifndef U_DUP_OCALL_DEFINED__
-#define U_DUP_OCALL_DEFINED__
-int SGX_UBRIDGE(SGX_NOCONVENTION, u_dup_ocall, (int* error, int oldfd));
-#endif
-#ifndef U_EVENTFD_OCALL_DEFINED__
-#define U_EVENTFD_OCALL_DEFINED__
-int SGX_UBRIDGE(SGX_NOCONVENTION, u_eventfd_ocall, (int* error, unsigned int initval, int flags));
-#endif
-#ifndef U_FUTIMENS_OCALL_DEFINED__
-#define U_FUTIMENS_OCALL_DEFINED__
-int SGX_UBRIDGE(SGX_NOCONVENTION, u_futimens_ocall, (int* error, int fd, const struct timespec* times));
 #endif
 #ifndef U_MALLOC_OCALL_DEFINED__
 #define U_MALLOC_OCALL_DEFINED__
@@ -154,10 +125,6 @@ int SGX_UBRIDGE(SGX_NOCONVENTION, u_open_ocall, (int* error, const char* pathnam
 #ifndef U_OPEN64_OCALL_DEFINED__
 #define U_OPEN64_OCALL_DEFINED__
 int SGX_UBRIDGE(SGX_NOCONVENTION, u_open64_ocall, (int* error, const char* path, int oflag, int mode));
-#endif
-#ifndef U_OPENAT_OCALL_DEFINED__
-#define U_OPENAT_OCALL_DEFINED__
-int SGX_UBRIDGE(SGX_NOCONVENTION, u_openat_ocall, (int* error, int dirfd, const char* pathname, int flags));
 #endif
 #ifndef U_FSTAT_OCALL_DEFINED__
 #define U_FSTAT_OCALL_DEFINED__
@@ -227,10 +194,6 @@ int SGX_UBRIDGE(SGX_NOCONVENTION, u_unlink_ocall, (int* error, const char* pathn
 #define U_LINK_OCALL_DEFINED__
 int SGX_UBRIDGE(SGX_NOCONVENTION, u_link_ocall, (int* error, const char* oldpath, const char* newpath));
 #endif
-#ifndef U_UNLINKAT_OCALL_DEFINED__
-#define U_UNLINKAT_OCALL_DEFINED__
-int SGX_UBRIDGE(SGX_NOCONVENTION, u_unlinkat_ocall, (int* error, int dirfd, const char* pathname, int flags));
-#endif
 #ifndef U_LINKAT_OCALL_DEFINED__
 #define U_LINKAT_OCALL_DEFINED__
 int SGX_UBRIDGE(SGX_NOCONVENTION, u_linkat_ocall, (int* error, int olddirfd, const char* oldpath, int newdirfd, const char* newpath, int flags));
@@ -262,10 +225,6 @@ int SGX_UBRIDGE(SGX_NOCONVENTION, u_mkdir_ocall, (int* error, const char* pathna
 #ifndef U_RMDIR_OCALL_DEFINED__
 #define U_RMDIR_OCALL_DEFINED__
 int SGX_UBRIDGE(SGX_NOCONVENTION, u_rmdir_ocall, (int* error, const char* pathname));
-#endif
-#ifndef U_FDOPENDIR_OCALL_DEFINED__
-#define U_FDOPENDIR_OCALL_DEFINED__
-void* SGX_UBRIDGE(SGX_NOCONVENTION, u_fdopendir_ocall, (int* error, int fd));
 #endif
 #ifndef U_OPENDIR_OCALL_DEFINED__
 #define U_OPENDIR_OCALL_DEFINED__

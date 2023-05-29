@@ -10,7 +10,6 @@
 #include "time.h"
 #include "inc/stat.h"
 #include "sys/uio.h"
-#include "time.h"
 #include "inc/stat.h"
 #include "inc/dirent.h"
 #include "pwd.h"
@@ -46,18 +45,11 @@ sgx_status_t SGX_CDECL u_write_ocall(size_t* retval, int* error, int fd, const v
 sgx_status_t SGX_CDECL u_pwrite64_ocall(size_t* retval, int* error, int fd, const void* buf, size_t count, int64_t offset);
 sgx_status_t SGX_CDECL u_writev_ocall(size_t* retval, int* error, int fd, const struct iovec* iov, int iovcnt);
 sgx_status_t SGX_CDECL u_pwritev64_ocall(size_t* retval, int* error, int fd, const struct iovec* iov, int iovcnt, int64_t offset);
-sgx_status_t SGX_CDECL u_sendfile_ocall(size_t* retval, int* error, int out_fd, int in_fd, int64_t* offset, size_t count);
-sgx_status_t SGX_CDECL u_copy_file_range_ocall(size_t* retval, int* error, int fd_in, int64_t* off_in, int fd_out, int64_t* off_out, size_t len, unsigned int flags);
-sgx_status_t SGX_CDECL u_splice_ocall(size_t* retval, int* error, int fd_in, int64_t* off_in, int fd_out, int64_t* off_out, size_t len, unsigned int flags);
 sgx_status_t SGX_CDECL u_fcntl_arg0_ocall(int* retval, int* error, int fd, int cmd);
 sgx_status_t SGX_CDECL u_fcntl_arg1_ocall(int* retval, int* error, int fd, int cmd, int arg);
 sgx_status_t SGX_CDECL u_ioctl_arg0_ocall(int* retval, int* error, int fd, int request);
 sgx_status_t SGX_CDECL u_ioctl_arg1_ocall(int* retval, int* error, int fd, int request, int* arg);
 sgx_status_t SGX_CDECL u_close_ocall(int* retval, int* error, int fd);
-sgx_status_t SGX_CDECL u_isatty_ocall(int* retval, int* error, int fd);
-sgx_status_t SGX_CDECL u_dup_ocall(int* retval, int* error, int oldfd);
-sgx_status_t SGX_CDECL u_eventfd_ocall(int* retval, int* error, unsigned int initval, int flags);
-sgx_status_t SGX_CDECL u_futimens_ocall(int* retval, int* error, int fd, const struct timespec* times);
 sgx_status_t SGX_CDECL u_malloc_ocall(void** retval, int* error, size_t size);
 sgx_status_t SGX_CDECL u_free_ocall(void* p);
 sgx_status_t SGX_CDECL u_mmap_ocall(void** retval, int* error, void* start, size_t length, int prot, int flags, int fd, int64_t offset);
@@ -66,7 +58,6 @@ sgx_status_t SGX_CDECL u_msync_ocall(int* retval, int* error, void* addr, size_t
 sgx_status_t SGX_CDECL u_mprotect_ocall(int* retval, int* error, void* addr, size_t length, int prot);
 sgx_status_t SGX_CDECL u_open_ocall(int* retval, int* error, const char* pathname, int flags);
 sgx_status_t SGX_CDECL u_open64_ocall(int* retval, int* error, const char* path, int oflag, int mode);
-sgx_status_t SGX_CDECL u_openat_ocall(int* retval, int* error, int dirfd, const char* pathname, int flags);
 sgx_status_t SGX_CDECL u_fstat_ocall(int* retval, int* error, int fd, struct stat_t* buf);
 sgx_status_t SGX_CDECL u_fstat64_ocall(int* retval, int* error, int fd, struct stat64_t* buf);
 sgx_status_t SGX_CDECL u_stat_ocall(int* retval, int* error, const char* path, struct stat_t* buf);
@@ -84,7 +75,6 @@ sgx_status_t SGX_CDECL u_fdatasync_ocall(int* retval, int* error, int fd);
 sgx_status_t SGX_CDECL u_fchmod_ocall(int* retval, int* error, int fd, uint32_t mode);
 sgx_status_t SGX_CDECL u_unlink_ocall(int* retval, int* error, const char* pathname);
 sgx_status_t SGX_CDECL u_link_ocall(int* retval, int* error, const char* oldpath, const char* newpath);
-sgx_status_t SGX_CDECL u_unlinkat_ocall(int* retval, int* error, int dirfd, const char* pathname, int flags);
 sgx_status_t SGX_CDECL u_linkat_ocall(int* retval, int* error, int olddirfd, const char* oldpath, int newdirfd, const char* newpath, int flags);
 sgx_status_t SGX_CDECL u_rename_ocall(int* retval, int* error, const char* oldpath, const char* newpath);
 sgx_status_t SGX_CDECL u_chmod_ocall(int* retval, int* error, const char* path, uint32_t mode);
@@ -93,7 +83,6 @@ sgx_status_t SGX_CDECL u_symlink_ocall(int* retval, int* error, const char* path
 sgx_status_t SGX_CDECL u_realpath_ocall(char** retval, int* error, const char* pathname);
 sgx_status_t SGX_CDECL u_mkdir_ocall(int* retval, int* error, const char* pathname, uint32_t mode);
 sgx_status_t SGX_CDECL u_rmdir_ocall(int* retval, int* error, const char* pathname);
-sgx_status_t SGX_CDECL u_fdopendir_ocall(void** retval, int* error, int fd);
 sgx_status_t SGX_CDECL u_opendir_ocall(void** retval, int* error, const char* pathname);
 sgx_status_t SGX_CDECL u_readdir64_r_ocall(int* retval, void* dirp, struct dirent64_t* entry, struct dirent64_t** result);
 sgx_status_t SGX_CDECL u_closedir_ocall(int* retval, int* error, void* dirp);

@@ -4,9 +4,9 @@ version = 3
 
 [[package]]
 name = "libc"
-version = "0.2.144"
+version = "0.2.98"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2b00cc1c228a6782d0f076e7b232802e0c5689d41bb5df366f2a6b6621cfdfe1"
+checksum = "320cfe77175da3a483efed4bc0adc1968ca050b098ce4f2f1c13a56626128790"
 
 [[package]]
 name = "sgx-vault-test-app"
@@ -18,13 +18,13 @@ dependencies = [
 
 [[package]]
 name = "sgx_types"
-version = "1.1.6"
-source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?rev=f1776a7cec1caab2959813f87bb4924805b92011#f1776a7cec1caab2959813f87bb4924805b92011"
+version = "1.1.4"
+source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?rev=e8a9fc22939befa27ff67f5509b2c2dfe8499945#e8a9fc22939befa27ff67f5509b2c2dfe8499945"
 
 [[package]]
 name = "sgx_urts"
-version = "1.1.6"
-source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?rev=f1776a7cec1caab2959813f87bb4924805b92011#f1776a7cec1caab2959813f87bb4924805b92011"
+version = "1.1.4"
+source = "git+https://github.com/apache/incubator-teaclave-sgx-sdk?rev=e8a9fc22939befa27ff67f5509b2c2dfe8499945#e8a9fc22939befa27ff67f5509b2c2dfe8499945"
 dependencies = [
  "libc",
  "sgx_types",
