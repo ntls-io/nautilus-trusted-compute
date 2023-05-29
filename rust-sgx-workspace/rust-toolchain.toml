@@ -1,4 +1,4 @@
 # Docs: https://rust-lang.github.io/rustup/overrides.html#the-toolchain-file
 [toolchain]
 # See README-SGX.md
-channel = "nightly-2022-10-01"
+channel = "nightly-2021-11-01"
