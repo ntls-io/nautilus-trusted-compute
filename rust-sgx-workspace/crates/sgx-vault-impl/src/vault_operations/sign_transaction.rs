@@ -24,6 +24,8 @@ pub fn sign_transaction(request: &SignTransaction) -> SignTransactionResult {
         }
     };
 
+    println!("Sign Result!!");
+    println!("{:?}", sign_result);
     // `Result` → `SignTransactionResult`
     match sign_result {
         Ok(signed) => SignTransactionResult::Signed(signed),
