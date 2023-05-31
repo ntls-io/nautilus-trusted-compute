@@ -30,7 +30,7 @@ serde = { git = "https://github.com/mesalock-linux/serde-sgx" }
 serde_json = { git = "https://github.com/mesalock-linux/serde-json-sgx" }
 
 # Our SGX forks
-algonaut = { git = "https://github.com/registreerocks/algonaut-sgx", branch = "box-sgx" }
+algonaut = { git = "https://github.com/registreerocks/algonaut-sgx", branch = "box-reference-sgx" }
 
 sgx-vault-impl = { path = "../../../crates/sgx-vault-impl" }
 
