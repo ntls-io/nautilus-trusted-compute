@@ -65,6 +65,9 @@ pub(crate) fn sign_algorand(
         }
     };
 
+    println!("Signed Transaction!!");
+    println!("{:?}", signed_transaction);
+
     // Note: Intentionally serialize with algonaut's `to_msg_pack` helper, not ours.
     let signed_transaction_bytes = match algorand_network_compatible::to_msgpack(signed_transaction)
     {
