@@ -2,6 +2,7 @@
 
 use std::prelude::v1::String;
 
+use algonaut::transaction::SignedTransaction as AlgonautSignedTransaction;
 use crate::schema::actions::{
     SignTransaction,
     SignTransactionResult,
@@ -24,8 +25,16 @@ pub fn sign_transaction(request: &SignTransaction) -> SignTransactionResult {
         }
     };
 
-    println!("Sign Result!!");
+    println!("Sign Result - SignedTransactionBytes!!");
     println!("{:?}", sign_result);
+    println!("{:?}", sign_result.unwrap().unwrap_algorand_bytes().len());
+
+    let decoded_signed_transaction =
+        AlgonautSignedTransaction::from_msgpack(&sign_result.unwrap_algorand_bytes()).unwrap();
+
+    println!("Decoded Signed Transaction!!");
+    println!("{:?}", decoded_signed_transaction);
+
     // `Result` → `SignTransactionResult`
     match sign_result {
         Ok(signed) => SignTransactionResult::Signed(signed),
