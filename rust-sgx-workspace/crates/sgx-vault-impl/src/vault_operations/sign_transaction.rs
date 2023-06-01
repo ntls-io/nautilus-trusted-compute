@@ -2,8 +2,6 @@
 
 use std::prelude::v1::String;
 
-use algonaut::transaction::SignedTransaction as AlgonautSignedTransaction;
-use crate::schema::msgpack::FromMessagePack;
 use crate::schema::actions::{
     SignTransaction,
     SignTransactionResult,
@@ -26,17 +24,21 @@ pub fn sign_transaction(request: &SignTransaction) -> SignTransactionResult {
         }
     };
 
-    let debug_sign_result = sign_result.clone();
-    let debug_sign_result_to_decode = debug_sign_result.clone();
+
+    let len_sign_result = sign_result.clone();
     println!("Sign Result - SignedTransactionBytes!!");
     println!("{:?}", sign_result);
-    println!("{:?}", debug_sign_result.unwrap().unwrap_algorand_bytes().len());
+    println!("{:?}", len_sign_result.unwrap().unwrap_algorand_bytes().len());
 
-    let decoded_signed_transaction =
-        AlgonautSignedTransaction::from_msgpack(&debug_sign_result_to_decode.unwrap().unwrap_algorand_bytes()).unwrap();
-
-    println!("Decoded Signed Transaction!!");
-    println!("{:?}", decoded_signed_transaction);
+    // let debug_sign_result = sign_result.clone();
+    // let debug_sign_result_to_decode = debug_sign_result.clone();
+    // println!("{:?}", debug_sign_result.unwrap().unwrap_algorand_bytes().len());
+    //
+    // let decoded_signed_transaction =
+    //     AlgonautSignedTransaction::from_msgpack(&debug_sign_result_to_decode.unwrap().unwrap_algorand_bytes()).unwrap();
+    //
+    // println!("Decoded Signed Transaction!!");
+    // println!("{:?}", decoded_signed_transaction);
 
     // `Result` → `SignTransactionResult`
     match sign_result {
