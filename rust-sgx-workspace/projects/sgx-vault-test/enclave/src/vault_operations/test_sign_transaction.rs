@@ -15,6 +15,9 @@ use crate::helpers::vault_store::create_test_vault;
 type Result = SignTransactionResult;
 
 pub(crate) fn sign_transaction_works() {
+    let mut store = vault_store();
+    let key = &key_from_id("New Username").unwrap();
+    store.delete(key).unwrap();
     let existing = &create_test_vault();
 
     let algonaut_transaction = create_test_transaction();
@@ -44,6 +47,9 @@ pub(crate) fn sign_transaction_works() {
 }
 
 pub(crate) fn sign_transaction_without_tag() {
+    let mut store = vault_store();
+    let key = &key_from_id("New Username").unwrap();
+    store.delete(key).unwrap();
     let existing = &create_test_vault();
 
     let algonaut_transaction = create_test_transaction();
@@ -78,6 +84,9 @@ pub(crate) fn sign_transaction_without_tag() {
 }
 
 pub(crate) fn sign_transaction_empty() {
+    let mut store = vault_store();
+    let key = &key_from_id("New Username").unwrap();
+    store.delete(key).unwrap();
     let existing = &create_test_vault();
 
     let transaction_bytes = Default::default();
@@ -106,6 +115,9 @@ pub(crate) fn sign_transaction_empty() {
 }
 
 pub(crate) fn sign_transaction_malformed_transaction() {
+    let mut store = vault_store();
+    let key = &key_from_id("New Username").unwrap();
+    store.delete(key).unwrap();
     let existing = &create_test_vault();
 
     let transaction_bytes = "malformed".as_bytes().into();
