@@ -23,12 +23,9 @@ pub fn sign_transaction(request: &SignTransaction) -> SignTransactionResult {
                 .map(TransactionSigned::from_algorand_bytes)
         }
     };
-
-
-    let len_sign_result = sign_result.clone();
+    
     println!("Sign Result - SignedTransactionBytes!!");
     println!("{:?}", sign_result);
-    println!("{:?}", len_sign_result.unwrap().unwrap_algorand_bytes().len());
 
     // let debug_sign_result = sign_result.clone();
     // let debug_sign_result_to_decode = debug_sign_result.clone();
