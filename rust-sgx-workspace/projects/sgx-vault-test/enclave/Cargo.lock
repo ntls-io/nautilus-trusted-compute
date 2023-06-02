@@ -5,7 +5,7 @@ version = 3
 [[package]]
 name = "algonaut"
 version = "0.3.0"
-source = "git+https://github.com/registreerocks/algonaut-sgx?branch=box-reference-sgx#ad5a103fb11fa733ca80b5ecb2305fa614dfbab5"
+source = "git+https://github.com/registreerocks/algonaut-sgx?branch=box-reference-sgx#a7e2ca898d2f4faae9cf83b83a5d9a8c98c70cf1"
 dependencies = [
  "algonaut_core",
  "algonaut_crypto",
@@ -16,7 +16,7 @@ dependencies = [
 [[package]]
 name = "algonaut_core"
 version = "0.3.0"
-source = "git+https://github.com/registreerocks/algonaut-sgx?branch=box-reference-sgx#ad5a103fb11fa733ca80b5ecb2305fa614dfbab5"
+source = "git+https://github.com/registreerocks/algonaut-sgx?branch=box-reference-sgx#a7e2ca898d2f4faae9cf83b83a5d9a8c98c70cf1"
 dependencies = [
  "algonaut_crypto",
  "algonaut_encoding",
@@ -33,7 +33,7 @@ dependencies = [
 [[package]]
 name = "algonaut_crypto"
 version = "0.3.0"
-source = "git+https://github.com/registreerocks/algonaut-sgx?branch=box-reference-sgx#ad5a103fb11fa733ca80b5ecb2305fa614dfbab5"
+source = "git+https://github.com/registreerocks/algonaut-sgx?branch=box-reference-sgx#a7e2ca898d2f4faae9cf83b83a5d9a8c98c70cf1"
 dependencies = [
  "algonaut_encoding",
  "data-encoding",
@@ -51,7 +51,7 @@ dependencies = [
 [[package]]
 name = "algonaut_encoding"
 version = "0.3.0"
-source = "git+https://github.com/registreerocks/algonaut-sgx?branch=box-reference-sgx#ad5a103fb11fa733ca80b5ecb2305fa614dfbab5"
+source = "git+https://github.com/registreerocks/algonaut-sgx?branch=box-reference-sgx#a7e2ca898d2f4faae9cf83b83a5d9a8c98c70cf1"
 dependencies = [
  "data-encoding",
  "serde",
@@ -61,7 +61,7 @@ dependencies = [
 [[package]]
 name = "algonaut_transaction"
 version = "0.3.0"
-source = "git+https://github.com/registreerocks/algonaut-sgx?branch=box-reference-sgx#ad5a103fb11fa733ca80b5ecb2305fa614dfbab5"
+source = "git+https://github.com/registreerocks/algonaut-sgx?branch=box-reference-sgx#a7e2ca898d2f4faae9cf83b83a5d9a8c98c70cf1"
 dependencies = [
  "algonaut_core",
  "algonaut_crypto",
