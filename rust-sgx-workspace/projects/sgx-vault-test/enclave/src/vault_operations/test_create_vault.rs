@@ -7,6 +7,10 @@ use sgx_vault_impl::vault_operations::create_vault::create_vault;
 use sgx_vault_impl::vault_operations::store::{key_from_id, load_vault, vault_store};
 
 pub(crate) fn create_vault_works() {
+    let mut store = vault_store();
+    let key = &key_from_id("New Username").unwrap();
+    store.delete(key).unwrap();
+
     let request = &actions::CreateVault {
         username: "New Username".to_string(),
         auth_password: "123456".to_string(),
@@ -26,7 +30,6 @@ pub(crate) fn create_vault_works() {
         stored.algorand_account.address_base32()
     );
 
-    let mut store = vault_store();
     let key = &key_from_id(&display.vault_id).unwrap();
     store.delete(key).unwrap();
 }
