@@ -1,4 +1,4 @@
-# Wallet Backend Services
+# Trusted Compute Data Services
 
 An HTTP server backend for the Nautilus Wallet powered by [FastAPI][fastapi] and
 the [uvicorn ASGI server][uvicorn].
@@ -51,7 +51,7 @@ eval "$(pyenv init -)"
 ```
 
 Make sure to log out (and back in of course) or, alternatively, restart your
-machine. Once you are back in the `backend-services` sub-directory of the
+machine. Once you are back in the `backend-services` subdirectory of the
 project run
 
 ```shell
@@ -71,11 +71,11 @@ poetry install
 
 Make sure the following environment variables have been set in your local `.env` file:
 
-- `WALLET_DB_CONNECTION_STRING`
-- `WALLET_DB_DATABASE_NAME`
-- `WALLET_BOOKMARK_DB_COLLECTION_NAME`
+- `PRIMARY_ORIGIN`
+- `VAULT_DB_CONNECTION_STRING`
+- `VAULT_DB_NAME`
 
-For examples you may consult the [python-dotenv] documentation. Once this is done, a local instance of the server may be started on `localhost:8000` by running
+For examples, you may consult the [python-dotenv] documentation. Once this is done, a local instance of the server may be started on `localhost:8000` by running
 
 ```shell
 poetry run uvicorn web_asgi.main:app
