@@ -1,4 +1,3 @@
-from datetime import datetime
 from typing import TypeAlias
 
 from odmantic import Model
@@ -6,51 +5,41 @@ from odmantic import Model
 from common.types import WalletAddress
 
 
-class Dataset(Model):
-    """
-    An address on the ledger dataseted by the user.
-    """
-
-    wallet_id: WalletAddress
-    data_pool_id: str
-    data_schema_id: str
-    name: str
-    description: str
-    num_of_rows: int
-    data_pool_position: int
-    created: datetime
-
-
-DatasetList: TypeAlias = list[Dataset]
-
-
 class Datapool(Model):
     """
     An address on the ledger dataseted by the user.
     """
 
+    application_id: str
     creator_wallet_id: WalletAddress
     name: str
     description: str
-    datapool_hash: str
-    smart_contract_id: str
-    smart_contract_address: str
+    datapool_schema: str
     sealed_data: str
-    total_rows: int
-    created: datetime
+    ref_drt_id: list[str]
+    contribution_token_id: str
+    append_token_id: str
+    ref_contributors: list[str]
 
 
 DatapoolList: TypeAlias = list[Datapool]
 
 
-class Dataschema(Model):
-    """
-    A JSON schema for a dataset of datapool.
-    """
-
+class Drt(Model):
+    asset_id: str
     name: str
-    data_schema: str
-    created: datetime
+    description: str
+    url_binary: str
+    price: float
+    amount_created: int
 
 
-DataschemaList: TypeAlias = list[Dataschema]
+DrtList: TypeAlias = list[Drt]
+
+
+class WasmBinary(Model):
+    name: str
+    wasm_binary: str
+
+
+WasmBinaryList: TypeAlias = list[WasmBinary]

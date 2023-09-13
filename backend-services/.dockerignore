@@ -19,6 +19,4 @@
 !tests/__init__.py
 !tests/data_service/__init__.py
 !tests/data_service/operations/__init__.py
-!tests/data_service/operations/helpers.py
-!tests/data_service/operations/test_bookmark.py
 !tox.ini
