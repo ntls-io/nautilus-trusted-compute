@@ -1,0 +1,122 @@
+@startuml
+title Create Data Pool Sequence
+
+actor User
+participant Frontend
+participant Blockchain
+participant Data_Service
+participant Execution_Service
+participant Execution_Enclave
+participant Oracle_Nodes
+participant Signing_Service
+participant Signing_Enclave
+
+autonumber
+User -> Frontend: User login
+activate Frontend
+note over Frontend, Execution_Enclave: User login: DH key exchange
+group Establish secure communication channel
+autonumber 1.1
+Frontend -> Execution_Enclave: Initiate DH key exchange
+Frontend -> Execution_Enclave: Request attestation of enclave
+Execution_Enclave --> Frontend: Return attestation report, enclave public key, and shared secret
+Frontend -> Signing_Enclave: Initiate DH key exchange
+Frontend -> Signing_Enclave: Request attestation of enclave
+
+Signing_Enclave --> Frontend: Return attestation report, enclave public key, and shared secret
+end
+autonumber 2
+User -> Frontend : User selects data file
+User -> Frontend : User selects schema file
+Frontend -> Frontend : Perform schema validation
+User -> Frontend : User selects DRTs
+User -> Frontend : User enters pool description
+
+note over Frontend, Signing_Enclave: Deploy Smart Contract Transaction
+Frontend -> Frontend : Create deploy contract transaction
+group Sign transaction process
+autonumber 8.1
+Frontend -> Frontend: Encrypt each transaction with signing enclave public key and shared secret
+Frontend -> Signing_Service: Send encrypted transactions
+Signing_Service -> Signing_Enclave: Pass encrypted unsigned transactions
+Signing_Enclave -> Signing_Enclave: Decrypt, sign, and recrypt signed transactions
+Signing_Enclave -> Signing_Service: Pass signed transactions
+Signing_Service -> Frontend: Return signed transactions
+end
+autonumber 9
+Frontend -> Blockchain : Issue to blockchain
+Blockchain --> Frontend : Return application ID
+
+note over Frontend, Signing_Enclave: Fund Smart Contract Transaction
+Frontend -> Frontend : Create payment transaction
+group Sign Transaction Process [22.1 - 22.6]
+Frontend <-> Signing_Enclave: 
+end
+
+Frontend -> Blockchain : Issue to blockchain
+note over Frontend, Signing_Enclave: Initialise Smart Contract Transaction
+Frontend -> Frontend: Encrypt data file with execution enclave public key and secret key
+Frontend -> Execution_Service: Pass encrypted data file and transaction ID via API
+
+group Establish secure communication channel
+Oracle_Nodes -> Execution_Enclave: Request enclave attestation, send Oracle Node public key
+Execution_Enclave --> Oracle_Nodes: Return attestation report, enclave public key, and shared secret
+end
+
+Execution_Service -> Execution_Enclave: Pass encrypted data and transaction ID
+Execution_Enclave -> Execution_Enclave: Encrypt transaction ID with Oracle Node public key and shared secret
+Execution_Enclave -> Execution_Service: Pass encrypted transaction ID to verify
+Execution_Service -> Oracle_Nodes: Pass encrypted transaction ID
+Oracle_Nodes -> Oracle_Nodes: Decrypt transaction ID
+Oracle_Nodes -> Blockchain: Query Blockchain State for transaction ID
+Blockchain --> Oracle_Nodes : Return Blockchain State of transaction
+Oracle_Nodes -> Oracle_Nodes : Encrypt data with execution enclave public key and secret key
+Oracle_Nodes --> Execution_Service: Return encrypted Oracle Node data
+Execution_Service -> Execution_Enclave : Pass encrypted Oracle Node data
+Execution_Enclave -> Execution_Enclave: Decrypt and verify Oracle Node data, perform K out of N over Oracle Node data
+Execution_Enclave->Execution_Enclave: Decrypt data and count the rows of data, compute the hash of the data set, parse transaction details from Oracle Node data, and seal data
+Execution_Enclave -> Data_Service : Pass sealed data to be stored
+Execution_Service -> Oracle_Nodes: Pass unsigned transaction data
+Oracle_Nodes -> Oracle_Nodes: Decrypt transaction data
+Oracle_Nodes -> Oracle_Nodes: Construct unsigned transaction to initialise smart contract
+
+group Establish secure communication channel
+Oracle_Nodes -> Signing_Enclave: Request Enclave Attestation, send Oracle Node public key
+Signing_Enclave --> Oracle_Nodes: Return Attestation Report, Enclave Public Key, shared secret
+end
+
+Oracle_Nodes -> Oracle_Nodes: Encrypt data with signing enclave public key and secret key
+Oracle_Nodes -> Signing_Service: Pass encrypted unsigned transactions
+Signing_Service -> Signing_Enclave: Pass encrypted unsigned transactions
+Signing_Enclave -> Signing_Enclave: Decrypt unsigned Oracle transactions
+Signing_Enclave -> Signing_Enclave: Perform K out of N on unsigned transactions, sign single transaction with enclave's wallet key
+Signing_Enclave -> Signing_Service: Pass signed transaction
+Signing_Service -> Oracle_Nodes: Pass signed transaction
+Oracle_Nodes -> Blockchain: Issue smart contract initialization to blockchain
+Blockchain -> Blockchain: Smart Contract adds data contributor
+Frontend -> Blockchain: Query contributor token ID from data pool
+Blockchain --> Frontend: Return contributor token and append DRT IDs
+
+note over Frontend, Signing_Enclave: Optin Contributor Token Transaction
+Frontend -> Frontend: Optin to contributor token transaction
+group Sign transaction process [48.1 - 48.6]
+Frontend <-> Signing_Enclave: 
+end
+Frontend -> Blockchain: Issue transaction
+
+note over Frontend, Signing_Enclave: Claim Contributor Transaction
+Frontend -> Frontend: Claim Contributor Token transaction
+group Sign transaction process [51.1 - 51.6]
+Frontend <-> Signing_Enclave: 
+end
+Frontend -> Blockchain: Issue transaction
+
+Blockchain -> Blockchain: Registers ownership of contributor token and transfer contributor token to user's wallet
+Blockchain -> Frontend: Return Contributor Token Information
+Frontend -> Data_Service: Pass Contributor Token Information
+Data_Service -> Data_Service: Store Contributor Token Information
+Frontend --> User: Successfully created data pool
+User -> Frontend: User logout
+deactivate Frontend
+
+@enduml
