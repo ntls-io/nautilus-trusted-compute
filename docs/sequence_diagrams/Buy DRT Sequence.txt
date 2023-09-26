@@ -1,0 +1,57 @@
+@startuml
+title Buy DRT Sequence
+
+actor User
+participant Frontend
+participant Blockchain
+participant Data_Service
+participant Oracle_Node
+participant Signing_Service
+participant Signing_Enclave
+
+autonumber
+User -> Frontend: User Login
+activate Frontend
+note over Frontend, Signing_Enclave: User Login: DH Key Exchange
+group Establish Secure Communication Channel
+autonumber 1.1
+Frontend -> Signing_Enclave: Initiate DH key exchange
+Frontend -> Signing_Enclave: Request attestation of enclave
+Signing_Enclave --> Frontend: Return attestation report, enclave public key, and shared secret
+end
+autonumber 2
+User -> Frontend: View DRT market
+User -> Frontend: Select DRT
+User -> Frontend: Confirm DRT purchase
+
+note over Frontend, Signing_Enclave: Optin DRT transaction
+Frontend -> Frontend: Create Optin DRT unsigned transaction
+group Sign Transaction Process
+autonumber 7.1
+Frontend -> Frontend: Encrypt transaction \nwith signing enclave public key\n and shared secret
+Frontend -> Signing_Service: Send Encrypted transaction
+Signing_Service -> Signing_Enclave: Pass Encrypted transaction
+Signing_Enclave -> Signing_Enclave: Decrypt, sign and\n recrypt signed transaction
+Signing_Enclave -> Signing_Service: Pass signed transactions
+Signing_Service -> Frontend: Return signed transactions
+end
+autonumber 8
+Frontend -> Blockchain: Issue to blockchain
+Blockchain -> Blockchain: Optin user account to \nDRT Asset
+
+note over Frontend, Signing_Enclave: Buy DRT Transactions
+Frontend -> Frontend: Group Buy DRT Transaction\n1) Application call transaction\n to request to buy DRT\n2) Payment transaction\n for cost of DRT
+
+group Sign Transaction Process [12.1 - 12.6] 
+Frontend <-> Signing_Enclave : 
+end
+Frontend -> Blockchain: Issue to blockchain
+Blockchain -> Blockchain: Confirm DRT purchase
+Blockchain -> Blockchain: Register ownership of purchased\n DRT in box storage
+Blockchain -> Blockchain: Transfer DRT to users account
+Blockchain --> Frontend: Successfully purchased DRT
+Frontend -> Blockchain: Query owned DRTs of user
+Frontend -> Frontend: Display DRT in user wallet
+User -> Frontend: User logout
+deactivate Frontend
+@enduml

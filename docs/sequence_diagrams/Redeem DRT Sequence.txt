@@ -1,0 +1,83 @@
+@startuml
+title Redeem DRT Sequence
+
+actor User
+participant Frontend
+participant Blockchain
+participant Data_Service
+participant Execution_Service
+participant Execution_Enclave
+participant Oracle_Node
+participant Signing_Service
+participant Signing_Enclave
+
+autonumber
+User -> Frontend: User login
+activate Frontend
+note over Frontend, Execution_Enclave: User login: DH key exchange
+group Establish secure communication channel
+autonumber 1.1
+Frontend -> Execution_Enclave: Initiate DH key exchange
+Frontend -> Execution_Enclave: Request attestation of enclave
+Execution_Enclave --> Frontend: Return attestation report, enclave public key, and shared secret
+Frontend -> Signing_Enclave: Initiate DH key exchange
+Frontend -> Signing_Enclave: Request attestation of enclave
+Signing_Enclave --> Frontend: Return attestation report, enclave public key, and shared secret
+end
+autonumber 2
+User -> Frontend: Select redeem DRT
+Frontend -> Blockchain: Query user DRTs
+Blockchain --> Frontend: Return user DRTs
+Frontend -> Frontend: Display user DRTs
+User -> Frontend: Select DRT to redeem
+
+note over Frontend, Signing_Enclave: Redeem DRT group transaction
+Frontend -> Frontend: Create group redeem DRT transaction:\n1) DRT asset transfer transaction\n2) Payment transaction for execution fee\n3) Application call transaction to execute DRT
+
+group Sign transaction process
+autonumber 7.1
+Frontend -> Frontend: Encrypt each transaction with signing enclave public key and shared secret
+Frontend -> Signing_Service: Send encrypted transactions
+Signing_Service -> Signing_Enclave: Pass encrypted unsigned transactions
+Signing_Enclave -> Signing_Enclave: Decrypt, sign, and recrypt signed transactions
+Signing_Enclave -> Signing_Service: Pass signed transactions
+Signing_Service -> Frontend: Return signed transactions
+end
+
+autonumber 8
+Frontend -> Blockchain: Issue to blockchain as group transaction
+Blockchain --> Frontend: Return transaction ID of group transaction
+Frontend -> Frontend: Encrypt transaction ID with execution enclave public key and secret key
+Frontend -> Execution_Service: Pass encrypted transaction ID via API
+group Establish secure communication channel
+Oracle_Node -> Execution_Enclave: Request enclave attestation, send Oracle Node public key
+Execution_Enclave --> Oracle_Node: Return attestation report, enclave public key, and shared secret
+end
+
+Execution_Service --> Execution_Enclave: Pass transaction ID
+Execution_Enclave -> Execution_Enclave: Encrypt transaction ID with Oracle Node public key and shared secret
+Execution_Enclave -> Execution_Service: Pass encrypted transaction ID to verify
+Execution_Service -> Oracle_Node: Pass encrypted transaction ID
+Oracle_Node -> Oracle_Node: Decrypt transaction ID
+Oracle_Node -> Blockchain: Query blockchain state for transaction ID
+Blockchain --> Oracle_Node: Return blockchain state of transaction
+Oracle_Node -> Oracle_Node: Encrypt data with execution enclave public key and secret key
+Oracle_Node --> Execution_Service: Return encrypted Oracle Node data
+Execution_Service -> Execution_Enclave: Pass encrypted Oracle Node data
+Execution_Enclave -> Execution_Enclave: Decrypt and verify Oracle Node data, perform K out of N over Oracle Node data
+Execution_Enclave -> Execution_Enclave: Parse Oracle Node data to get DRT details
+Execution_Enclave -> Execution_Service: Request wasm binary and sealed pool data
+Execution_Service -> Data_Service: Request sealed dataset of data pool and wasm binary
+Data_Service --> Execution_Service: Return sealed data set and wasm
+Execution_Service --> Execution_Enclave: Pass sealed data and wasm binary
+Execution_Enclave -> Execution_Enclave: Unseal data, execute wasm binary over data, seal result and data, and encrypt result with shared secret.
+Execution_Enclave -> Execution_Service: Pass sealed and encrypted result, and sealed data
+Execution_Service -> Data_Service: Send sealed result and data to be stored
+Data_Service -> Data_Service: Store sealed data and result
+Execution_Service -> Frontend: Send encrypted result
+Frontend -> Frontend: Decrypt result with shared secret
+Frontend -> Frontend: Display result
+Frontend -> User: Download result
+User -> Frontend: User logout
+deactivate Frontend
+@enduml
