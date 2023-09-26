@@ -1,0 +1,158 @@
+Summary,Issue key,Issue id,Issue Type,Status,Project key,Project name,Project type,Project lead,Project lead id,Project description,Priority,Resolution,Assignee,Assignee Id,Reporter,Reporter Id,Creator,Creator Id,Created,Updated,Last Viewed,Resolved,Due date,Votes,Description,Environment,Watchers,Watchers Id,Original estimate,Remaining Estimate,Time Spent,Work Ratio,Σ Original Estimate,Σ Remaining Estimate,Σ Time Spent,Security Level,Inward issue link (Relates),Outward issue link (Relates),Custom field (Actual end),Custom field (Actual start),Custom field (Affected services),Custom field (Atlas project key),Custom field (Atlas project status),Custom field (Category),Custom field (Change reason),Custom field (Change risk),Custom field (Change type),Custom field (Compass),Custom field (Development),Custom field (Epic Color),Custom field (Epic Name),Custom field (Epic Status),Custom field (Impact),Custom field (Issue color),Custom field (Locked forms),Custom field (Open forms),Custom field (Rank),Custom field (Request Type),Custom field (Request language),Custom field (Request participants),Satisfaction rating,Sprint,Custom field (Start date),Custom field (Story Points),Custom field (Story point estimate),Custom field (Submitted forms),Custom field (Target end),Custom field (Target start),Custom field (Team),Custom field (Time to first response),Custom field (Time to resolution),Custom field (Total forms),Custom field (Work category),Custom field ([CHART] Date of First Response),Comment,Status Category
+Data Service | Api Calls,NTC-17,10242,Task,In Progress,NTC,NTC,software,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,Medium,,Francisco Rutayebesibwa,6262881726478a00681fc73a,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,25/Jul/23 4:10 PM,11/Sep/23 8:55 AM,26/Sep/23 3:40 PM,,,0,"*Background*
+
+Interact with the sealed data stored in cosmosDB 
+
+*Acceptance Criteria:*
+
+# GET to data service to return current sealed data set (O-call to make use of this in NTC-16)
+# POST to store new sealed data set
+# GET wasm binary (O-call to make use of this in NTC-16)",,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,,,,,,,,,,,,,,,,,,,,{},,,,,,,,0|i001du:,,,,,Sprint 1,,,,,,,,,,,,,,In Progress
+Execution Service & Enclave | O-Call for WASM & Sealed Data,NTC-16,10238,Task,To Do,NTC,NTC,software,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,Medium,,Francisco Rutayebesibwa,6262881726478a00681fc73a,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,17/Jul/23 1:05 PM,25/Jul/23 4:12 PM,25/Jul/23 4:11 PM,,,0,"*Background*
+
+During the redemption of a drt we need an o-call to get the wasm binary and sealed data. This will make use of api calls in [https://ntls.atlassian.net/browse/NTC-13|https://ntls.atlassian.net/browse/NTC-13|smart-link]
+
+*Acceptance Criteria:*
+
+# Create an O-Call for:
+## GET to data service to return current sealed data set 
+## GET wasm binary ",,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,,,,,,,,,,,,,,,,,,,,{},,,,,,,,0|i001ez:,,,,,Sprint 1,,,,,,,,,,,,,"17/Jul/23 1:09 PM;62a318e9954f50006fcdaca4;Timeline:
+
+0.5 Weeks",To Do
+Execution Enclave | Re-encrypt & Reseal,NTC-15,10237,Task,Research/Analysis,NTC,NTC,software,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,Medium,,Alex Stewart,642ac0171d46395930ab5483,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,13/Jul/23 4:25 PM,01/Aug/23 10:35 AM,25/Jul/23 4:17 PM,,,0,"*Background:*
+
+Once a DRT has been redeemed a result need to be reencrypted to be sent to the FE and resealed to be stored.
+
+*Acceptance Criteria:*
+
+# Create a function which encrypts and seals the result of a redemption to be sent to the FE & Stored",,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,,,,,,,,,,,,,,,,,,,,{},,,,,,,,0|i001d4:,,,,,Sprint 1,,,,,,,,,,,,,"13/Jul/23 4:29 PM;62a318e9954f50006fcdaca4;1 Week in redeem & in join data pool it will be 2 days 
+
+7 days total 1.4 Weeks",In Progress
+Execution Enclave | Parse oracle node data,NTC-14,10236,Task,To Do,NTC,NTC,software,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,Medium,,,,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,13/Jul/23 4:06 PM,01/Aug/23 10:35 AM,13/Jul/23 4:43 PM,,,0,"*Background:*
+
+One singular function which will form a part of a bigger method.
+
+*Acceptance Criteria:*
+
+Parse enclave transaction details from Oracle nodes data",,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,,,,,,,,,,,,,,,,,,,,{},,,,,,,,0|i001d5:,,,,,Sprint 1,,,,,,,,,,,,,13/Jul/23 4:32 PM;62a318e9954f50006fcdaca4;0.5 Weeks,To Do
+Execution Service | API for Join Data Pool & Redeem DRT,NTC-13,10235,Task,To Do,NTC,NTC,software,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,Medium,,,,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,13/Jul/23 4:01 PM,25/Jul/23 4:10 PM,13/Sep/23 4:07 PM,,,0,"*Background*
+
+Using Secure communication channel we need to create api endpoints for both oracle nodes & front end.
+
+*Acceptance Criteria:*
+
+# FE can post redeem drt instruction
+# FE can post join data pool instruction
+# Execution service can instruct oracle nodes to verify transaction ID (GET)
+# POST to Oracle nodes to create enclave unsigned transaction",,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,,,,,,,,,,,,,,,,,,,,{},,,,,,,,0|i001er:,,,,,Sprint 1,,,,,,,,,,,,,13/Jul/23 4:36 PM;62a318e9954f50006fcdaca4;1-1.5 Weeks depending on if data service api is up and running.,To Do
+Execution Enclave | Compute new hash of current dataset + new data,NTC-12,10234,Task,To Do,NTC,NTC,software,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,Medium,,,,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,13/Jul/23 3:53 PM,01/Aug/23 10:34 AM,25/Jul/23 4:08 PM,,,0,"*Background:*
+
+This is a single function within the enclave
+
+*Acceptance Criteria:*
+
+# Compute hash of new dataset (data set already appended in NTC-10) ",,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,,,,,,,,,,,,,,,,,,,,{},,,,,,,,0|i001d0:,,,,,Sprint 1,,,,,,,,,,,,,13/Jul/23 4:32 PM;62a318e9954f50006fcdaca4;1.5 Weeks as there are unknowns and previous work Tshepang did here is unusable.,To Do
+Execution Enclave | Count the no. of rows of new data,NTC-11,10233,Task,To Do,NTC,NTC,software,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,Medium,,,,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,13/Jul/23 3:53 PM,01/Aug/23 10:34 AM,13/Jul/23 4:43 PM,,,0,"*Background:*
+
+This is a single function within the enclave
+
+*Acceptance Criteria:*
+
+# Count the nr of rows of new data to be added from a json data set",,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,,,,,,,,,,,,,,,,,,,,{},,,,,,,,0|i001d3:,,,,,Sprint 1,,,,,,,,,,,,,13/Jul/23 4:32 PM;62a318e9954f50006fcdaca4;0.5 Weeks,To Do
+Execution Enclave | Append new data and current dataset,NTC-10,10232,Task,To Do,NTC,NTC,software,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,Medium,,,,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,13/Jul/23 3:52 PM,01/Aug/23 10:34 AM,25/Jul/23 4:08 PM,,,0,"*Background:*
+
+This is a single function within the enclave
+
+*Acceptance Criteria:*
+
+# Append 2 json datasets within the enclave",,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,,,,,,,,,,,,,,,,,,,,{},,,,,,,,0|i001d1:,,,,,Sprint 1,,,,,,,,,,,,,13/Jul/23 4:30 PM;62a318e9954f50006fcdaca4;2 Weeks. As there are unknowns & previous work done by Tshepang is unusable.,To Do
+Execution Service | Join Data Pool Integration Work,NTC-9,10231,Task,To Do,NTC,NTC,software,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,Medium,,,,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,13/Jul/23 3:44 PM,13/Jul/23 4:35 PM,25/Jul/23 4:08 PM,,,0,"*Background:*
+
+Integrate work from [https://ntls.atlassian.net/browse/NTC-12|https://ntls.atlassian.net/browse/NTC-12|smart-link] , [https://ntls.atlassian.net/browse/NTC-11|https://ntls.atlassian.net/browse/NTC-11|smart-link] , [https://ntls.atlassian.net/browse/NTC-10|https://ntls.atlassian.net/browse/NTC-10|smart-link] , [https://ntls.atlassian.net/browse/NTC-14|https://ntls.atlassian.net/browse/NTC-14|smart-link] , [https://ntls.atlassian.net/browse/NTC-15|https://ntls.atlassian.net/browse/NTC-15|smart-link] To complete the join data pool function
+
+*Acceptance Criteria:*
+
+# Create overall method to combine the above functions into the join data pool method of the execution service
+# Combine the enclave functions into a single method within the enclave.
+# Encrypt no. of rows, new hash and unsigned transaction details with oracle node secret key
+# Reseal data set to be stored",,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,,,,,,,,,,,,,,,,,,,,{},,,,,,,,0|i001ej:,,,,,Sprint 1,,,,,,,,,,,,,13/Jul/23 4:35 PM;62a318e9954f50006fcdaca4;1-2 Weeks as there are a lot of moving parts to combine.,To Do
+Execution | Redeem DRT Integration Work,NTC-8,10230,Task,To Do,NTC,NTC,software,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,Medium,,,,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,13/Jul/23 3:41 PM,01/Aug/23 10:32 AM,25/Jul/23 4:06 PM,,,0,"*Background*
+
+Check through [https://ntls.atlassian.net/browse/NTC-7|https://ntls.atlassian.net/browse/NTC-7|smart-link], [https://ntls.atlassian.net/browse/NTC-6|https://ntls.atlassian.net/browse/NTC-6|smart-link] , [https://ntls.atlassian.net/browse/NTC-5|https://ntls.atlassian.net/browse/NTC-5|smart-link], [https://ntls.atlassian.net/browse/NTC-15|https://ntls.atlassian.net/browse/NTC-15|smart-link], [https://ntls.atlassian.net/browse/NTC-16|https://ntls.atlassian.net/browse/NTC-16|smart-link]   To ensure that they are fully integrated into a single function.
+
+*Acceptance Criteria:*
+
+# Redeem drt Api 
+## Combine functions into 1 method in execution enclave & service
+# a WASM binary is run over a sealed data set
+# Re encrypt the result and seal result to be stored.
+# Request Wasm Binary & Sealed Data from Within enclave O-Call",,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,,,,,,,,,,,,,,,,,,,,{},,,,,,,,0|i001eh:,,,,,Sprint 1,,,,,,,,,,,,,13/Jul/23 4:19 PM;62a318e9954f50006fcdaca4;1 Week,To Do
+Execution | Execute Wasm Binary & Dynamic Structs,NTC-7,10229,Task,In Progress,NTC,NTC,software,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,Medium,,Alex Stewart,642ac0171d46395930ab5483,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,13/Jul/23 3:39 PM,13/Sep/23 4:08 PM,13/Sep/23 4:08 PM,,,0,"*Background*
+
+Look at wasm-sgx repo and refactor to ensure the below acceptance criteria are met.
+
+*Acceptance Criteria:*
+
+# Execute wasm binary over dataset over json data file -*DONE*
+# Allow creation of dynamic structs within the enclave. 
+# Encrypt result
+# Return to execution service",,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,,,,,,,,,,,,,,,,,,,,{},,,,,,,,0|i001d7:,,,,,Sprint 1,,,,,,,,,,,,,13/Jul/23 4:19 PM;62a318e9954f50006fcdaca4;1 Week,In Progress
+Execution | Unseal sealed dataset,NTC-6,10228,Task,Research/Analysis,NTC,NTC,software,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,Medium,,Alex Stewart,642ac0171d46395930ab5483,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,13/Jul/23 3:37 PM,25/Jul/23 4:14 PM,25/Jul/23 4:17 PM,,,0,"*Background*
+
+Enclave function to unseal the sealed data set
+
+*Acceptance Criteria*
+
+# Create a function to be integrated in [https://ntls.atlassian.net/browse/NTC-8|https://ntls.atlassian.net/browse/NTC-8|smart-link] & [https://ntls.atlassian.net/browse/NTC-9|https://ntls.atlassian.net/browse/NTC-9|smart-link] To unseal a sealed data set",,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,,,,,,,,,,,,,,,,,,,,{},,,,,,,,0|i001cz:,,,,,Sprint 1,,,,,,,,,,,,,"13/Jul/23 4:19 PM;62a318e9954f50006fcdaca4;*Unknown*- How do we currently store data in the protected file system
+
+*TBD*",In Progress
+Execution Service| Setup Secure Communication with Oracle Node,NTC-5,10227,Task,Research/Analysis,NTC,NTC,software,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,Medium,,,,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,13/Jul/23 2:49 PM,01/Aug/23 10:33 AM,25/Jul/23 4:08 PM,,,0,"*Background*
+
+Relates to [https://ntls.atlassian.net/browse/NTC-1|https://ntls.atlassian.net/browse/NTC-1|smart-link] & [https://ntls.atlassian.net/browse/NTC-2|https://ntls.atlassian.net/browse/NTC-2|smart-link] 
+
+*Acceptance:*
+
+# Receive oracle node data, sealed data and wasm binary
+# Decrypt oracle node data",,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,,,,,,,,,,,,,,,,,,,,{},,,,,,,,0|i001cr:,,,,,Sprint 1,,,,,,,,,,,,,13/Jul/23 4:15 PM;62a318e9954f50006fcdaca4;1 Week,In Progress
+Execution Enclave & Service | Verification,NTC-4,10226,Task,To Do,NTC,NTC,software,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,Medium,,,,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,13/Jul/23 2:49 PM,13/Jul/23 4:15 PM,25/Jul/23 4:08 PM,,,0,"*Background*
+
+Initialise verification
+
+*Acceptance Criteria:*
+
+# Execution service consumes transaction ID, passes to execution enclave:
+## Decrypt transaction ID with shared secret and enclave private key
+## Encrypt transaction ID with oracle node public key and shared secret
+## Pass out encrypted transaction ID to Execution_Service",,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,,,,,,,,,,,,,,,,,,,,{},,,,,,,,0|i001cj:,,,,,Sprint 1,,,,,,,,,,,,,"13/Jul/23 4:15 PM;62a318e9954f50006fcdaca4;0.5 Week
+
+Provided we have all above public keys & communication channels with Oracle node",To Do
+Execution Enclave | Diffie Helman User Session,NTC-3,10225,Task,To Do,NTC,NTC,software,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,Medium,,,,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,13/Jul/23 2:48 PM,13/Jul/23 4:13 PM,13/Jul/23 4:39 PM,,,0,"*Background*
+
+We need to establish a shared secret between the user session and the execution enclave.
+
+*Acceptance Criteria:*
+
+# Utilise the wallet DH session management as a reference.
+# Setup Communication channel with frontend using DH exchange and enclave public key.",,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,,,,,,,,NTC-2,,,,,,,,,,,,{},,,,,,,,0|i001cb:,,,,,Sprint 1,,,,,,,,,,,,,"13/Jul/23 4:13 PM;62a318e9954f50006fcdaca4;+*Unknown*+ 
+
+1-1.5 Weeks based off of the last time we set this up.",To Do
+Execution Enclave | Add/Initialise in the Trusted Compute Repo,NTC-2,10224,Task,To Do,NTC,NTC,software,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,Medium,,Alex Stewart,642ac0171d46395930ab5483,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,13/Jul/23 2:48 PM,25/Jul/23 4:13 PM,13/Jul/23 4:37 PM,,,0,"*Background*
+
+The Execution Enclave needs to be added to or initialised in the Trusted compute repo.
+
+*Acceptance Criteria:*
+
+# The Execution enclave is created into the trusted compute Repo
+## Either from wasm-sgx or from scratch",,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,,,,,,,,,NTC-3,,,,,,,,,,,{},,,,,,,,0|i001br:,,,,,Sprint 1,,,,,,,,,,,,,"13/Jul/23 4:12 PM;62a318e9954f50006fcdaca4;1-1.5 Week Due to Lack of structure in existing Repos.
+
+We have to investigate launching multiple enclaves within the same envitonment, we then have to either add it or link it, refactor current set up and then deploy it.",To Do
+Execution Enclave & Service | Attestation Set up,NTC-1,10223,Task,To Do,NTC,NTC,software,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,Medium,,Alex Stewart,642ac0171d46395930ab5483,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,13/Jul/23 2:48 PM,01/Aug/23 10:32 AM,13/Jul/23 4:38 PM,,,0,"*Background*
+
+Use the signing enclave from the wallet as a reference for attestation. 
+
+*Acceptance Criteria:*
+
+# Set up attestation & secret key inside of the enclave.
+# Execution enclave report & public key & shared secret *fetched* from the front end. (Via execution service)
+# Examine enclave report to check attestation
+# Establish secure communication using attestation and secret key generated from execution enclave with frontend",,Bronwynne Oosthuizen,62a318e9954f50006fcdaca4,,,,,,,,,,,,,,,,,,,,,{},,,,,,,,0|i001bl:,,,,,Sprint 1,,,,,,,,,,,,,13/Jul/23 4:12 PM;62a318e9954f50006fcdaca4;1 Week,To Do
