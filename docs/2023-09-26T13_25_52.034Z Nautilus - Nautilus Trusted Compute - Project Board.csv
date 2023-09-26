@@ -1,0 +1,1348 @@
+"Task ID","Task Name","Parent ID","Parent Name","Parent URL","Status","Task Content","Assignee","Priority","Latest Comment","Comment Count","Assigned Comment Count","Due Date","Due Date Text","Start Date","Start Date Text","Date Created","Date Created Text","Date Updated","Date Updated Text","Date Closed","Date Closed Text","Date Done","Created By","Space","Folder","List","Subtask ID's","Subtask URL's","tags","Lists","Sprints","Linked Tasks","Linked Docs","Time Logged","Time Logged Rolled Up","Time Estimate (hours)","Time Estimate Rolled Up (hours)","Points Estimate","Points Estimate Rolled Up","Item Type (drop down)"
+"31w9f5k","NTC Implementation Plan","","","","complete","This document will be used to map out the work requirements and timelines, break work it into tasks, determine remaining research, and will be used when someone starts an NTC task. They can refer to this document to create a dedicated implementation plan for that task.
+
+Make a first pass at the API functions that we will need,  ,   and  .
+
+https://docs.google.com/document/d/1GgEbnysYWtKVRW5WJ00HEkY6PZJA_Y8AlgnkWMbGQIs/edit#
+","[Alex Stewart, jbochenek, Bingle Kruger]","none","",0,0,"","","","","2022-11-04T12:33:39.449+02:00","Friday, November 4th 2022, 12:33:39 pm +02:00","2022-12-06T11:10:09.422+02:00","Tuesday, December 6th 2022, 11:10:09 am +02:00","2022-12-06T11:10:09.422+02:00","Tuesday, December 6th 2022, 11:10:09 am +02:00","2022-12-06T11:10:09.422+02:00","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862jbqkpw","API (backend-services) Devops","","","","complete","We need to create a VM and build the containers to run the backend-services repository. We also need to set up a proxy so that this services can be accessed and other bookkeeping tasks need to get this working.  We will work on the devOps workflow more after MVP, for this task it is suitable to leave some things to be done manually, such as recreating containers when we push new code. We can copy as much of the process from the wallet as possible, since we have the equivalent backend services containers running there.
+
+Implementation Plan
+Please refer to the ntls-devops repo https://github.com/ntls-io/ntls-devops/branches.
+Create a PR that creates a new directory, say docker-compose/ntc 
+We will create one VM for each environment, but we only need staging for now, so create one VM in Azure
+	    	We would like to use terraform for provisioning, but this task 
+Set up domains vault-staging-services.ntls.io, etc. (or whatever sounds good to you)
+Do anything else that's missing here to make backend services functional
+Update the devops repo to reflect the Vault build
+
+Time Estimate
+3 days
+","[Bill Guo]","none","https://github.com/ntls-io/nautilus-trusted-compute/pull/80  - dockerize backend-services   https://github.com/ntls-io/nautilus-trusted-compute-deployment/pull/2  - add backend-services image to docker compose based deployment   https://github.com/ntls-io/ntls-devops/pull/6  - add api domains to terraform    ",3,0,"","","","","2023-02-28T16:56:57.192+02:00","Tuesday, February 28th 2023, 4:56:57 pm +02:00","2023-03-17T11:16:14.515+02:00","Friday, March 17th 2023, 11:16:14 am +02:00","2023-03-17T11:14:09.799+02:00","Friday, March 17th 2023, 11:14:09 am +02:00","2023-03-17T11:14:09.799+02:00","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j3g8pf","Infrastructure Setup","","","","complete","Implementation
+Setup repos and Environments (main, staging, prod) 
+Auto-deployment and Builds
+Automated Testing
+Domains and proxies
+
+Time Estimate
+1 week
+","[jbochenek]","none","",0,0,"2023-03-01T00:00:00.000+00:00","Wednesday, March 1st 2023","","","2023-01-19T13:16:49.945+02:00","Thursday, January 19th 2023, 1:16:49 pm +02:00","2023-03-23T15:25:11.203+02:00","Thursday, March 23rd 2023, 3:25:11 pm +02:00","2023-03-23T15:25:11.203+02:00","Thursday, March 23rd 2023, 3:25:11 pm +02:00","2023-03-23T15:25:11.203+02:00","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j2jdwe","Write account creation API endpoints","","","","complete","Description
+FastAPI endpoints for account creation and login.
+
+Implementation Plan
+Create endpoints for creating a user and logging in. Until the authentication service is integrated with NTC, we need a set of simple dummy endpoint to connect to the login page for testing the user flow. The dummy endpoints will interact with CosmosDB rather than the Auth Enclave wrappers. So when a user creates an account, save their username and password in Cosmos, login would just check that they are the same. 
+
+Write account creation endpoints
+Login endpoints
+JWT token issuance
+Integrate
+
+Timeline
+3 days
+","[Francisco Rutayebesibwa, jbochenek]","none","@jbochenek  Is this ready for a dev or is more information required?  ",1,0,"2023-03-10T00:00:00.000+00:00","Friday, March 10th 2023","2023-03-06T00:00:00.000+00:00","Monday, March 6th 2023","2023-01-14T20:57:55.559+02:00","Saturday, January 14th 2023, 8:57:55 pm +02:00","2023-05-17T14:03:54.208+02:00","Wednesday, May 17th 2023, 2:03:54 pm +02:00","2023-05-17T14:03:54.208+02:00","Wednesday, May 17th 2023, 2:03:54 pm +02:00","2023-05-17T14:03:54.208+02:00","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862jccwdx","Menu Changes","","","","complete","Background
+We decided to remove packages from the menu pending further user testing to prove it is needed. 
+
+Tasks
+hide the menu option ""Packages""
+Rename the section ""Tokens"" to ""My Tokens"" & hide the section for post MVP
+Hide the section Profile
+Add the Algo balance from the home page with the withdraw and top up options to the top menu- Done
+If Algo Balance is 0 make all tabs inaccessible (grey out) until a positive balance is reflecting- Done
+","[Jonathan]","none","@Alex Stewart  To review please on Friday. Move to testing when you approve please  ",3,0,"","","","","2023-03-03T13:29:57.423+02:00","Friday, March 3rd 2023, 1:29:57 pm +02:00","2023-05-17T14:04:00.475+02:00","Wednesday, May 17th 2023, 2:04:00 pm +02:00","2023-05-17T14:04:00.475+02:00","Wednesday, May 17th 2023, 2:04:00 pm +02:00","2023-05-17T14:04:00.475+02:00","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"38ntjaz","As a Vault User I want the management of data, DRTs and results secured with a password so that only I can issue perform actions on my behalf (SIGNUP & LOGIN)","","","","complete","Background
+The Vault User needs to have some way of signing up for the service and securing the management of their packages, DRT's and redemption results behind an auth. We will use Nautilus wallets with Algorand accounts so that users can integrate with smart contracts. 
+In the future we will provide multiple options for wallet/vault creation:
+Generate a Nautilus wallet for each Vault account.
+Create a wallet on behalf of users but leave private keys  are sealed by the enclave. 
+For the MVP however we will first develop a Vault app that creates an Algorand account for all new users and uses the existing wallet backend to sign transactions. 
+
+For more information Refer to the ""Notes on Authentication"" section of the below doc:
+ Notes for Post MVP:
+Allow users to use add their own Algorand wallet or
+Promote the use of the NW. Single sign on for both wallet & NTC. A Nautilus Wallet is created and associated with the Vault account, with the Vault password used to seal the wallet key.  In this way we can eliminate the need for a separate wallet PIN and Vault username and password.
+Reproduce authentication plan for Nautilus Wallet.
+Determine how password pepper and username will be used to seal datasets, ensuring that authentication is compatible.
+Determine how to use the username and enclave key to seal blockchain key.
+Provide necessary API functions for the NCT Vault applications for create_user and login.
+Implement JWT token system for Vault sessions.
+
+Acceptance Criteria
+Each user is prompted to set a public username(email for now) and private password upon their first visit.
+A Nautilus Vault account is created. The vault account includes private keys to sign transactions from an Algorand wallet.
+
+Implementation Plan
+Dockerise the backend of the old wallet auth
+Set up the SGX VM ($70/month) - Check the VM Joe set up on 03/03/2023
+Write code to call SGX server . IE connect FE
+
+Timeline
+1 week with testing 
+","[Jonathan, Bill Guo]","none","Decision pending  @Co Georg  approval: Change back to Angular.   ",6,0,"2023-02-03T00:00:00.000+00:00","Friday, February 3rd 2023","","","2022-12-06T11:04:53.515+02:00","Tuesday, December 6th 2022, 11:04:53 am +02:00","2023-05-17T15:18:40.314+02:00","Wednesday, May 17th 2023, 3:18:40 pm +02:00","2023-05-17T15:18:40.314+02:00","Wednesday, May 17th 2023, 3:18:40 pm +02:00","2023-05-17T15:18:40.314+02:00","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[862j2jdw8]","[https://app.clickup.com/t/862j2jdw8]","[user story]","[Project Board]","[]","","","","","","",,0,""
+"862j2jdw8","Create sign up & login page frontend","38ntjaz","As a Vault User I want the management of data, DRTs and results secured with a password so that only I can issue perform actions on my behalf (SIGNUP & LOGIN)","https://app.clickup.com/t/38ntjaz","complete","Background
+We want to have an interface for users to sign up and log in.
+
+Acceptance Criteria
+Landing page with login form
+Landing page with signup form
+
+Implementation Plan
+Revise design - please see the login page designs on figma.
+Create signup and login pages
+Integrate with authentication service API
+
+Timeline
+1 week
+","[Jonathan, Bronwynne Oosthuizen]","none","Is the authentication API ready? ",1,0,"2023-01-30T00:00:00.000+00:00","Monday, January 30th 2023","","","2023-01-14T20:57:24.904+02:00","Saturday, January 14th 2023, 8:57:24 pm +02:00","2023-03-03T13:23:30.991+02:00","Friday, March 3rd 2023, 1:23:30 pm +02:00","2023-03-03T13:23:30.991+02:00","Friday, March 3rd 2023, 1:23:30 pm +02:00","2023-03-03T13:23:30.991+02:00","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[needs_auth]","[Project Board]","[]","","","","","","",,0,""
+"38nthrn","Smart Contract Prototype build","","","","complete","Description
+Build smart contract prototype as described in NTC architecture and implementation documents.
+
+Acceptance Criteria
+A data creator:
+Must be able to create a smart contract.
+Issue DRTs to other users.
+An 'Append' DRT is a special DRT which triggers an update in accounting variables. This token is called a 'contributor token'.
+When DRTs are redeemed, the smart contract updates the number of rows and other accounting variables to allow it to distribute royalties.
+It must be possible to transfer a contributor token.
+A data contributor must be able to delete their data, given a set of conditions. 
+
+
+Features 
+Pre-funded accounts, 
+","[Alex Stewart, Bronwynne Oosthuizen]","none","@Alex Stewart  Is this now done?  ",10,0,"","","","","2022-12-06T11:00:55.518+02:00","Tuesday, December 6th 2022, 11:00:55 am +02:00","2023-05-23T16:20:06.615+02:00","Tuesday, May 23rd 2023, 4:20:06 pm +02:00","2023-05-23T16:20:06.615+02:00","Tuesday, May 23rd 2023, 4:20:06 pm +02:00","2023-05-23T16:20:06.615+02:00","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[master task]","[Project Board]","[]","","","","","","",,0,""
+"862jgbvav","Rewrite the Existing Front end in Angular","","","","testing","
+","[Jonathan]","none","",0,0,"","","","","2023-03-23T15:29:50.982+02:00","Thursday, March 23rd 2023, 3:29:50 pm +02:00","2023-04-26T16:47:36.460+02:00","Wednesday, April 26th 2023, 4:47:36 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j3nn6m","As a token trader I want to be able to purchase tokens so that I can retrieve the results","","","","testing","Background
+The user needs to be able to purchase DRTs and contributor tokens so that they are able to redeem DRTs and collect royalties. Nautilus will also need to receive their commission from the purchase
+
+Acceptance Criteria
+Nautilus receives commission on each purchase
+User is able to exchange Algos for tokens which they will see in their account
+Royalties are paid out 
+","[]","none","",0,0,"","","","","2023-01-20T08:27:06.215+02:00","Friday, January 20th 2023, 8:27:06 am +02:00","2023-05-17T15:11:31.065+02:00","Wednesday, May 17th 2023, 3:11:31 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[862j31w4d, 862j3nndn, 866a7nkyu]","[https://app.clickup.com/t/862j31w4d, https://app.clickup.com/t/862j3nndn, https://app.clickup.com/t/866a7nkyu]","","[Project Board]","[]","","","","","","",,0,""
+"862j31w4d","Distribute Smart Contract Royalties","862j3nn6m","As a token trader I want to be able to purchase tokens so that I can retrieve the results","https://app.clickup.com/t/862j3nn6m","testing","Description
+Split proceeds on DRT sales amonsgst contributors. 
+
+Acceptance Criteria
+Contributors get paid for DRT redemptions.
+
+Implementation Plan
+Task owner complete me
+
+Time Estimate
+Maybe already done
+","[Alex Stewart, Bronwynne Oosthuizen]","none","Done  @jbochenek  and  @Bronwynne Oosthuizen  . The royalty fees are collected by the smart contract and the user who owns the contributor token can collect their portion of the fees from the smart contract.   ",2,0,"","","","","2023-01-17T16:45:24.757+02:00","Tuesday, January 17th 2023, 4:45:24 pm +02:00","2023-02-19T10:22:20.177+02:00","Sunday, February 19th 2023, 10:22:20 am +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[master task]","[Project Board]","[]","","","","","","",,0,""
+"862j3nndn","UI for token purchase","862j3nn6m","As a token trader I want to be able to purchase tokens so that I can retrieve the results","https://app.clickup.com/t/862j3nn6m","testing","Background
+Users need an interface to browse and purchase relevant tokens
+
+Acceptance Criteria
+Accessible via menu as ""Marketplace""
+List of Tokens (DRTs & contributor tokens)
+Buy button on each token
+Show token type (DRT / Contributor token)
+show token cost in Algos
+show description & Name of token
+
+","[Jonathan]","none","",0,0,"2023-03-10T00:00:00.000+00:00","Friday, March 10th 2023","2023-03-06T00:00:00.000+00:00","Monday, March 6th 2023","2023-01-20T08:31:30.678+02:00","Friday, January 20th 2023, 8:31:30 am +02:00","2023-05-16T18:37:35.704+02:00","Tuesday, May 16th 2023, 6:37:35 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"866a7nkyu","Purchase DRT JS SDK","862j3nn6m","As a token trader I want to be able to purchase tokens so that I can retrieve the results","https://app.clickup.com/t/862j3nn6m","mr review","Background
+We need to use the Algorand javascript SDK to develop functions in type script for Purchasing DRT transactions and issuing the purchase DRT transactions. 
+ Dependent on:
+Data service
+Enclave Signing transaction
+
+Implementation Plan
+Create Optin to DRT transaction
+Create a single group transaction to purchase a DRT
+Cost of DRT Algos sent to smart contract
+Buy instruction sent to smart contract
+create functions to issue the above group transaction and catch errors. 
+Create a single purchase DRT method with all of the above functions including the signing functionality
+
+","[Alex Stewart]","none","",0,0,"","","","","2023-05-04T20:55:42.771+02:00","Thursday, May 4th 2023, 8:55:42 pm +02:00","2023-05-04T20:57:47.513+02:00","Thursday, May 4th 2023, 8:57:47 pm +02:00","","","","Alex Stewart","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j1b4aw","As a Vault User I want to be able to FUND my WALLET so that I can trade on the vault app","","","","testing","Background
+These are the options for funding wallets and for on-ramping:
+Refer users to a crypto exchange such as Coinbase. Provide instructions on how to fund a wallet. 
+Use a payment platform in combination with a crypto exchange to build a tool for users to purchase services from Nautilus, by way of Algo
+Use a crypto pay ramp like Alchemy
+
+Acceptance Criteria
+user is able to prepay into their wallet via a payment gateway TransAk trading Fiat for Algos.
+
+Technical Implementation Details:
+Research the leading pay ramp options
+Survey and document the SDK functionality that will be necessary for integration
+Write pay ramp code (fill this out more after research)
+Write Frontend
+
+Technical Tasks:
+
+Timeline:
+2-3 weeks
+","[Bill Guo]","none","https://docs.transak.com/docs/partner-faqs  ",18,0,"","","","","2023-01-10T15:02:32.297+02:00","Tuesday, January 10th 2023, 3:02:32 pm +02:00","2023-05-17T15:11:42.141+02:00","Wednesday, May 17th 2023, 3:11:42 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[862j3dct3, 862j3hx5x]","[https://app.clickup.com/t/862j3dct3, https://app.clickup.com/t/862j3hx5x]","[user story]","[Project Board]","[]","","","","","","",,0,""
+"862j3dct3","UI for funding the wallet","862j1b4aw","As a Vault User I want to be able to FUND my WALLET so that I can trade on the vault app","https://app.clickup.com/t/862j1b4aw","mr review","Description
+Provide the frontend development & support for integrating a payment gateway or interface that allows users to add funds to the wallet associated with their Vault account. The details of this depend on research for the funding task and the service that we use. 
+
+Acceptance Criteria
+A user can add funds to their wallet with minimal friction.
+
+Implementation Plan
+Refer to design plans and the wallet funding backend task to create a new page(s).
+
+Time Estimate
+1 week estimate
+","[Jonathan]","none","",0,0,"2023-03-17T00:00:00.000+00:00","Friday, March 17th 2023","2023-03-13T00:00:00.000+00:00","Monday, March 13th 2023","2023-01-18T20:53:44.034+02:00","Wednesday, January 18th 2023, 8:53:44 pm +02:00","2023-05-16T18:30:26.640+02:00","Tuesday, May 16th 2023, 6:30:26 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j3hx5x","Pay Ramp Backend (Transak Integration)","862j1b4aw","As a Vault User I want to be able to FUND my WALLET so that I can trade on the vault app","https://app.clickup.com/t/862j1b4aw","mr review","Description
+This task represents any work needed to allow on-ramping with a crypto/fiat service.
+
+Implementation
+Create any integration needed for the pay ramp - i.e. create an alchemy developer account. 
+Write any code or service needed by the frontend to offer onramping
+Create a partner account for Nautilus DONE
+Complete KYB (Know Your Business) form DONE
+Integrate widget to app/website with API key and pass on Algorand Wallet Address
+
+Time Estimate
+1-2 weeks
+","[Jonathan]","none","@Jonathan  To give an estimate by Wednesday  ",4,0,"2023-03-24T00:00:00.000+00:00","Friday, March 24th 2023","2023-03-13T00:00:00.000+00:00","Monday, March 13th 2023","2023-01-19T16:32:50.876+02:00","Thursday, January 19th 2023, 4:32:50 pm +02:00","2023-05-16T18:31:09.721+02:00","Tuesday, May 16th 2023, 6:31:09 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862jztj8v","Create Pool | Update to give a success message after step 3","","","","testing","Acceptance Criteria:
+when clicking next on step 3 display a success message
+""You have successfully created a data pool""
+","[Jonathan]","none","https://github.com/ntls-io/ntc-web/pull/13  ",1,0,"","","","","2023-06-15T11:03:18.258+02:00","Thursday, June 15th 2023, 11:03:18 am +02:00","2023-06-15T16:02:18.276+02:00","Thursday, June 15th 2023, 4:02:18 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862jzvdkb","Use local to spoof that the data pool saves","","","","testing","Acceptance Criteria
+When you create a data pool the name, description and digital rights show in the data pool list below
+","[Jonathan]","none","",0,0,"","","","","2023-06-15T15:25:48.533+02:00","Thursday, June 15th 2023, 3:25:48 pm +02:00","2023-06-15T17:26:38.604+02:00","Thursday, June 15th 2023, 5:26:38 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862jzthe3","Join Pool | Update the pop up","","","","testing","The current join pool flow does not match the figma. If you cannot replicate the exact join pool from the figma then you can work with the below acceptance Criteria:
+
+Acceptance Criteria:
+1. Get rid of step 2
+2. step 3 should be a success page ""You have successfully joined the pool""
+3. The next button on the first page should say ""join"" 
+
+","[Jonathan]","none","",0,0,"","","","","2023-06-15T10:57:20.122+02:00","Thursday, June 15th 2023, 10:57:20 am +02:00","2023-06-16T00:41:46.498+02:00","Friday, June 16th 2023, 12:41:46 am +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862jztngu","Market checkout","","","","testing","Acceptance Criteria:
+On the main list of DRTs for sale add the column ""Price"" in Algos
+on clicking the buy button the user should be taken through checkout
+The user should see a preview of their purchase before confiming
+Show the DRT Name
+Show the price in Algos
+Show the button Confirm Purchase
+Once a user clicks confirm purchase show the message ""You have successfully purhased a DRT. The DRT will appear in the analysis section where you can redeem it.""
+","[Jonathan]","none","",0,0,"","","","","2023-06-15T11:23:43.635+02:00","Thursday, June 15th 2023, 11:23:43 am +02:00","2023-06-16T01:52:34.850+02:00","Friday, June 16th 2023, 1:52:34 am +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862jztm67","Redeem Result","","","","testing","Acceptance Criteria
+When you click redeem a pop up should display with
+the result in json. you can just show: 
+{
+result: 4,
+pool: Lab Data for Proj X
+digital right: average
+},
+{
+result: 2,
+pool: Lab Data for Proj X
+digitl right: standard deviation
+},
+show a download button
+Hide the sell button
+","[Francisco Rutayebesibwa]","none","",0,0,"","","","","2023-06-15T11:16:59.083+02:00","Thursday, June 15th 2023, 11:16:59 am +02:00","2023-06-21T21:13:20.344+02:00","Wednesday, June 21st 2023, 9:13:20 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"38ntrua","Frontend to manage data packages & issue DRTs","","","","blocked","Description
+Add page to UI that allows a data pool creator to issue a DRT on a pool they have created. They will be able to select from a list of available execution DRTs provided by an API endpoint and correlate it with a data pool. This will also correspond with one or more calls to the Algorand SDK to modify the smart contract.
+
+Implementation Plan
+Review figma diagrams and create design for ""manage data pool"" page DONE
+Create code to call Tokens API to get a list of executables that are already assigned to the data pool, and the list that are available (maybe grey out the ones that are already issued)
+Ensure that the correct transactions are initiated to the MVP Smart Contract or coordinate with Alex to this end
+Write tests
+
+Timeline
+1 week
+","[Jonathan]","none","Blocked by Signing service  ",4,0,"","","","","2022-12-06T11:31:20.797+02:00","Tuesday, December 6th 2022, 11:31:20 am +02:00","2023-05-23T16:21:31.597+02:00","Tuesday, May 23rd 2023, 4:21:31 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[master task]","[Project Board]","[]","","","","","","",,0,""
+"38nthe6","As a data creator I want to be able to CREATE a DATA POOL so that I can increase the value of the data","","","","development","Background
+Data creators need to be able to secure their data with the enclave via the app with a simple interface to upload. Data creators need to be able to upload a schema and select digital rights associated.
+
+Data creators need to be able to grant access to data contributors to a pool. This will be managed by an append DRT which a contributor must purchase to add their data to the data pool.  
+
+Once the data creator is logged in, she sees a list of all her data pools below a button to create a new pool.
+
+Once a data creator clicks to create a new pool, she is guided through a four-plus-one step process. First, she defines a data schema for the pool by uploading a schema. Second, she selects the file containing one or multiple rows of data conforming to the schema. The user receives 1 contributor token, which is a DRT. Fourth, the data is uploaded. And fifth, the data creator selects from a list of data rights that are available for the pool. Data rights are initially defined by Nautilus.
+
+Notes for post-MVP:
+Initially, users can have only one wallet, but we aim to allow them to have multiple wallets and to select a preferred wallet for each pool.  
+It is also possible to skip the step of adding digital rights and add data rights later.
+We aim to have functionality for users to create new data rights.
+
+Functionality that alreday exists on the backend:
+The data creator will be able to set the price of the AppendDRT. 
+The data creator can change the price of any DRT at any time.
+The data creator determines the DRTs that are executable against the pool by issuing additional DRTs.
+
+Acceptance Criteria
+Data creator can upload via file explorer or drag and drop,
+Data creator can select/upload a data schema,
+The dataset is validated and accepted/rejected according to the data schema,
+Metadata for public view can be specified e.g:
+Name of data package,
+Description,
+Schema of Data
+The data creator can issue an AppendDRT to join the pool. (NB: All DRTs have a fixed price (5 Algos) during MVP)
+
+Implementation Plan
+Implement Algorand smart contract according to criteria in subtask.
+Set up python methods to link the Algorand SDK to NTC client.
+Create FastAPI endpoints for 'create_datapool', 'get_datapool_by_user', 'get_all_datapool',
+Link Contributor token to data pool in the DB
+Set up execution enclave, data service and methods for sealing data in the data base. 
+Create databases MongoDB schemas for datasets, users, data types (schemas) - 
+Write Rust Append function (implementing AppendDRT) that can use arbitrary columns 
+Create data schema validation functions (using ""json schema"")
+
+Tasks:
+Complete me
+Timeline 
+Complete me
+","[]","none","BUSINESS RULE:   We never want to sign a transaction on a users behalf except from within an enclave      ",3,0,"","","","","2022-12-06T10:59:44.716+02:00","Tuesday, December 6th 2022, 10:59:44 am +02:00","2023-03-04T16:39:43.874+02:00","Saturday, March 4th 2023, 4:39:43 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[862j2ftpt, 30ektfh, 38ntgj1, 862jceawk, 862jcufyn, 86781y1nh]","[https://app.clickup.com/t/862j2ftpt, https://app.clickup.com/t/30ektfh, https://app.clickup.com/t/38ntgj1, https://app.clickup.com/t/862jceawk, https://app.clickup.com/t/862jcufyn, https://app.clickup.com/t/86781y1nh]","[user story]","[Project Board]","[]","","","","","","",,0,""
+"862j3dbx2","UI For Creating a data pool","38nthe6","As a data creator I want to be able to CREATE a DATA POOL so that I can increase the value of the data","https://app.clickup.com/t/38nthe6","testing","
+","[Jonathan]","none","2. Hide the Select wallet as this will only be used in phase 2    ",4,0,"2023-02-24T00:00:00.000+00:00","Friday, February 24th 2023","2023-02-20T00:00:00.000+00:00","Monday, February 20th 2023","2023-01-18T20:47:20.317+02:00","Wednesday, January 18th 2023, 8:47:20 pm +02:00","2023-03-03T16:11:54.709+02:00","Friday, March 3rd 2023, 4:11:54 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","Create Upload Page for Vault App Frontend and link it to Data Service API: https://app.clickup.com/t/38ntgj1)","","","","","",,0,""
+"862j8v30y","Create API Endpoints Data Pool","38nthe6","As a data creator I want to be able to CREATE a DATA POOL so that I can increase the value of the data","https://app.clickup.com/t/38nthe6","research","Description
+We already have dataset and data pool MongoDB collections. This task is for creating endpoints specific to orchestrating the creation of a data pool. This task captures anything needed to tie the pieces together.
+
+Acceptance Criteria
+A user can create a data pool on the front end, it creates a smart contract with a hash of the initial dataset and row count, and the data pool and data set shows up on the front end.
+
+Implementation Plan
+Endpoints (please change/add any that are missing):
+upload_data 
+take file from frontend and send to enclave
+take return values of row count and dataset hash and add to dataset and data pool collections
+create_pool_smart_contract
+call the relevant Python functions that create a smart contract
+may need to sign transactions necessary to create the pool for the user
+
+
+Time Estimate
+3 days
+","[jbochenek]","none","",0,0,"2023-03-03T00:00:00.000+00:00","Friday, March 3rd 2023","2023-02-27T00:00:00.000+00:00","Monday, February 27th 2023","2023-02-15T19:33:54.619+02:00","Wednesday, February 15th 2023, 7:33:54 pm +02:00","2023-03-04T16:33:34.805+02:00","Saturday, March 4th 2023, 4:33:34 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j2ftpt","Implement Dataset Sealing","38nthe6","As a data creator I want to be able to CREATE a DATA POOL so that I can increase the value of the data","https://app.clickup.com/t/38nthe6","ready for dev","Description
+Set up the sealing and unsealing functionality for datasets, which are sealed with the key of the enclave.
+Acceptance Criteria 
+Data cannot be uploaded/retrieved without the user password.
+Implementation Plan
+Fetch the key used to seal the data from the execution enclave onto the client.
+Employ a sealing algorithm to seal data
+
+Timeline
+1.5 weeks
+
+","[]","none","Unblocked now that Auth is in  ",5,0,"2023-03-15T00:00:00.000+00:00","Wednesday, March 15th 2023","2023-03-06T00:00:00.000+00:00","Monday, March 6th 2023","2023-01-13T19:34:15.189+02:00","Friday, January 13th 2023, 7:34:15 pm +02:00","2023-05-23T16:30:19.294+02:00","Tuesday, May 23rd 2023, 4:30:19 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[needs_auth]","[Project Board]","[]","","","","","","",,0,""
+"38ntj3d","Create Python Code for Algorand SDK","38nthe6","As a data creator I want to be able to CREATE a DATA POOL so that I can increase the value of the data","https://app.clickup.com/t/38nthe6","testing","Description
+Basic functionality to use the Algorand Python SDK to send transactions to a smart contract and retrieve any response. This task is only for the creation of a dataset. So we need to create a smart contract and that's all.
+
+Acceptance Criteria
+The NTC client can use or wrap this functionality to do all necessary interactions with a smart contract. The Algorand Python SDK should be able to write and sign transactions on the user’s behalf.
+
+Implementation Plan
+The following interactions:
+A set of three transactions to create smart contract
+Alex what are the three transactions?
+A set of transactions to buy an append DRT
+The transaction to redeem a DRT to append a dataset
+Write Javascript test function calls for creating smart contract, including dataset hash and anything other information returned from data service
+Create github PR to trusted-compute repo with test functions
+
+Time
+1 week
+","[Alex Stewart, Bronwynne Oosthuizen]","none","@jbochenek  Please complete implementation details  ",1,0,"2023-02-06T00:00:00.000+00:00","Monday, February 6th 2023","","","2022-12-06T11:03:13.526+02:00","Tuesday, December 6th 2022, 11:03:13 am +02:00","2023-03-03T13:09:15.745+02:00","Friday, March 3rd 2023, 1:09:15 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[master task]","[Project Board]","[]","","","","","","",,0,""
+"30ektfh","Data Service","38nthe6","As a data creator I want to be able to CREATE a DATA POOL so that I can increase the value of the data","https://app.clickup.com/t/38nthe6","development","Description
+The data service manages the uploading and retrieval of datasets. We must create API endpoints for creating a new dataset, appending data, and retrieving data for execution. It interacts with the data enclave and authorization enclave and the database. 
+
+Todo
+create maximum file upload size, either in the upload form or api - what's the best way to do this, fetch api?
+","[Alex Stewart]","none","@jbochenek  Please confirm if the work you have done includes the API Endpoints mentioned in this task  ",3,0,"","","","","2022-10-25T08:34:50.342+02:00","Tuesday, October 25th 2022, 8:34:50 am +02:00","2023-05-23T16:30:52.680+02:00","Tuesday, May 23rd 2023, 4:30:52 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[master task]","[Project Board]","[]","","","","","","",,0,""
+"38ac31e","Create 2 APIs (upload data pool & query data pool for creator)","30ektfh","Data Service","https://app.clickup.com/t/30ektfh","testing","Background:
+To create a new dataset we need an API so that the client application can communicate with our enclave and database. The API should include the following endpoints:
+
+store_data: call this method with the data file and associated metadata. 
+the data file would be transferred directly to the enclave to be validated and sealed
+the sealed data would then be transferred to the database
+metadata would be transferred to the same document as the dataset, unsealed
+retrieve_data_info: get metadata for a data file by ID that is stored in the smart contract or drt for listing datasets on the marketplace
+retrieve_data: get sealed data from database by file ID, transfer to enclave
+search_data: search dataset metadata by keyword or other criteria 
+
+Notes:
+A rust implementation was started including metadata and other functions, See section 2.4.3 - PR. We implement this in Python. 
+
+Implementation Plan 
+Set up Python FastAPI backend for NTC using NW as a template.
+Reproduce the first two endpoints using the PR #69 as a starting point.
+Test upload and retrieve API calls from javascript
+Notes
+The APIs connect to CosmosDB and can upload data and query data using specific fields. Currently this is the format for CosmosDB:
+
+{
+	""_id"" : ObjectId(""63612d200d0cc3d50ecda3b5""),
+	""user_id"" : ""Test Client 01"",
+	""pool_name"" : ""NTLS first pool"",
+	""sealed_data"" : ""This is some sealed data"",
+	""created_on"" : {
+		""$date"" : 1667312928083
+	}
+}
+ 
+API endpoint: http://127.0.0.1:8000/api/data
+
+POST - upload/add data
+
+curl --header ""Content-Type: application/json"" \
+  --request POST \
+  --data '{""id"":""Test Client 01"",""pool_name"":""NTLS third pool"",""sealed_data"":""This is some sealed data""}' \
+  http://127.0.0.1:8000/api/data
+
+Get - View/get data
+
+curl --header ""Content-Type: application/json"" \
+  --request GET \
+  --data '{""id"":""Test Client 02""}' \
+  http://127.0.0.1:8000/api/data
+
+Create Data Package Endpoint
+Nautilus address
+Data package hash
+Number of rows
+Smart Contract ID ( Application ID ) 
+Smart Contract Address
+Contributor Token ID ( Asset ID )
+DRT ID ( Asset ID )
+DRT Name
+DRT Exchange Rate
+
+Work required for Data APIs:
+Set-up proper CosmosDB for NTC (CosmosDB used for testing - “ntc-data”)
+Update environment variable to include connection string to CosmosDB
+Waiting on sealing functionality - currently we are just using a placeholder String, this needs to be updated - “This is some sealed data”
+SSL/TLS for connecting to CosmosDB?
+API keys for specific users?
+
+Data Storage API
+http://127.0.0.1:8000/api/data/store_dataset
+http://127.0.0.1:8000/api/data/retreive_dataset
+
+Times Estimate
+1 week
+","[Bronwynne Oosthuizen]","none","https://github.com/ntls-io/nautilus-trusted-compute/pull/74/files  - PR to update create datapool and create dataset APIs  ",2,0,"2023-01-30T00:00:00.000+00:00","Monday, January 30th 2023","","","2022-12-02T14:21:44.679+02:00","Friday, December 2nd 2022, 2:21:44 pm +02:00","2023-05-23T16:30:24.556+02:00","Tuesday, May 23rd 2023, 4:30:24 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[sub task]","[Project Board]","[]","","","","","","",,0,""
+"38ac38g","Execution Enclave","30ektfh","Data Service","https://app.clickup.com/t/30ektfh","ready for dev","Background
+Use the wasm-sgx-sdk and wallet enclave to create a data service enclave. Create the necessary Rust functionality to process a new dataset (only the first dataset in a pool, the append function for additional datasets will be done as a separate task).  
+
+Acceptance Criteria
+Working TEE simulated enclave environment and dataset upload enclave function. 
+
+Implementation Plan
+Make a version of 
+https://github.com/ntls-io/wasm-exec-sgx, as part of
+\
+
+
+https://github.com/ntls-io/ntls-enclaves (I think this is the best place, maybe discuss with  )
+
+Update documentation of the Teaclave setup and configuration (I think this is done already),
+Upgrade SGX SDK to recent version (done),
+Create a data service enclave (see sequence diagrams in research_notes for context),
+Create dataset ECAL and any necessary deserialization for a JSON dataset,
+Write a function that counts the number of ""rows"" in a columnar-form JSON dataset (the smart contract needs the confirmed number of rows to compute royalties),
+Create any necessary OCAL to return the status of the upload (sucess/fail) and the number of rows,
+Make a dummy JSON dataset and write a test for the data service enclave.
+Timeline
+Set up Teaclave environment - 3 days
+Develop row count function - 3 days
+Debugging and testing - 2 days
+Migrate from sandbox to SGX hardware - 2 - 3 days - (we may move this to a separate task since it impacts more than one enclave)
+
+Total - 2 weeks
+","[Alex Stewart]","none","@Bill Guo  Please do the time estimates for Wednesday next week  ",8,0,"2023-02-06T00:00:00.000+00:00","Monday, February 6th 2023","","","2022-12-02T14:23:32.149+02:00","Friday, December 2nd 2022, 2:23:32 pm +02:00","2023-05-23T16:29:11.681+02:00","Tuesday, May 23rd 2023, 4:29:11 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[sub task]","[Project Board]","[]","","","","","","",,0,""
+"862j2fu2z","Dataset Hashing Function","30ektfh","Data Service","https://app.clickup.com/t/30ektfh","research","Description
+We need to compute a hash value for a dataset after it is received by the enclave, this will be stored in the smart contract and use to confirm the veracity of the dataset upon execution of DRTs. 
+
+Acceptance Criteria
+Compute hash of dataset after it has been unsealed and validated (row counter for now) in the data service enclave. Return the hash string to the api.
+
+Implementation plan
+Adapt function from the wallet authentication enclave to compute a deterministic hash from the unsealed dataset. 
+Integrate with other dataset creation functionality and add a hash to return function of dataset creation.
+Write python function to save hash to Cosmos database - this can be done with the row counter and other dataset initialization stuff. 
+
+Note:
+The wallet has an authentication function that creates a hash that could be repurposed for this task.
+
+Timeline
+1 weeks
+
+","[Alex Stewart]","none","@Alex Stewart   please see if any of Tshepang's code can be used.  ",5,0,"2023-02-06T00:00:00.000+00:00","Monday, February 6th 2023","","","2023-01-13T19:35:33.657+02:00","Friday, January 13th 2023, 7:35:33 pm +02:00","2023-05-23T16:29:18.516+02:00","Tuesday, May 23rd 2023, 4:29:18 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"38ntgj1","Create Upload Page for Vault App Frontend and link it to Data Service API","38nthe6","As a data creator I want to be able to CREATE a DATA POOL so that I can increase the value of the data","https://app.clickup.com/t/38nthe6","ready for dev","Description
+A rudimentary web application that allows a (non-authenticated) user to select a data schema and upload a dataset.
+Acceptance Criteria
+User is able to select/upload a schema
+User is able to preview the schema
+User is able to upload json data examples to the DB
+Parse data to json
+Validated against the schema
+User is able to select from a list of digital rights.
+User is able to input a quantity they wish to list.
+User is able to name their pool and add descriptions.
+Implementation Plan
+Accept any columnar format. We’ll convert them to json on the front end, possibly as part of file validation.
+Usable interface that queries the database for available schemas.
+After schema is selected, show upload functionality - browse disc or drag-and-drop.
+Gather input for metadata fields, as per the design, i.e. dataset title, description, etc.
+Refactor API endpoints to save uploaded data & metadata to the DB
+
+Time
+2 weeks
+
+","[Jonathan]","none","@Francisco Rutayebesibwa  API endpoints to be deployed to FE   Server to be deployed first - Bill   Connect to FE     ",6,0,"2023-02-17T00:00:00.000+00:00","Friday, February 17th 2023","","","2022-12-06T10:57:42.925+02:00","Tuesday, December 6th 2022, 10:57:42 am +02:00","2023-05-17T14:11:14.752+02:00","Wednesday, May 17th 2023, 2:11:14 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[master task]","[Project Board]","[]","","","","","","",,0,""
+"862jceawk","Create Data Pool SDK and Method","38nthe6","As a data creator I want to be able to CREATE a DATA POOL so that I can increase the value of the data","https://app.clickup.com/t/38nthe6","mr review","Background
+We need to use the Algorand javascript SDK to develop functions in type script for creating the create-data-pool transactions and issuing the create-data-pool transactions. These functions need to be created separately so we can import the signing functionality and create a method that completes the entire functionality to create a data pool. 
+ Dependent on:
+Data service
+Enclave Signing transaction
+
+Implementation Plan
+Create transactions for data pool creation
+Deploy Contract
+Fund Contract
+Setup transaction (from within enclave wallet but we will use a demo transaction for now)
+optin to contributor token 
+claim contributor token 
+create functions to issue the above transactions and catch errors. 
+Create a create-data-pool method with the functions above.
+Build connection using Algorand SDK to connect to client. 
+
+","[Alex Stewart]","none","still blocked due to outdated algonaut signing functionality not including box references in transactions.   ",4,0,"","","","","2023-03-03T16:18:24.967+02:00","Friday, March 3rd 2023, 4:18:24 pm +02:00","2023-05-29T11:53:23.934+02:00","Monday, May 29th 2023, 11:53:23 am +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","As a Data Contributor I want to be able to ""JOIN Existing DATA POOL"": https://app.clickup.com/t/861m7wk58)
+Flat Rate for Compute Cost and Billing: https://app.clickup.com/t/862j8yzte)","","","","","",,0,""
+"862jcufyn","Enclave Transaction: Smart Contract Setup","38nthe6","As a data creator I want to be able to CREATE a DATA POOL so that I can increase the value of the data","https://app.clickup.com/t/38nthe6","research","Background
+The enclave needs to create & sign a setup transaction during the setup of the smart contract / data pool. 
+
+This task is similar to the Enclave Transaction: Add data contributor task in that it follows similar logic. During the series of transaction to create the smart contract, one of the transactions deals with the smart contracts setup and this transaction tells the smart contract the details for the creators initial data contribution i.e. how many rows of data and the new hash of the data. 
+
+This information needs to come from a trusted source, therefore it has to be constructed within the enclave. 
+We will make use of the execution enclave to create the transaction and then use the old auth signing enclave to sign the transaction. The two enclaves would in theory communicate via local attestation however, given MVP constraints a secure communication channel is all that is needed and this can be implemented via a standard public/private key pair encryption method. 
+
+Therefore, before this task can commence, there needs to be a secure communication channel setup between the two enclaves. 
+
+Implementation Plan
+Setup secure communication channel between the execution enclave and the old auth signing enclave. Before commencing the build double check the chosen encryption method with   ,   and   . If unsure on where to access the two enclaves, speak to  .
+Create a function in the execution enclave that counts the numbers of rows of data being added by the contributor.
+Create a function that compiles a hash of the new data pool's data package with the appended data. 
+Use the above functions to build an Algorand transaction in the execution enclave. 
+Build ""setup"" transaction in the execution enclave.
+Transaction Type: Application Call
+Index = unique application ID that represents the smart contract
+Application call arguments (the order is important)
+       ""init_contract"",
+        number of Rows Contributed,
+        data Package Hash,
+        append DRT Name 
+        appendDRTUnitName,
+        append DRT Supply,
+        append DRT Price,
+        append DRT BinaryUrl,
+        append DRT Binary Hash,
+Application call accounts array:
+address of data contributors algorand wallet.
+Details of the application transaction call can be seen in the python build of the transaction found in the python SDK here under the ""initialiseDataPool"" function. 
+Pass the transaction through the encrypted channel to the old auth signing enclave. 
+Sign the transaction in the old auth signing enclave
+Pass the signed transaction out. 
+
+Acceptance criteria
+There is a secure communication channel between two enclaves
+Execution enclave can count the amount of rows of data being appended
+Execution enclave can generate a hash of the new dataset with the old and new data
+Old auth signing enclave can sign an Algorand transaction 
+The smart contract can be fully initialised 
+
+","[Alex Stewart]","none","Initial look through of the implementation plan looks good  👍    ",3,0,"","","","","2023-03-06T16:58:37.760+02:00","Monday, March 6th 2023, 4:58:37 pm +02:00","2023-03-14T16:29:02.743+02:00","Tuesday, March 14th 2023, 4:29:02 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862je184h","Connect Algorand Smart contract to client","38nthe6","As a data creator I want to be able to CREATE a DATA POOL so that I can increase the value of the data","https://app.clickup.com/t/38nthe6","research","Background
+Connect the FE to
+","[]","none","",0,0,"","","","","2023-03-12T12:53:07.679+02:00","Sunday, March 12th 2023, 12:53:07 pm +02:00","2023-03-12T13:04:41.696+02:00","Sunday, March 12th 2023, 1:04:41 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"86781y1nh","Link Create Data Pool SDK to UI components","38nthe6","As a data creator I want to be able to CREATE a DATA POOL so that I can increase the value of the data","https://app.clickup.com/t/38nthe6","planning","We need to integrate the UI components for the creation of a data pool to the SDK functions. 
+
+Time Estimate:
+1 week... ?
+","[Jonathan]","none","@Jonathan  please check out time estimates for this  and add.   ",1,0,"","","","","2023-05-29T11:54:59.896+02:00","Monday, May 29th 2023, 11:54:59 am +02:00","2023-05-29T11:56:48.510+02:00","Monday, May 29th 2023, 11:56:48 am +02:00","","","","Alex Stewart","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"861m7wk58","As a Data Contributor I want to be able to ""JOIN Existing DATA POOL""","","","","development","Background
+Javascript SDK being completed as a part of the Create pool user story is a dependency for this user story to be completed
+
+Once selected, a workflow with four steps starts. First, the user must purchase an AppendDRT using funds in her numeraire wallet. Users are notified if they have insufficient funds and the flow terminates. Second, once the user purchases an AppendDRT, it is transferred to the user’s wallet. Third, the AppendDRT is transferred from the user’s wallet to the smart contract managing the data pool. This step is necessary so the smart contract has proof that the AppendDRT was sent by its new owner. Fourth, once the smart contract has received the AppendDRT, the data upload workflow starts.
+
+In this workflow, the user is asked to upload the data. We aim that the system verifies that the data file corresponds to the schema of the data pool that is being joined. This validation functionality is developed as a separate task but needs to be integrated with this page. Once the files are uploaded, the user receives a Contributor Token and a confirmation message that the contribution was successful.
+
+If an analyst purchases a DRT for the data pool, data contributors receive royalties into her numeraire wallet proportional to the sample size of their data.
+
+Acceptance Criteria
+The user is able to view a list of data pools
+The user is shown a button to pool their data
+The user is shown the cost of append DRT to join the pool
+After purchasing a DRT, the 
+After purchasing the DRT, the user is shown a page to upload a dataset
+After uploading a dataset, the dataset is validated against the schema of the data pool
+Once the user confirms their append drt purchase and intent to join the pool the following occurs
+The append DRT is purchased and redeemed in quick succession (Abstracted away from the user who will just see a spinning wheel)
+The users wallet receives a contributor token(s)
+The user is shown a success page
+
+Implementation Plan
+Javascript SDK for joining a pool and claiming contributor token 
+Make sure the following integrations (completed in other tasks) work with the frontend:
+Data schema validation JS code
+Smart contract JS SDK code (check funds, purchase DRT, redeem DRT)
+Verify the user has enough funds to purchase the appendDRT, to send it back to the smartcontract & for the flat execution fee.
+Redeem the AppendDRT and return the status of the append
+Create transactions within the enclave and sign it.
+Time Estimate
+2 weeks
+","[]","none","@Alex Stewart  to complete the ""create transactions within the enclave""section based on the transaction list  ",2,0,"","","","","2023-01-15T18:00:27.708+02:00","Sunday, January 15th 2023, 6:00:27 pm +02:00","2023-05-04T20:11:46.527+02:00","Thursday, May 4th 2023, 8:11:46 pm +02:00","","","","Co Georg","Nautilus Trusted Compute","hidden","Project Board","[862jbq1hg, 862j2fth5, 38nthzj, 862j8yvuy, 862j9bhyk, 862jdevep, 866a7n7hj, 86781y257]","[https://app.clickup.com/t/862jbq1hg, https://app.clickup.com/t/862j2fth5, https://app.clickup.com/t/38nthzj, https://app.clickup.com/t/862j8yvuy, https://app.clickup.com/t/862j9bhyk, https://app.clickup.com/t/862jdevep, https://app.clickup.com/t/866a7n7hj, https://app.clickup.com/t/86781y257]","[user story]","[Project Board]","[]","Create Data Pool SDK and Method: https://app.clickup.com/t/862jceawk)","","","","","",,0,""
+"862jbq1hg","Create Oracle Node","861m7wk58","As a Data Contributor I want to be able to ""JOIN Existing DATA POOL""","https://app.clickup.com/t/861m7wk58","ready for dev","Description
+Create an Oracle Node for verifying DRT redemption. 
+We need at least one Oracle node to verify DRT redemptions. This consists of a Python function that queries the Algorand blockchain when queried by the Execution service, and returns information from the DRT that is being executed. 
+
+Implementation Plan
+We have an ntc-oracle-node written in Rust. However, it isn't neccessary to use Rust/Alognaut and it will save time to implement it using python. However, please refer to the ntc-oracle-node directory in nautilus-trusted-compute to see how it was done before.
+Use the py-algorand-sdk to create a function that queries the Algorand blockchain.
+The Oracle node will need to first create a ""client"" connection to the algorand blockchain. 
+
+The node will then query the following information:
+Query the ""pending contributor status"" of a users given address for a data pool. The status will sit in the box storage of the smart contract. 
+There are more queries needed, ( I need to chat with   and Co, to go through the specifics)
+
+Deploy it to a container on the backend services VM (or get someone to do it for you, lol)
+
+Time Estimate
+1.5~2 weeks with testing
+","[Alex Stewart]","none","@Bronwynne Oosthuizen  I think its best I work on this task next  ",3,0,"","","","","2023-02-28T16:08:45.387+02:00","Tuesday, February 28th 2023, 4:08:45 pm +02:00","2023-05-03T23:21:25.365+02:00","Wednesday, May 3rd 2023, 11:21:25 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j2fth5","Implement Append DRT Enclave Function","861m7wk58","As a Data Contributor I want to be able to ""JOIN Existing DATA POOL""","https://app.clickup.com/t/861m7wk58","mr review","Description
+Write Rust code to append two JSON datasets.
+
+Acceptance Criteria
+The data service can provide two datasets and two dataset hashes and return a combined dataset and a new hash. It returns appropriate errors upon failure. 
+
+Implementation plan
+Write code to append two json files, assuming they've already been validated 
+A WASM function already exists: https://github.com/ntls-io/wasm-exec-sgx/blob/wasm-append/enclave/src/lib.rs.
+Use the dataset hashing function to compare the hash of the two datasets to the hashes provided by the input.
+I believe we will need to create an ECAL for an append function, sending a dataset in and returning a status.
+Create generalized Rust code that can append JSON files with columns of arbitrary number and type.
+Handle any errors with the execution of the append by returning an error to the API. Preferably an error with something useful (i.e. a file format error, a data type error - a string in a float column, etc, corrupt data, etc)
+Recompute the hash of the combined dataset if append is successful.
+Create a python wrapper for the append function
+Return error or success, the combined dataset to be stored, and the hash function to go back to smart contract and metadata
+Create a few tests using mock data, create a Readme and update the NTC Technical Specs
+
+TImeline
+1 week
+
+","[Tshepang Mbambo]","none","@Bill Guo  &  @Alex Stewart  Needs to please be reviewed  ",3,0,"2023-02-17T00:00:00.000+00:00","Friday, February 17th 2023","","","2023-01-13T19:33:39.672+02:00","Friday, January 13th 2023, 7:33:39 pm +02:00","2023-03-04T17:23:18.909+02:00","Saturday, March 4th 2023, 5:23:18 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[master task]","[Project Board]","[]","","","","","","",,0,""
+"38nthzj","Smart Contract DRT append Process","861m7wk58","As a Data Contributor I want to be able to ""JOIN Existing DATA POOL""","https://app.clickup.com/t/861m7wk58","testing","
+Pyteal code for Redemption of Append DRT resulting in a user becoming a data contributor, creating a contributor token for the contribution of data and registering the ownership of the users contributor token in box storage
+Pyteal code for Executing a DRT, ensuring a fixed fee is charged and DRT is sent back to smart contract
+
+Claim contributor token
+
+
+","[Alex Stewart, Bronwynne Oosthuizen]","none","https://github.com/ntls-io/ntc-smart-contract-mvp/wiki  ",3,0,"","","","","2022-12-06T11:02:24.851+02:00","Tuesday, December 6th 2022, 11:02:24 am +02:00","2023-03-06T16:34:47.986+02:00","Monday, March 6th 2023, 4:34:47 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[master task]","[Project Board]","[]","","","","","","",,0,""
+"862j8yvuy","Frontend for Joining existing Data Pool","861m7wk58","As a Data Contributor I want to be able to ""JOIN Existing DATA POOL""","https://app.clickup.com/t/861m7wk58","testing","Is this covered in another task?
+
+Background
+Once selected, a workflow with four steps starts. First, the user must purchase an AppendDRT using funds in her numeraire wallet. Users are notified if they have insufficient funds and the flow terminates. Second, once the user purchases an AppendDRT, it is transferred to the user’s wallet. Third, the AppendDRT is transferred from the user’s wallet to the smart contract managing the data pool. This step is necessary so the smart contract has proof that the AppendDRT was sent by its new owner. Fourth, once the smart contract has received the AppendDRT, the data upload workflow starts.
+
+
+If an analyst purchases a DRT for the data pool, data contributors receive royalties into her numeraire wallet proportional to the sample size of their data.
+
+Acceptance Criteria
+The user is able to view a list of data pools
+The user is shown a button to pool their data
+The user is shown the cost of append DRT to join the pool
+After purchasing a DRT, the 
+After purchasing the DRT, the user is shown a page to upload a dataset
+After uploading a dataset, the dataset is validated against the schema of the data pool
+Once the user confirms their append drt purchase and intent to join the pool the following occurs
+The append DRT is purchased and redeemed in quick succession (Abstracted away from the user who will just see a spinning wheel)
+The users wallet receives a contributor token(s)
+The user is shown a success page
+
+Implementation Plan
+Design and refine the flow of pages required for the acceptance criteria
+Make sure the following integrations (completed in other tasks) work with the frontend:
+Data schema validation JS code
+Smart contract JS SDK code (check funds, purchase DRT, redeem DRT, distribute royalties)
+Vault API
+Query a list of active data pools
+Store DRTs purchased by the user, remove from list when redeemed
+Execute the Append function and returning the status of the append
+Documentation and tests
+
+Time estimate
+1 week
+","[Jonathan]","none","",0,0,"2023-03-03T00:00:00.000+00:00","Friday, March 3rd 2023","2023-02-27T00:00:00.000+00:00","Monday, February 27th 2023","2023-02-16T12:31:29.322+02:00","Thursday, February 16th 2023, 12:31:29 pm +02:00","2023-04-26T16:43:16.040+02:00","Wednesday, April 26th 2023, 4:43:16 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j5p4qu","Join Existing Pool API/Backend Orchestration","861m7wk58","As a Data Contributor I want to be able to ""JOIN Existing DATA POOL""","https://app.clickup.com/t/861m7wk58","research","Build out the functions in the API to integrate the metadata database, the smart contract transactions, and the enclave calls for dataset upload.
+
+Implementation Plan
+Call existing enclave functions for dataset append.
+retrieve results and update datapool, and dataset, and DRT collections
+
+Timeline
+1-2 weeks, can be more specific when we have data pool creation done
+","[jbochenek]","none","@jbochenek  Dont we need to send the append DRT back to the smartcontract and perform the redemption function ?  ",1,0,"2023-03-17T00:00:00.000+00:00","Friday, March 17th 2023","2023-03-06T00:00:00.000+00:00","Monday, March 6th 2023","2023-01-31T16:26:25.980+02:00","Tuesday, January 31st 2023, 4:26:25 pm +02:00","2023-03-04T17:32:21.098+02:00","Saturday, March 4th 2023, 5:32:21 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j9bhyk","API Set up for Purchase & Redemption of Append DRT","861m7wk58","As a Data Contributor I want to be able to ""JOIN Existing DATA POOL""","https://app.clickup.com/t/861m7wk58","planning","Background
+When you join a pool, the AppendDRT needs to be purchased & sent back to the smart contract. This task deals with the orchestration of Append operations the smart contract side. 
+
+Implementation Plan
+Vault API
+Query a list of active data pools.
+Current GET Data pools endpoint queries the MongoDB by using a wallet_id.
+Store DRTs purchased by the user, remove from list when redeemed
+Create a STORE DRT api endpoint that takes information about DRT, and stores it to MongoDB.
+DRT information stored: Wallet ID, DRT type (analysis binary), DRT creator, current registered owner of DRT, reference of data pool (algorand address), listed/delisting/available parameter, drt_type
+A user gets a list of all Append DRTs available for purchase (or all data pools with available append DRTs) - write an api endpoint /drts/get_by_type(drt_type, available==True)
+Api endpoint to alter the current registered owner of the DRT on the smartcontract and update MongoDB. If 1 DRT is purchased update 1 DRT with matching asset ID in the DB. 
+Call to data service with data file for appending
+User redeems Append DRT. When user clicks redeem the Front end sends drt directly to smart contract. The transaction will have a transactionID. 
+On the next page when transactionID is given, User uploads their data. 
+Call the execution service & seal data. We add their wallet address with that request.
+Send request to authentication service. The Auth service will take the transaction ID and query oracle node(s).
+Oracle nodes return information about DRT. If 
+Accept data during API call to the mongoDB for the datapool Hash, along with DRT address and DRT owner wallet
+Call Algorand SDK function to write transaction for DRT redemption
+This transaction should be signed and submitted as the last step
+Call the execution service with the dataset to execute the Append function
+The execution service is a separate task, but will verify the append DRT using an Oracle node query and then communicate with the enclave, wait for the result of the append, which will include a new hash for the data as well as a new row count.
+Get enclave result.
+if step iii returns an error, return an exception to the frontend, this is the end of the API call.
+If step iii is successful, finish the Algorand transaction for redeem DRT (speak to Alex about this) and send this to the signing enclave to be signed. 
+Call the Agorand SDK function to update the smart contract with the new row count and dataset hash
+
+API functions
+/DRT/get_by_type
+return data pools corresponding to each DRT, or to group by data pool - speak with Jonathan about what is best
+/DRT/create
+/DRT/update
+/DRT/purchase
+/DRT/redeem - to use this for append it needs to accept a data file blob, we can add this as an optional parameter, or create a separate /DRT/append endpoint
+
+Collections:
+DRTs
+
+
+Redeem DRT:
+	Input:
+New dataset 
+
+  
+
+Time Estimate
+1 week
+","[Alex Stewart]","none","@Alex Stewart  Lets please set up a meeting with Co if needed and revise this task.     Please add a comment with what blocks this item other than   Execution enclave   Oracle node   Signing service  ",3,0,"2023-03-10T00:00:00.000+00:00","Friday, March 10th 2023","2023-02-20T00:00:00.000+00:00","Monday, February 20th 2023","2023-02-18T08:58:21.539+02:00","Saturday, February 18th 2023, 8:58:21 am +02:00","2023-05-23T16:27:39.263+02:00","Tuesday, May 23rd 2023, 4:27:39 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862jdevep","Smart Contract Escrow Process - add contributor","861m7wk58","As a Data Contributor I want to be able to ""JOIN Existing DATA POOL""","https://app.clickup.com/t/861m7wk58","mr review","Background
+When you join a pool, the AppendDRT needs to be purchased & sent back to the smart contract, an execution fee needs to be paid and an instruction needs to be sent from the users wallet to add themselves as a ""pending data contributor"". The ""pending data contributor"" will essentially hold the users contribution in escrow on the smart contract until the enclave has approved the specifics of the users contribution. Reason being is that those specific details needs to come from a trusted source - the enclave.
+
+Implementation Plan
+Adjust exisiting box storage functionality to store a pending or approved boolean
+Create another function in smart contract code to add the user into a pending contributor state in box storage
+create another function to take in enclaves approval to transfer the users state from pending to confirmed and register details in box storage
+Update the smart contract creation process to include the escrow process (same flow)
+
+Acceptance 
+User is successfully registered as a pending data contributor and then a registered data contributor in the box storage of the smart contract
+
+","[Alex Stewart]","none","",0,0,"","","","","2023-03-08T16:48:08.691+02:00","Wednesday, March 8th 2023, 4:48:08 pm +02:00","2023-05-04T20:45:07.884+02:00","Thursday, May 4th 2023, 8:45:07 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"866a7n7hj","Create Join Data Pool SDK","861m7wk58","As a Data Contributor I want to be able to ""JOIN Existing DATA POOL""","https://app.clickup.com/t/861m7wk58","mr review","Background
+We need to use the Algorand javascript SDK to develop functions in type script for creating the join-data-pool transactions and issuing the create-data-pool transactions. These functions need to be created separately so we can import the signing functionality and create a method that completes the entire functionality to append data and join a data pool. 
+ Dependent on:
+create data pool user story
+Data service
+Enclave Signing transaction
+Enclave ""approve contributor"" transaction
+
+Implementation Plan
+Create a group transaction to add a user as a pending contributor:
+Transfer AppendDRT transaction to smart contract
+Execution fee transaction of Algos sent to smart contract (set amount)
+Instruction transaction from contributor to be added as a contributor pending enclave approval
+Create single transactions to confirm the pending user as a registered contributor 
+data DEMO contributor approval instruction sent from DEMO enclave to smart contract with contribution variables
+Optin to contributor token  
+Claim contributor token transaction 
+create functions to issue the above transactions and catch errors. 
+Create a single join data pool method with all of the above functions
+
+","[Alex Stewart]","none","",0,0,"","","","","2023-05-04T20:12:24.704+02:00","Thursday, May 4th 2023, 8:12:24 pm +02:00","2023-05-04T20:44:46.997+02:00","Thursday, May 4th 2023, 8:44:46 pm +02:00","","","","Alex Stewart","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"86781y257","Link Join data pool UI components to Join Data Pool SDK","861m7wk58","As a Data Contributor I want to be able to ""JOIN Existing DATA POOL""","https://app.clickup.com/t/861m7wk58","planning","link the SDK to the frontend components for joining a data pool. 
+
+Estimate:
+1 week ...?
+","[Jonathan]","none","@Jonathan  please update time estimate   ",1,0,"","","","","2023-05-29T11:58:34.780+02:00","Monday, May 29th 2023, 11:58:34 am +02:00","2023-05-29T12:05:40.871+02:00","Monday, May 29th 2023, 12:05:40 pm +02:00","","","","Alex Stewart","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862jcjxc9","Enclave Transaction: Add data contributor","","","","development","Background
+Create an ""add data contributor transaction"" within the enclave and sign it. 
+
+For new users to contribute to a data pool, an instruction needs to come from within the enclave to tell the smart contract who the smart contract must add to the pool, how much they are contributing and what the new hash of the data is. This is to protect the smart contract / data pool from being told false information. 
+The same applies for the creation of a smart contract and its ""setup"" instruction when the data pool creator creates the pool and appends its first data. 
+
+We will make use of the execution enclave to create the transaction and then use the old auth signing enclave to sign the transaction. The two enclaves would in theory communicate via local attestation however, given MVP constraints a secure communication channel is all that is needed and this can be implemented via a standard public/private key pair encryption method. Therefore, before this task can commence, there needs to be a secure communication channel setup between the two enclaves. 
+
+Implementation Plan
+Use the functions created in the previous task to build an algorand transaction in the execution enclave. 
+Build ""add_data_contributor"" transaction in the execution enclave.
+Transaction Type: Application Call
+Index = unique application ID that represents the smart contract
+Application call arguments (the order is important)
+""add_data_contributor"",
+number of Rows Contributed,
+new data Package Hash,
+enclave approval
+Application call accounts array:
+address of data contributors algorand wallet.
+Details of the application transaction call can be seen in the python build of the transaction found in the python SDK here under the ""initialiseDataPool"" function. 
+Pass the transaction through the encrypted channel to the old auth signing enclave. 
+Sign the transaction in the old auth signing enclave
+Pass the signed transaction out back to the frontend. 
+
+Acceptance criteria
+The ""add_data_contributor' transaction can be compiled in the execution enclave properly. 
+The old auth enclave can sign the above transaction and the smart contract can told the correct information to add a new data contributor
+
+","[Alex Stewart]","none","Dependant on the execution enclave. Can move to ready for dev after the execution enclave is done  ",9,0,"","","","","2023-03-04T17:47:26.130+02:00","Saturday, March 4th 2023, 5:47:26 pm +02:00","2023-05-17T14:11:44.511+02:00","Wednesday, May 17th 2023, 2:11:44 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"30ekt8z","As a purchaser I want to be able to REDEEM DRT's so that I can retrieve the result","","","","ready for dev","Background:
+In order to execute the code snippet on a data package so that I can access the result.
+
+Acceptance Criteria
+Function available in menu section ""Analyse Data""
+DRTs are listed
+DRTs can be redeemed 
+Processing wheel while redeeming, or rather a status icon that updates when it is complete
+DRT result shown and downloadable
+
+Notes
+Transfer DRT back to smart contract - create unsigned transaction, sign it in backend, etc
+
+Acceptance Criteria:
+On redemption of a DRT execute code on relevant data package or pool and return result.
+
+","[]","none","",0,0,"","","","","2022-10-25T08:31:55.104+02:00","Tuesday, October 25th 2022, 8:31:55 am +02:00","2023-03-03T13:36:55.427+02:00","Friday, March 3rd 2023, 1:36:55 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[862j323gk, 862j8vf33, 862j8ywvm, 862j8yzte, 866a7nhty]","[https://app.clickup.com/t/862j323gk, https://app.clickup.com/t/862j8vf33, https://app.clickup.com/t/862j8ywvm, https://app.clickup.com/t/862j8yzte, https://app.clickup.com/t/866a7nhty]","[user story]","[Project Board]","[]","","","","","","",,0,""
+"862j323gk","Execution Service (other than the enclave setup)","30ekt8z","As a purchaser I want to be able to REDEEM DRT's so that I can retrieve the result","https://app.clickup.com/t/30ekt8z","ready for dev","Description
+The execution service will manage requests for code execution that are triggered by a DRT redemption. It consists of a set of API functions to send a request to the enclave and return results, and an execution enclave that can run analysis code (separate task - ""WASM Analysis Function""), the append function (separate task), and dataset and code attestation. 
+
+The frontend can call an endpoint with the ID of a binary/append function, a dataset, and any other information required. The code will be run in the enclave and a result will be returned along with attestation data.
+
+Implementation Plan
+Integrate WASM binary functionality and append function
+Create a system for checking data and code hashes
+Write ECAL for starting execution and with results
+Write tests and documentation
+
+Time Estimate
+2 weeks 
+
+","[Bill Guo]","none","",0,0,"2023-03-24T00:00:00.000+00:00","Friday, March 24th 2023","2023-03-13T00:00:00.000+00:00","Monday, March 13th 2023","2023-01-17T17:05:37.123+02:00","Tuesday, January 17th 2023, 5:05:37 pm +02:00","2023-03-23T16:19:44.951+02:00","Thursday, March 23rd 2023, 4:19:44 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[master task]","[Project Board]","[]","","","","","","",,0,""
+"862j8vf33","API for Code Execution","30ekt8z","As a purchaser I want to be able to REDEEM DRT's so that I can retrieve the result","https://app.clickup.com/t/30ekt8z","research","Background
+Create API endpoints for DRT redemption and code execution. Orchestrate the SC, Execution enclave, and metadata storage.
+
+Time Estimate
+1 week
+","[]","none","@jbochenek  Im not sure this task has enough detail  ",1,0,"2023-03-17T00:00:00.000+00:00","Friday, March 17th 2023","2023-03-13T00:00:00.000+00:00","Monday, March 13th 2023","2023-02-15T20:29:22.637+02:00","Wednesday, February 15th 2023, 8:29:22 pm +02:00","2023-05-17T14:08:05.452+02:00","Wednesday, May 17th 2023, 2:08:05 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j8ywvm","Frontend for Redeeming DRTs","30ekt8z","As a purchaser I want to be able to REDEEM DRT's so that I can retrieve the result","https://app.clickup.com/t/30ekt8z","research","Description
+Allow a user to redeem a DRT that they have previously purchased. This basically just calls the API function but needs to be accounted for since it might not fall under the ""Issue DRTs"" frontend task
+
+Tasks
+Query assets owned by user to return the list of DRT's that user owns and can redeem
+If the creator field matches the user then the DRT cannot be redeemed.
+Connect to the javascript SDK
+Provide the assetID (DRT ID) - DRT ID is available from blockchain.
+
+Time Estimate
+2 days
+","[Jonathan]","none","",0,0,"2023-03-17T00:00:00.000+00:00","Friday, March 17th 2023","2023-03-13T00:00:00.000+00:00","Monday, March 13th 2023","2023-02-16T12:40:03.775+02:00","Thursday, February 16th 2023, 12:40:03 pm +02:00","2023-07-13T09:12:21.789+02:00","Thursday, July 13th 2023, 9:12:21 am +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j8yzte","Flat Rate for Compute Cost and Billing","30ekt8z","As a purchaser I want to be able to REDEEM DRT's so that I can retrieve the result","https://app.clickup.com/t/30ekt8z","blocked","Description
+We need to manage the compute resources that are used to execute DRTs. Refer to the Research Notes document for details on implementation. Basically we need to limit execution time, cancel jobs that use all funds, and return the cost of an execution and initiate a transaction to charge for computation or refund unused funds, depending on the implementation.
+
+For the MVP we will set a flat fee for any DRT redemption. So the fee can be set in the smart contract code if necessary. This will be one of the first things to be replaced with a dynamic pricing and repeat billing process in phase 1.
+
+
+Time Estimate
+1 week at least
+
+","[Alex Stewart]","none","This task is part of the javascript SDK task  ",2,0,"2023-03-31T00:00:00.000+00:00","Friday, March 31st 2023","2023-03-13T00:00:00.000+00:00","Monday, March 13th 2023","2023-02-16T13:01:58.746+02:00","Thursday, February 16th 2023, 1:01:58 pm +02:00","2023-03-23T16:24:49.933+02:00","Thursday, March 23rd 2023, 4:24:49 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","Create Data Pool SDK and Method: https://app.clickup.com/t/862jceawk)","","","","","",,0,""
+"866a7nhty","Redeem DRT for analysis result JS SDK","30ekt8z","As a purchaser I want to be able to REDEEM DRT's so that I can retrieve the result","https://app.clickup.com/t/30ekt8z","mr review","Background
+We need to use the Algorand javascript SDK to develop functions in type script for Redeem DRT transactions and issuing the redeem DRT transactions. 
+ Dependent on:
+Data service
+Enclave Signing transaction
+
+Implementation Plan
+Create a single group transaction to redeem a DRT
+Transfer DRT transaction 
+Execution transaction fixed fee of Algos
+Execute DRT instruction sent to smart contract
+create functions to issue the above group transactions and catch errors. 
+Create a single redeem DRT method with all of the above functions including the signing functionality
+
+","[Alex Stewart]","none","",0,0,"","","","","2023-05-04T20:46:40.742+02:00","Thursday, May 4th 2023, 8:46:40 pm +02:00","2023-05-04T21:02:44.987+02:00","Thursday, May 4th 2023, 9:02:44 pm +02:00","","","","Alex Stewart","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j3djh7","As an analyst I want to be able to VIEW  the RESULTS of my redemptions so that I can analyse the output","","","","ready for dev","Background
+Redemption results need to be saved and displayed somewhere. This user story handles the display and interaction with the results.
+
+Acceptance Criteria
+Available in section ""Analyse Data""
+List results of code executions
+Allow user to download the result in a csv 
+Allow users to remove the result from our system
+
+","[]","none","",0,0,"","","","","2023-01-18T21:29:23.538+02:00","Wednesday, January 18th 2023, 9:29:23 pm +02:00","2023-03-23T16:30:01.082+02:00","Thursday, March 23rd 2023, 4:30:01 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[862j3hhnv, 862j3hptk]","[https://app.clickup.com/t/862j3hhnv, https://app.clickup.com/t/862j3hptk]","[user story]","[Project Board]","[]","","","","","","",,0,""
+"862j3hhnv","Backend for Retrieving Results","862j3djh7","As an analyst I want to be able to VIEW  the RESULTS of my redemptions so that I can analyse the output","https://app.clickup.com/t/862j3djh7","research","Description
+User needs to be able to view a list of past results from redeemed DRTs. 
+
+Acceptance Criteria
+The frontend can access data results.
+
+Implementation Plan
+Create a python function for the Execution Service to save the results after an execution completes to the database.
+Create an endpoint for listing any results available for a user, checking if result exists
+Create an endpoint for decrypting and retrieving a JSON file containing the results
+Unseal results via enclave
+
+Time Estimate
+3 days
+","[]","none","@jbochenek  Is this not ready for dev?  ",1,0,"2023-03-22T00:00:00.000+00:00","Wednesday, March 22nd 2023","2023-03-20T00:00:00.000+00:00","Monday, March 20th 2023","2023-01-19T16:00:23.579+02:00","Thursday, January 19th 2023, 4:00:23 pm +02:00","2023-05-17T14:07:56.767+02:00","Wednesday, May 17th 2023, 2:07:56 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j3hptk","Frontend for View Results","862j3djh7","As an analyst I want to be able to VIEW  the RESULTS of my redemptions so that I can analyse the output","https://app.clickup.com/t/862j3djh7","ready for dev","Background
+Redemption results need to be saved and displayed somewhere. This user story handles the display and interaction with the results.
+
+Acceptance Criteria
+List results of a user's redemptions
+Show an icon for each result as to whether it is complete, processing, or errored
+If Errored include redeem button.
+
+Implementation
+Design View Results page
+Integrate with Vault API for listing results and retrieving results
+
+Time
+half a week
+","[]","none","",0,0,"2023-03-24T00:00:00.000+00:00","Friday, March 24th 2023","2023-03-20T00:00:00.000+00:00","Monday, March 20th 2023","2023-01-19T16:14:46.627+02:00","Thursday, January 19th 2023, 4:14:46 pm +02:00","2023-05-17T14:07:58.971+02:00","Wednesday, May 17th 2023, 2:07:58 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862jgcj27","As a contributor token holder I want to be able to CLAIM ROYALTIES so that I can get paid","","","","ready for dev","
+","[]","none","",0,0,"","","","","2023-03-23T16:37:44.434+02:00","Thursday, March 23rd 2023, 4:37:44 pm +02:00","2023-03-23T16:37:48.741+02:00","Thursday, March 23rd 2023, 4:37:48 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[862jgbrbh]","[https://app.clickup.com/t/862jgbrbh]","","[Project Board]","[]","","","","","","",,0,""
+"862jgbrbh","Claim Royalties","862jgcj27","As a contributor token holder I want to be able to CLAIM ROYALTIES so that I can get paid","https://app.clickup.com/t/862jgcj27","requirements capture","Background
+We need to allow users to manually claim their royalties from the sale of DRTs they have listed.
+
+Acceptance:
+The user can view the list of contributor tokens (displayed by the name of the pool they belong to) they own
+The user can claim the royalties on each contributor token
+The royalties are paid into the users Algorand wallet
+
+Implementation Plan:
+Build a UI to display a list of contributor tokens the user owns and a button to claim on each token
+
+","[]","none","@Alex Stewart  Please complete implementation details  ",1,0,"","","","","2023-03-23T15:19:49.301+02:00","Thursday, March 23rd 2023, 3:19:49 pm +02:00","2023-03-23T16:45:43.538+02:00","Thursday, March 23rd 2023, 4:45:43 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"38nthqt","As a data creator I want to be able to ISSUE DRTs so that I can monetise my data without compromising privacy","","","","ready for dev","Background
+Data creators should be able to manage the data they have uploaded and issue different DRTs on their data as they upload it .
+
+Acceptance criteria
+Data creators can issue DRTs on data as they create a pool.
+
+Post MVP Notes
+Removal of data. If the data creator removes a DRT from the marketplace, any DRTs already purchased will still be valid to redeem.
+Adding additional DRT's to a pool once it already exists.
+Data creator can remove data they have uploaded - This might be a post-MVP feature:
+A data package cannot be removed if there are DRTs which have not yet been redeemed,
+all associated data is removed and,
+listed DRTs will be removed.
+
+
+
+","[]","none","@jbochenek  Please check that this is in alignment with your expectations on the implementation  ",1,0,"","","","","2022-12-06T11:00:43.544+02:00","Tuesday, December 6th 2022, 11:00:43 am +02:00","2023-04-26T16:50:38.283+02:00","Wednesday, April 26th 2023, 4:50:38 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[862j2xw8e, 866a7nmny]","[https://app.clickup.com/t/862j2xw8e, https://app.clickup.com/t/866a7nmny]","[user story]","[Project Board]","[]","","","","","","",,0,""
+"862j2xw8e","Register Token Owner in Box Storage (Collect Fees)","38nthqt","As a data creator I want to be able to ISSUE DRTs so that I can monetise my data without compromising privacy","https://app.clickup.com/t/38nthqt","mr review","Background
+The owner of a DRT must be stored and updated when sold on a secondary market in order for Nautilus to earn royalties from DRT sales. The previous plan was to use the SC global variables to register the DRT owner. However, we are limited to 50 global key-value pairs, so this puts a limit on the number of DRTs we can issue. 
+
+The alternative is to make use of the box storage that is associated with each DRT, rather than global storage is associated with a smart contract and local storage is associated with a wallet. This would remove the limit on the number of DRTs that can be issued by a smart contract. It also is generally practise to use the box storage for this type of storage on the smart contract. Box storage is a new feature of algorand that Alex is already using to store the variables required for contributor tokens. The box storage can store more in its key value pair should we want to add more data pegged to the DRT.
+
+We will have to go through the documentation with a fine comb because it changes the fundamental design of the smart contract.
+
+See slack discussion on DRT box storage for more info.
+
+Implementation Plan
+Modify executable contributor token DRT creation to include a reference to the owner 
+Add and revise existing documentation to reflect these changes
+Create tests for creating and transferring a DRT between owners 
+
+Timeline
+2.5 days (2 days for dev, 0.5 days for documentation)
+
+
+","[Alex Stewart]","none","I think  @Alex Stewart  's suggestion is a good compromise. As he goes through building the necessary functionality for the Python SDK he can maintain a test script.  It happens as a matter of course anyway while creating the Python SDK code.  ",5,0,"2023-03-01T00:00:00.000+00:00","Wednesday, March 1st 2023","","","2023-01-17T09:42:09.115+02:00","Tuesday, January 17th 2023, 9:42:09 am +02:00","2023-02-18T09:48:58.594+02:00","Saturday, February 18th 2023, 9:48:58 am +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"38ntj4r","Integrate smart contract deployment with nautilus backend","38nthqt","As a data creator I want to be able to ISSUE DRTs so that I can monetise my data without compromising privacy","https://app.clickup.com/t/38nthqt","research","Description
+The SC code generates pyteal files that are submitted to algorand.
+
+Implementation Plan
+Smart contract generates two small pyteal files that are submitted to the blockchain when creating a smart contract. 
+
+Run this code during each backend deployment and make it available for the client to fetch. It is the same for each smart contract so it can be a static file. 
+
+Timeline
+1 day
+","[jbochenek]","none","Dependent on completing the infrastructure set up with repos & auto deployment/build process   ",3,0,"2023-03-01T00:00:00.000+00:00","Wednesday, March 1st 2023","","","2022-12-06T11:03:35.241+02:00","Tuesday, December 6th 2022, 11:03:35 am +02:00","2023-02-18T08:47:23.873+02:00","Saturday, February 18th 2023, 8:47:23 am +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[master task]","[Project Board]","[]","","","","","","",,0,""
+"862j3g3qn","Create API endpoints for DRT operations","38nthqt","As a data creator I want to be able to ISSUE DRTs so that I can monetise my data without compromising privacy","https://app.clickup.com/t/38nthqt","ready for dev","Description
+We need API endpoints for creating and listing DRTs. This task orchestrates the smartcontract, enclave, and database operations. This task also includes creating any DB collections needed to make the DRT issuance work properly.
+
+Post MVP Notes
+Call smart contract javascript functions that generate unsigned transactions to issue additional a DRT for a data pool.
+Acceptance Criteria
+Ensure that endpoints work with Frontend and Backend components.
+Implementation Plan
+If they don't exist, create CosmosDB collections to store DRT-User relationships
+Create FastAPI endpoints:
+Query created DRTs according to creator and current owner. 
+Query existing DRTs according to type (contributor or binary tokens).
+Transfer or remove a DRT from a wallet's metadata
+Call signing operation to sign any necessary transactions for Algorand needed to add DRTs to contract.
+
+Timeline
+1 week
+","[Francisco Rutayebesibwa]","none","@Bronwynne Oosthuizen  and  @Bill Guo  Im not sure if we need this task anymore given that we do no not need to store DRTs anymore in our own database because we can query all information regarding a DRT from the blockchain....   ",3,0,"2023-03-03T00:00:00.000+00:00","Friday, March 3rd 2023","2023-02-27T00:00:00.000+00:00","Monday, February 27th 2023","2023-01-19T12:53:14.274+02:00","Thursday, January 19th 2023, 12:53:14 pm +02:00","2023-03-09T20:29:30.669+02:00","Thursday, March 9th 2023, 8:29:30 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"866a7nmny","Create DRTs JS SDK","38nthqt","As a data creator I want to be able to ISSUE DRTs so that I can monetise my data without compromising privacy","https://app.clickup.com/t/38nthqt","development","Background
+We need to use the Algorand javascript SDK to develop functions in type script for create DRT transactions and issuing the  create DRT transactions. 
+ Dependent on:
+Data service
+Enclave Signing transaction
+
+Implementation Plan
+Create a single transacions to create a DRT
+Create DRT transaction sent to smart contract 
+Store DRT in Box storage transaction sent to smart contract
+create functions to issue the above transactions and catch errors. 
+Create a single create DRT method with all of the above functions including the signing functionality
+
+","[Alex Stewart]","none","",0,0,"","","","","2023-05-04T20:58:45.659+02:00","Thursday, May 4th 2023, 8:58:45 pm +02:00","2023-05-04T21:01:51.224+02:00","Thursday, May 4th 2023, 9:01:51 pm +02:00","","","","Alex Stewart","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"38ac3n3","Upload own Code - WASM for Data Analysis","","","","planning","Description
+To allow users to contribute their own code to be run on data pools, we will allow users to upload WASM binaries that will be represented by a smart contract. For the MVP, we will provide a set of binaries.
+
+Acceptance Criteria
+
+Implementation Plan
+Create Execution Enclave. The execution service can call a teaclave app function that requests the correct dataset from storage, runs the appropriate WASM or pure Rust analysis function, and returns the results asynchronously. 
+Research and implement a Rust method to run a binary on multiple columns. E.g. if the 'median' DRT is selected, compute the median for all number columns, and return a list of medians. Code for several functions that compute a single column exist in the wasm-sgx-sdk repo, so they need to be adapted to dynamically handle multi-column files
+Create the ECAL method for retrieving a file from the execution service (the relevant python API)
+Ensure that the Rust enclave app execution call is correctly wrapped with a python function for use by the API (pyonium trioxide)
+
+Timeline
+3 weeks
+","[Bill Guo]","none","Adapt the 3 analysis functions Bingle created to json with multiple columns.   ",4,0,"2023-03-10T00:00:00.000+00:00","Friday, March 10th 2023","2023-02-20T00:00:00.000+00:00","Monday, February 20th 2023","2022-12-02T14:25:35.013+02:00","Friday, December 2nd 2022, 2:25:35 pm +02:00","2023-03-23T15:25:25.714+02:00","Thursday, March 23rd 2023, 3:25:25 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[sub task]","[Project Board]","[]","","","","","","",,0,""
+"862hxuxfw","As a data creator I want to be able to manage & sell my CONTRIBUTOR TOKENS so that I can get funds instantly and not over the lifetime of my data","","","","research","Background
+Data creators should be able to access a secondary market where they can trade their contributor tokens so that they are not restricted.
+
+Acceptance Criteria:
+The creator is able to list contributor token and sell them directly to other vault users/marketplace browsers.
+The purchaser of a contributor token will receive the recurring revenue associated with that token.
+
+Implementation Plan:
+Allow contributor tokens to be traded by including a reference to the dataset in the DRT using Algorand boxes. 
+","[]","none","@jbochenek  There is no front end .. It needs to return back   ",4,0,"","","","","2022-12-19T16:13:52.616+02:00","Monday, December 19th 2022, 4:13:52 pm +02:00","2023-01-18T21:39:49.743+02:00","Wednesday, January 18th 2023, 9:39:49 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[862j2jd5p, 862j365f4, 862j8yw74]","[https://app.clickup.com/t/862j2jd5p, https://app.clickup.com/t/862j365f4, https://app.clickup.com/t/862j8yw74]","[user story]","[Project Board]","[]","","","","","","",,0,""
+"862j2jd5p","Add capability of selling a contributor token to smart contract","862hxuxfw","As a data creator I want to be able to manage & sell my CONTRIBUTOR TOKENS so that I can get funds instantly and not over the lifetime of my data","https://app.clickup.com/t/862hxuxfw","testing","Description
+We want to allow the exchange of contributor tokens on external markets. In order to do this we need to associate owner data with each token. 
+
+Implementation Plan
+The Algorand Box feature allows us to associate data with a token, rather than with the smart contract or the user. We can create a box for each contributor token and store and update the owner of the token when it is sold. 
+
+Time Estimate
+2 weeks
+","[Alex Stewart, Bronwynne Oosthuizen]","none","",0,0,"","","","","2023-01-14T20:34:01.423+02:00","Saturday, January 14th 2023, 8:34:01 pm +02:00","2023-02-19T10:22:20.177+02:00","Sunday, February 19th 2023, 10:22:20 am +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j365f4","UI to view list and unlist Contributor tokens the vault user owns","862hxuxfw","As a data creator I want to be able to manage & sell my CONTRIBUTOR TOKENS so that I can get funds instantly and not over the lifetime of my data","https://app.clickup.com/t/862hxuxfw","research","Background
+The user has a list of contributor tokens which they own. They need to be able to search through them, list them for sale at a new price or unlist them from a marketplace.
+
+Acceptance Criteria
+Display list of contributor tokens With
+Pool Name
+Description
+Status (Listed, unlisted or sold)
+Button to list(sell) or unlist
+
+","[]","none","",0,0,"","","","","2023-01-18T09:36:21.041+02:00","Wednesday, January 18th 2023, 9:36:21 am +02:00","2023-01-18T09:43:45.067+02:00","Wednesday, January 18th 2023, 9:43:45 am +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j8yw74","API Endpoints for selling contributor token","862hxuxfw","As a data creator I want to be able to manage & sell my CONTRIBUTOR TOKENS so that I can get funds instantly and not over the lifetime of my data","https://app.clickup.com/t/862hxuxfw","research","This is a task to orchestrate the Frontend and Smart Contract operations for selling a contributor token. Also update any CosmosDB fields to track DRT ownership, where necessary.
+
+Time Estimate
+3 days
+","[]","none","",0,0,"","","","","2023-02-16T12:35:23.944+02:00","Thursday, February 16th 2023, 12:35:23 pm +02:00","2023-02-16T12:36:59.735+02:00","Thursday, February 16th 2023, 12:36:59 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j105bk","As a Vault User I want to be able to VIEW my PROFILE so that I can manage my account","","","","research","Background
+The Vault User needs to have some way of viewing their account so that they can manage their profile, update personal details, change account settings etc. 
+For more information Refer to the below doc:
+ 
+Acceptance Criteria
+The vault user will be redirected to their profile on clicking through from a button the landing page/ header nav.
+for now Reset, only username, password, and email & cell.
+Display Name, Wallet address, Cell, & Email.
+
+Implementation Plan
+Create the client code for the profile to display user information from the database
+Integrate frontend with the appropriate endpoints
+Depends on multiple backend tasks, so use dummy calls when necessary
+
+API calls should be built in with account creation and login items
+
+Timeline
+ 1 week
+
+","[]","none","@jbochenek  We need to have some research done on where the user details are stored, how they are retrieved and reset.  ",3,0,"","","","","2023-01-09T14:06:34.147+02:00","Monday, January 9th 2023, 2:06:34 pm +02:00","2023-02-16T11:53:54.032+02:00","Thursday, February 16th 2023, 11:53:54 am +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[862j8v78j, 862j8vgwd, 862j9d824]","[https://app.clickup.com/t/862j8v78j, https://app.clickup.com/t/862j8vgwd, https://app.clickup.com/t/862j9d824]","[user story]","[Project Board]","[]","","","","","","",,0,""
+"862j8v78j","Mechanism to Seal/Retreive Personal Details","862j105bk","As a Vault User I want to be able to VIEW my PROFILE so that I can manage my account","https://app.clickup.com/t/862j105bk","requirements capture","Description
+Personal details must be stored in a way according to the Nautilus privacy policy. User data should not be aggregated, and should not be available to view by anyone except the user. The data should then be sealed either to the user or in some other secure and private fashion.
+
+This will depend on the authentication mechanism. 
+
+Time Estimate
+1 week, depends on auth
+","[]","none","",0,0,"","","","","2023-02-15T19:52:56.115+02:00","Wednesday, February 15th 2023, 7:52:56 pm +02:00","2023-02-15T19:58:54.926+02:00","Wednesday, February 15th 2023, 7:58:54 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[needs_auth]","[Project Board]","[]","","","","","","",,0,""
+"862j8vgwd","Frontend for User Profile and Settings","862j105bk","As a Vault User I want to be able to VIEW my PROFILE so that I can manage my account","https://app.clickup.com/t/862j105bk","ready for dev","User can retrieve and update their details (which are sealed). Any settings that we have to change.
+
+1 week
+","[]","none","",0,0,"","","","","2023-02-15T20:34:42.415+02:00","Wednesday, February 15th 2023, 8:34:42 pm +02:00","2023-02-16T12:47:57.890+02:00","Thursday, February 16th 2023, 12:47:57 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[needs_auth]","[Project Board]","[]","","","","","","",,0,""
+"862j9d824","Delete Account Backend Functions","862j105bk","As a Vault User I want to be able to VIEW my PROFILE so that I can manage my account","https://app.clickup.com/t/862j105bk","research","Background
+On the profile of the vault user we want to allow users to delete their vault account. This includes retraction of all listed tokens, cashing out, etc. all sold DRTs should still be executable/executed.
+
+Acceptance Criteria
+User can delete their vault account
+User can cash out all funds / send all contributor tokens to another wallet
+any sold DRTs can still be executed
+User can opt to close account completely once all pending redemptions &/or sales have concluded on account
+ 
+Implementation Plan
+
+Time line
+
+","[]","none","",0,0,"","","","","2023-02-19T10:12:09.983+02:00","Sunday, February 19th 2023, 10:12:09 am +02:00","2023-02-19T10:47:48.156+02:00","Sunday, February 19th 2023, 10:47:48 am +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j2jdwy","Attestation Service","","","","research","Description
+Each enclave needs attestation from - 
+
+
+ 
+Implementation Plan
+Time Estimate
+
+","[Alex Stewart]","none","@jbochenek  To provide research notes by COB 2023/03/06    ",2,0,"2023-03-03T00:00:00.000+00:00","Friday, March 3rd 2023","2023-02-20T00:00:00.000+00:00","Monday, February 20th 2023","2023-01-14T20:58:40.413+02:00","Saturday, January 14th 2023, 8:58:40 pm +02:00","2023-04-26T16:35:16.774+02:00","Wednesday, April 26th 2023, 4:35:16 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j3df69","As a vault user I want to be able to MANAGE TOKENS I own so that I can list, unlist or redeem them","","","","research","Backlog
+Users need a space where they can view the tokens that they own and perform actions on them
+
+Acceptance Criteria
+List tokens owned by the vault user
+Tokens need to follow these rules
+Tokens that have been purchased
+Any DRT including append DRT
+Contributor tokens
+Tokens Issuable/Listable
+DRTs issued for own package/pool
+DRTs listed for a joined data pool (Uneditable. Can only be delisted).
+Contributor tokens
+Tokens a Vault user may own
+DRTs created until sold
+Share of DRTs in a data pool
+DRTs purchased
+Contributor tokens (bought and created)
+Tokens that can be resold/relisted
+Contributor Tokens (bought and created)
+DRTs purchased
+
+Implementation Plan
+Query the vault API to get tokens that the user owns
+Offer options to list/unlist these tokens (where possible)
+Integrate the Algorand JS SDK transaction to change the status of the DRT
+Offer option to redeem
+integrate with Vault API call to execute the associated code
+Algorand JS SDK transaction to redeem
+
+Timeline
+1 week, assuming we've already done other pages
+","[]","none","@jbochenek  Is this ready for dev?  ",2,0,"","","","","2023-01-18T21:08:16.419+02:00","Wednesday, January 18th 2023, 9:08:16 pm +02:00","2023-01-31T12:10:25.279+02:00","Tuesday, January 31st 2023, 12:10:25 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[862j8yxag, 862j3nnwc, 862j8yxbj]","[https://app.clickup.com/t/862j8yxag, https://app.clickup.com/t/862j3nnwc, https://app.clickup.com/t/862j8yxbj]","[user story]","[Project Board]","[]","","","","","","",,0,""
+"862j8yxag","Frontend for Manage Tokens","862j3df69","As a vault user I want to be able to MANAGE TOKENS I own so that I can list, unlist or redeem them","https://app.clickup.com/t/862j3df69","research","Backlog
+Users need a space where they can view the tokens that they own and perform actions on them
+
+Acceptance Criteria
+List tokens owned by the vault user
+Tokens need to follow these rules
+Tokens that have been purchased
+Any DRT including append DRT
+Contributor tokens
+Tokens Issuable/Listable
+DRTs issued for own package/pool
+DRTs listed for a joined data pool (Uneditable. Can only be delisted).
+Contributor tokens
+Tokens a Vault user may own
+DRTs created until sold
+Share of DRTs in a data pool
+DRTs purchased
+Contributor tokens (bought and created)
+Tokens that can be resold/relisted
+Contributor Tokens (bought and created)
+DRTs purchased
+
+Implementation Plan
+Query the vault API to get tokens that the user owns
+Offer options to list/delist these tokens (where possible)
+Offer option to redeem
+
+Timeline
+3 days
+
+","[]","none","",0,0,"","","","","2023-02-16T12:44:12.434+02:00","Thursday, February 16th 2023, 12:44:12 pm +02:00","2023-02-16T12:45:49.813+02:00","Thursday, February 16th 2023, 12:45:49 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j3nnwc","Enforce listing and delisting on smartcontract","862j3df69","As a vault user I want to be able to MANAGE TOKENS I own so that I can list, unlist or redeem them","https://app.clickup.com/t/862j3df69","testing","Background
+As per discussion on slack with Co, the listing and delisting needs to be listed or delisted using a string
+IE. if listed on nautilus it will show in an array of strings. If it is delisted Nautilus will be removed from the array of strings 
+
+Acceptance Criteria
+For the mvp only Nautilus will be used to list. later it will be other listers
+List and delist toggles whether nautilus is listed in the array of strings or not
+
+","[Alex Stewart, Bronwynne Oosthuizen]","none","@Alex Stewart   Please fill in the implementation details for this task   ",1,0,"","","","","2023-01-20T08:34:45.814+02:00","Friday, January 20th 2023, 8:34:45 am +02:00","2023-02-19T10:22:20.177+02:00","Sunday, February 19th 2023, 10:22:20 am +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j8yxbj","API for Listing/delisting Tokens","862j3df69","As a vault user I want to be able to MANAGE TOKENS I own so that I can list, unlist or redeem them","https://app.clickup.com/t/862j3df69","development","Description
+Users need a space where they can view the tokens that they own and perform actions on them. This task creates the endpoint functions that orchestrate the listing and delisting of Tokens.
+
+Acceptance Criteria
+List tokens owned by the vault user
+Tokens need to follow these rules
+Tokens that have been purchased
+Any DRT including append DRT
+Contributor tokens
+Tokens Issuable/Listable
+DRTs issued for own package/pool
+DRTs listed for a joined data pool (Uneditable. Can only be delisted).
+Contributor tokens
+Tokens a Vault user may own
+DRTs created until sold
+Share of DRTs in a data pool
+DRTs purchased
+Contributor tokens (bought and created)
+Tokens that can be resold/relisted
+Contributor Tokens (bought and created)
+DRTs purchased
+
+Implementation Plan
+Implement Endpoints to allow the Frontend to do the folowing
+Construct vault API endpoints to get tokens that the user owns (probably already done in another task)
+Offer options to list/unlist these tokens (where possible)
+Integrate the Algorand Python SDK transaction to change the status of the DRT
+Offer option to redeem
+integrate with Vault API call to execute the associated code
+Algorand Python SDK transaction to redeem
+
+Timeline
+3 days, assuming we've already done other pages
+
+","[Alex Stewart]","none","@Bronwynne Oosthuizen    ",2,0,"","","","","2023-02-16T12:44:31.878+02:00","Thursday, February 16th 2023, 12:44:31 pm +02:00","2023-03-02T00:30:09.608+02:00","Thursday, March 2nd 2023, 12:30:09 am +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"861m7wjyp","As a Data Creator I want to be able to ""Manage Data Pools"" I am involved in","","","","research","Background
+Once a user has joined/created a data pool, they should be able to manage it (Reissue tokens, change price and delete).
+
+Acceptance Criteria
+List data pools with status (created, joined)
+Data pools created
+Reissue Tokens
+Change the price and
+Delete - The pool can only be deleted if there are no outstanding contributor tokens or DRTs 
+Data pools joined
+Leave data pool - This can only happen if there are no outstanding DRTs for this data pool
+
+Implementation Plan
+This is a frontend/design task with some integration work:
+Create the necessary pages
+Integrate Vault API endpoints
+Integrate Algorand SDK transactions
+
+Time Estimate
+1 week, assuming we've already done a page creation a few times already
+","[]","none","The ""Create New Digital Right"" workflow has two steps:   User selects an existing pool.   User searches over all defined digital rights.  Once she has selected all rights she wants to create.   Lastly, the user saves and the flow concludes.  ",1,0,"","","","","2023-01-15T17:57:30.101+02:00","Sunday, January 15th 2023, 5:57:30 pm +02:00","2023-01-19T15:40:30.531+02:00","Thursday, January 19th 2023, 3:40:30 pm +02:00","","","","Co Georg","Nautilus Trusted Compute","hidden","Project Board","[861m7wk13, 862j3np54, 862j9d99q]","[https://app.clickup.com/t/861m7wk13, https://app.clickup.com/t/862j3np54, https://app.clickup.com/t/862j9d99q]","[user story]","[Project Board]","[]","","","","","","",,0,""
+"861m7wk13","Create workflow to ""Create New Digital Right"" for a user's existing data pools.","861m7wjyp","As a Data Creator I want to be able to ""Manage Data Pools"" I am involved in","https://app.clickup.com/t/861m7wjyp","research","Background
+Vault users who have already issued a data pool with digital rights need to have the ability to alter the digital rights executable on that pool.
+
+Acceptance Criteria
+If only contributor is the data pool creator - Allow them to add & remove Digital rights
+If more than one contributor, the data pool creator - Allow them to remove digital rights (cannot add)
+
+Implementation Plan
+
+Timeline
+
+
+","[]","none","",0,0,"","","","","2023-01-15T17:58:19.243+02:00","Sunday, January 15th 2023, 5:58:19 pm +02:00","2023-02-19T11:12:09.544+02:00","Sunday, February 19th 2023, 11:12:09 am +02:00","","","","Co Georg","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j3np54","Removal of data contributor","861m7wjyp","As a Data Creator I want to be able to ""Manage Data Pools"" I am involved in","https://app.clickup.com/t/861m7wjyp","requirements capture","","[]","none","",0,0,"","","","","2023-01-20T08:36:33.215+02:00","Friday, January 20th 2023, 8:36:33 am +02:00","2023-02-16T12:56:54.943+02:00","Thursday, February 16th 2023, 12:56:54 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[post mvp]","[Project Board]","[]","","","","","","",,0,""
+"862j3np6f","Delete Contributor Tokens","862j3np54","Removal of data contributor","https://app.clickup.com/t/862j3np54","requirements capture","","[]","none","",0,0,"","","","","2023-01-20T08:36:47.620+02:00","Friday, January 20th 2023, 8:36:47 am +02:00","2023-01-20T08:36:47.620+02:00","Friday, January 20th 2023, 8:36:47 am +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j3np8a","Retraction of data (Opposite of append function)","862j3np54","Removal of data contributor","https://app.clickup.com/t/862j3np54","requirements capture","","[]","none","",0,0,"","","","","2023-01-20T08:37:11.480+02:00","Friday, January 20th 2023, 8:37:11 am +02:00","2023-01-20T08:37:11.480+02:00","Friday, January 20th 2023, 8:37:11 am +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j9d99q","API Endpoints","861m7wjyp","As a Data Creator I want to be able to ""Manage Data Pools"" I am involved in","https://app.clickup.com/t/861m7wjyp","requirements capture","
+","[]","none","",0,0,"","","","","2023-02-19T11:14:53.936+02:00","Sunday, February 19th 2023, 11:14:53 am +02:00","2023-02-19T11:14:53.936+02:00","Sunday, February 19th 2023, 11:14:53 am +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j3dh17","As a data creator I want to be able to manage my data packages","","","","research","Background
+Users need to be able to view & manage uploads that do not have an append drt (IE not aimed at being a pool)
+
+Acceptance Criteria
+Show list of data packages (no append drts associated)
+Option to 
+delist DRTs - Handled On Smartcontract
+list DRTs - Handled On smartcontract
+Reissue more of the same DRTs - IE. if I sell out of DRTs I want to be able to reissue the same one without having to go through the same process all over again.
+
+Implementation Plan
+Review designs and create page for data package management
+Re-use vault api endpoints for retrieving list of datasets and other associated information
+
+[[[Need to elaborate]]]
+
+Timeline
+3 days
+
+
+
+","[]","none","@jbochenek  There are missing implementation details please advise  ",4,0,"","","","","2023-01-18T21:21:14.656+02:00","Wednesday, January 18th 2023, 9:21:14 pm +02:00","2023-01-31T11:47:31.942+02:00","Tuesday, January 31st 2023, 11:47:31 am +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[862j3nq9c]","[https://app.clickup.com/t/862j3nq9c]","[user story]","[Project Board]","[]","","","","","","",,0,""
+"862j3nq9c","Create workflow to ""Create New Digital Right"" for a user's existing data packages.","862j3dh17","As a data creator I want to be able to manage my data packages","https://app.clickup.com/t/862j3dh17","requirements capture","","[]","none","",0,0,"","","","","2023-01-20T08:40:13.138+02:00","Friday, January 20th 2023, 8:40:13 am +02:00","2023-01-20T08:40:13.138+02:00","Friday, January 20th 2023, 8:40:13 am +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j9d78x","Return Token on Execution Fund Depletion","","","","research","Description
+If a user starts a redemption on a DRT they have purchased and they have insufficient funds available to complete the execution, the DRT should return to the user.
+
+Implementation Plan
+Complete Me
+
+Timeline
+Complete me
+","[]","none","This task is for when we scale from a flat rate of execution charge.  ",1,0,"2023-03-24T00:00:00.000+00:00","Friday, March 24th 2023","2023-03-20T00:00:00.000+00:00","Monday, March 20th 2023","2023-02-19T09:18:24.942+02:00","Sunday, February 19th 2023, 9:18:24 am +02:00","2023-03-23T16:27:13.362+02:00","Thursday, March 23rd 2023, 4:27:13 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862jpx11u","Create Binary Code for Digital Rights","","","","research","Bingle has created a preliminary version of this code. These need to be refined to work
+","[]","none","",0,0,"","","","","2023-04-26T16:52:12.551+02:00","Wednesday, April 26th 2023, 4:52:12 pm +02:00","2023-04-26T16:52:48.919+02:00","Wednesday, April 26th 2023, 4:52:48 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j3deun","As an analyst I want to be able to add new digital rights so that I can execute new code on data packages & pools","","","","requirements capture","","[]","none","",0,0,"","","","","2023-01-18T21:06:38.239+02:00","Wednesday, January 18th 2023, 9:06:38 pm +02:00","2023-01-18T21:07:27.538+02:00","Wednesday, January 18th 2023, 9:07:27 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j1bcjf","As a site administrator I want to capture users KYC to prevent fraudulent activities","","","","requirements capture","","[]","none","KYC should be implemented via Onfido or whatever other provider we use for the wallet. This is post MVP, though.  ",1,0,"","","","","2023-01-10T15:33:03.481+02:00","Tuesday, January 10th 2023, 3:33:03 pm +02:00","2023-01-15T17:49:21.505+02:00","Sunday, January 15th 2023, 5:49:21 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j1bded","As a Vault user I want to be able to delete my wallet so that all of my data and personal details are removed from the app","","","","requirements capture","","[]","none","",0,0,"","","","","2023-01-10T15:35:48.738+02:00","Tuesday, January 10th 2023, 3:35:48 pm +02:00","2023-01-10T15:35:53.454+02:00","Tuesday, January 10th 2023, 3:35:53 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j1bhr3","As a Data Creator I want to be able to Manage Digital Rights","","","","requirements capture","Digital Rights can be in one of four states, depending on its relation to the user and the user’s data pools. These are defined under ""DRT States"" https://docs.google.com/document/d/1GgEbnysYWtKVRW5WJ00HEkY6PZJA_Y8AlgnkWMbGQIs/edit# .
+
+","[]","none","",0,0,"","","","","2023-01-10T15:49:57.975+02:00","Tuesday, January 10th 2023, 3:49:57 pm +02:00","2023-01-15T17:55:56.717+02:00","Sunday, January 15th 2023, 5:55:56 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"38ntpc2","Data Schema & Validation System","","","","requirements capture","","[]","none","",0,0,"","","","","2022-12-06T11:19:55.753+02:00","Tuesday, December 6th 2022, 11:19:55 am +02:00","2023-01-18T21:33:01.537+02:00","Wednesday, January 18th 2023, 9:33:01 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[38ntq95, 38ntqeg, 38ntqhb]","[https://app.clickup.com/t/38ntq95, https://app.clickup.com/t/38ntqeg, https://app.clickup.com/t/38ntqhb]","[master task, post mvp]","[Project Board]","[]","","","","","","",,0,""
+"38ntq95","Build a system for generating data schemas","38ntpc2","Data Schema & Validation System","https://app.clickup.com/t/38ntpc2","research","Background
+Build a system for generating data schemas to ensure compatibility with combined data pools and to determine how code is run on data 
+","[]","none","Not for MVP ➝ we will use the Front end schema validation for the MVP under data upload   ",1,0,"","","","","2022-12-06T11:23:34.251+02:00","Tuesday, December 6th 2022, 11:23:34 am +02:00","2023-01-17T17:12:24.062+02:00","Tuesday, January 17th 2023, 5:12:24 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[sub task]","[Project Board]","[]","","","","","","",,0,""
+"38ntqeg","A system to validate new files based on data schemas","38ntpc2","Data Schema & Validation System","https://app.clickup.com/t/38ntpc2","research","","[]","none","",0,0,"","","","","2022-12-06T11:24:11.618+02:00","Tuesday, December 6th 2022, 11:24:11 am +02:00","2023-01-17T17:12:24.062+02:00","Tuesday, January 17th 2023, 5:12:24 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[sub task]","[Project Board]","[]","","","","","","",,0,""
+"38ntqhb","Search functionality and API for schema","38ntpc2","Data Schema & Validation System","https://app.clickup.com/t/38ntpc2","research","","[]","none","Post MVP  ",1,0,"","","","","2022-12-06T11:24:24.592+02:00","Tuesday, December 6th 2022, 11:24:24 am +02:00","2023-01-17T17:12:24.062+02:00","Tuesday, January 17th 2023, 5:12:24 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[sub task]","[Project Board]","[]","","","","","","",,0,""
+"861m7wk83","Define ""Advanced Search"" functionality.","","","","requirements capture","","[]","none","",0,0,"","","","","2023-01-15T18:01:57.962+02:00","Sunday, January 15th 2023, 6:01:57 pm +02:00","2023-01-18T21:33:05.303+02:00","Wednesday, January 18th 2023, 9:33:05 pm +02:00","","","","Co Georg","Nautilus Trusted Compute","hidden","Project Board","[861m7wk9f, 861m7wka8, 861m7wkaf, 861m7wkar, 861m7wkb1]","[https://app.clickup.com/t/861m7wk9f, https://app.clickup.com/t/861m7wka8, https://app.clickup.com/t/861m7wkaf, https://app.clickup.com/t/861m7wkar, https://app.clickup.com/t/861m7wkb1]","[post mvp]","[Project Board]","[]","","","","","","",,0,""
+"861m7wk9f","Define ""Advanced Search"" functionality on Home","861m7wk83","Define ""Advanced Search"" functionality.","https://app.clickup.com/t/861m7wk83","requirements capture","","[]","none","",0,0,"","","","","2023-01-15T18:02:25.845+02:00","Sunday, January 15th 2023, 6:02:25 pm +02:00","2023-01-15T18:02:25.845+02:00","Sunday, January 15th 2023, 6:02:25 pm +02:00","","","","Co Georg","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"861m7wka8","Define ""Advanced Search"" functionality on Manage Digital Rights","861m7wk83","Define ""Advanced Search"" functionality.","https://app.clickup.com/t/861m7wk83","requirements capture","","[]","none","",0,0,"","","","","2023-01-15T18:02:53.303+02:00","Sunday, January 15th 2023, 6:02:53 pm +02:00","2023-01-15T18:02:53.303+02:00","Sunday, January 15th 2023, 6:02:53 pm +02:00","","","","Co Georg","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"861m7wkaf","Define ""Advanced Search"" functionality on Manage Data Pools","861m7wk83","Define ""Advanced Search"" functionality.","https://app.clickup.com/t/861m7wk83","requirements capture","","[]","none","",0,0,"","","","","2023-01-15T18:03:03.137+02:00","Sunday, January 15th 2023, 6:03:03 pm +02:00","2023-01-15T18:03:03.137+02:00","Sunday, January 15th 2023, 6:03:03 pm +02:00","","","","Co Georg","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"861m7wkar","Define ""Advanced Search"" functionality on Join Existing Data Pool","861m7wk83","Define ""Advanced Search"" functionality.","https://app.clickup.com/t/861m7wk83","requirements capture","","[]","none","",0,0,"","","","","2023-01-15T18:03:16.561+02:00","Sunday, January 15th 2023, 6:03:16 pm +02:00","2023-01-15T18:03:16.561+02:00","Sunday, January 15th 2023, 6:03:16 pm +02:00","","","","Co Georg","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"861m7wkb1","Define ""Advanced Search"" functionality on Analyze Data","861m7wk83","Define ""Advanced Search"" functionality.","https://app.clickup.com/t/861m7wk83","requirements capture","","[]","none","",0,0,"","","","","2023-01-15T18:03:24.617+02:00","Sunday, January 15th 2023, 6:03:24 pm +02:00","2023-01-15T18:03:24.617+02:00","Sunday, January 15th 2023, 6:03:24 pm +02:00","","","","Co Georg","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
+"862j1bffn","As a Vault user I want to be able to see a dashboard overview so that I can track my pools, packages and drts","","","","requirements capture","Background
+dashboard with meaningful summary graphics about her data pools, created and assigned (issued) DRTs, Contributor Tokens, funds ($Algo) received in their numeraire wallet, and funds paid out (to her preferred external wallet).
+","[]","none","",0,0,"","","","","2023-01-10T15:42:40.197+02:00","Tuesday, January 10th 2023, 3:42:40 pm +02:00","2023-01-18T21:32:58.150+02:00","Wednesday, January 18th 2023, 9:32:58 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[post mvp]","[Project Board]","[]","","","","","","",,0,""
+"862j1bc7q","As a Vault user I want 2 FA to ensure my account has layers of security","","","","requirements capture","
+","[]","none","2FA should be implemented for a user to create a pool, change the status of a digital right (under Manage Digital Rights), list or delist contributor tokens, create a new digital right, join an existing data pool, eventually to delete a pool, and to delete a user profile.  ",3,0,"","","","","2023-01-10T15:31:41.841+02:00","Tuesday, January 10th 2023, 3:31:41 pm +02:00","2023-01-18T21:32:54.997+02:00","Wednesday, January 18th 2023, 9:32:54 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[861m7wg6e, 861m7wg6h, 861m7wj4g]","[https://app.clickup.com/t/861m7wg6e, https://app.clickup.com/t/861m7wg6h, https://app.clickup.com/t/861m7wj4g]","[post mvp]","[Project Board]","[]","","","","","","",,0,""
+"861m7wg6e","Create flow to verify email address during signup","862j1bc7q","As a Vault user I want 2 FA to ensure my account has layers of security","https://app.clickup.com/t/862j1bc7q","requirements capture","","[]","none","",0,0,"","","","","2023-01-15T17:24:30.346+02:00","Sunday, January 15th 2023, 5:24:30 pm +02:00","2023-02-07T22:00:45.143+02:00","Tuesday, February 7th 2023, 10:00:45 pm +02:00","","","","Co Georg","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[needs_auth]","[Project Board]","[]","","","","","","",,0,""
+"861m7wg6h","Create flow to verify phone number during signup","862j1bc7q","As a Vault user I want 2 FA to ensure my account has layers of security","https://app.clickup.com/t/862j1bc7q","requirements capture","","[]","none","",0,0,"","","","","2023-01-15T17:24:35.832+02:00","Sunday, January 15th 2023, 5:24:35 pm +02:00","2023-02-07T22:00:49.413+02:00","Tuesday, February 7th 2023, 10:00:49 pm +02:00","","","","Co Georg","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[needs_auth]","[Project Board]","[]","","","","","","",,0,""
+"861m7wj4g","Implement actual 2FA functionality","862j1bc7q","As a Vault user I want 2 FA to ensure my account has layers of security","https://app.clickup.com/t/862j1bc7q","requirements capture","","[]","none","",0,0,"","","","","2023-01-15T17:47:46.070+02:00","Sunday, January 15th 2023, 5:47:46 pm +02:00","2023-02-07T22:00:53.649+02:00","Tuesday, February 7th 2023, 10:00:53 pm +02:00","","","","Co Georg","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[needs_auth]","[Project Board]","[]","","","","","","",,0,""
+"862j3d9rb","As a data creator I want to be able to add multiple wallets so that I can select different wallets for different pools/packages","","","","requirements capture","allow them to have multiple wallets and to select a preferred wallet for each pool.
+","[]","none","",0,0,"","","","","2023-01-18T20:39:15.387+02:00","Wednesday, January 18th 2023, 8:39:15 pm +02:00","2023-01-18T20:44:05.383+02:00","Wednesday, January 18th 2023, 8:44:05 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[post mvp]","[Project Board]","[]","","","","","","",,0,""
+"862j3daef","As a data pool creator I want to be able to delete the data pool so that I can stop selling DRTs to the data package thats pooled","","","","requirements capture","When Delete Data Pool is selected, the platform checks if all Contributor Tokens have been returned to the platform. If that is not the case, the platform tells the data creator how many Contributor Tokens are still outstanding. The data creator is then asked whether she wants to redeem Contributor Tokens and a workflow is started that allows the data creator to send Contributor Tokens to the smart contract managing the data pool. Once all Contributor Tokens have been redeemed, the data creator can actually delete the pool.
+
+","[]","none","",0,0,"","","","","2023-01-18T20:42:07.687+02:00","Wednesday, January 18th 2023, 8:42:07 pm +02:00","2023-01-18T20:44:11.335+02:00","Wednesday, January 18th 2023, 8:44:11 pm +02:00","","","","Bronwynne Oosthuizen","Nautilus Trusted Compute","hidden","Project Board","[]","[]","[post mvp]","[Project Board]","[]","","","","","","",,0,""
+"862j8r123","Update algorand signing enclave","","","","requirements capture","Description
+The wallet has only been used for XRP transactions. For NTC we need a signing enclave to sign Algo transactions. There is code for doing this using the Algonaut library, but we need to test it and update, if necessary.
+
+Implementation Plan:
+Review existing code and update it or expand it so the wallet can sign Algo transactions. 
+Create an Algo wallet enclave, hopefully copied from the 
+Create Algo FastAPI endpoints for signing transactions, similar to the XRP endpoints.
+
+Time Estimate:
+1 week
+","[Tshepang Mbambo]","none","",0,0,"2023-02-24T00:00:00.000+00:00","Friday, February 24th 2023","2023-02-20T00:00:00.000+00:00","Monday, February 20th 2023","2023-02-15T14:30:43.082+02:00","Wednesday, February 15th 2023, 2:30:43 pm +02:00","2023-03-12T13:05:50.795+02:00","Sunday, March 12th 2023, 1:05:50 pm +02:00","","","","jbochenek","Nautilus Trusted Compute","hidden","Project Board","[]","[]","","[Project Board]","[]","","","","","","",,0,""
