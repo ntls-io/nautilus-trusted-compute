@@ -246,7 +246,7 @@ int SGX_UBRIDGE(SGX_NOCONVENTION, u_dirfd_ocall, (int* error, void* dirp));
 int SGX_UBRIDGE(SGX_NOCONVENTION, u_fstatat64_ocall, (int* error, int dirfd, const char* pathname, struct stat64_t* buf, int flags));
 #endif
 
-sgx_status_t append_data(sgx_enclave_id_t eid, sgx_status_t* retval, const uint8_t* some_string, size_t len);
+sgx_status_t append_data(sgx_enclave_id_t eid, sgx_status_t* retval, const uint8_t* pool_one, size_t len, const uint8_t* pool_two, size_t len_two);
 sgx_status_t t_global_init_ecall(sgx_enclave_id_t eid, uint64_t id, const uint8_t* path, size_t len);
 sgx_status_t t_global_exit_ecall(sgx_enclave_id_t eid);
 

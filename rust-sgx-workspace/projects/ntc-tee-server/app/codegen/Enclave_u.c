@@ -3,8 +3,10 @@
 
 typedef struct ms_append_data_t {
 	sgx_status_t ms_retval;
-	const uint8_t* ms_some_string;
+	const uint8_t* ms_pool_one;
 	size_t ms_len;
+	const uint8_t* ms_pool_two;
+	size_t ms_len_two;
 } ms_append_data_t;
 
 typedef struct ms_t_global_init_ecall_t {
@@ -933,12 +935,14 @@ static const struct {
 		(void*)Enclave_u_fstatat64_ocall,
 	}
 };
-sgx_status_t append_data(sgx_enclave_id_t eid, sgx_status_t* retval, const uint8_t* some_string, size_t len)
+sgx_status_t append_data(sgx_enclave_id_t eid, sgx_status_t* retval, const uint8_t* pool_one, size_t len, const uint8_t* pool_two, size_t len_two)
 {
 	sgx_status_t status;
 	ms_append_data_t ms;
-	ms.ms_some_string = some_string;
+	ms.ms_pool_one = pool_one;
 	ms.ms_len = len;
+	ms.ms_pool_two = pool_two;
+	ms.ms_len_two = len_two;
 	status = sgx_ecall(eid, 0, &ocall_table_Enclave, &ms);
 	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
 	return status;

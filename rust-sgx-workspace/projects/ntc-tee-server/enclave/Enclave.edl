@@ -3,7 +3,7 @@ enclave {
     from "sgx_backtrace.edl" import *;
     trusted
     {
-        public sgx_status_t append_data([in, size=len] const uint8_t* some_string, size_t len);
+        public sgx_status_t append_data([in, size=len] const uint8_t* pool_one, size_t len, [in, size=len_two] const uint8_t* pool_two, size_t len_two);
     };
     untrusted
     {

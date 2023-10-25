@@ -29,8 +29,10 @@
 
 typedef struct ms_append_data_t {
 	sgx_status_t ms_retval;
-	const uint8_t* ms_some_string;
+	const uint8_t* ms_pool_one;
 	size_t ms_len;
+	const uint8_t* ms_pool_two;
+	size_t ms_len_two;
 } ms_append_data_t;
 
 typedef struct ms_t_global_init_ecall_t {
@@ -456,41 +458,65 @@ static sgx_status_t SGX_CDECL sgx_append_data(void* pms)
 	sgx_lfence();
 	ms_append_data_t* ms = SGX_CAST(ms_append_data_t*, pms);
 	sgx_status_t status = SGX_SUCCESS;
-	const uint8_t* _tmp_some_string = ms->ms_some_string;
+	const uint8_t* _tmp_pool_one = ms->ms_pool_one;
 	size_t _tmp_len = ms->ms_len;
-	size_t _len_some_string = _tmp_len;
-	uint8_t* _in_some_string = NULL;
+	size_t _len_pool_one = _tmp_len;
+	uint8_t* _in_pool_one = NULL;
+	const uint8_t* _tmp_pool_two = ms->ms_pool_two;
+	size_t _tmp_len_two = ms->ms_len_two;
+	size_t _len_pool_two = _tmp_len_two;
+	uint8_t* _in_pool_two = NULL;
 
-	CHECK_UNIQUE_POINTER(_tmp_some_string, _len_some_string);
+	CHECK_UNIQUE_POINTER(_tmp_pool_one, _len_pool_one);
+	CHECK_UNIQUE_POINTER(_tmp_pool_two, _len_pool_two);
 
 	//
 	// fence after pointer checks
 	//
 	sgx_lfence();
 
-	if (_tmp_some_string != NULL && _len_some_string != 0) {
-		if ( _len_some_string % sizeof(*_tmp_some_string) != 0)
+	if (_tmp_pool_one != NULL && _len_pool_one != 0) {
+		if ( _len_pool_one % sizeof(*_tmp_pool_one) != 0)
 		{
 			status = SGX_ERROR_INVALID_PARAMETER;
 			goto err;
 		}
-		_in_some_string = (uint8_t*)malloc(_len_some_string);
-		if (_in_some_string == NULL) {
+		_in_pool_one = (uint8_t*)malloc(_len_pool_one);
+		if (_in_pool_one == NULL) {
 			status = SGX_ERROR_OUT_OF_MEMORY;
 			goto err;
 		}
 
-		if (memcpy_s(_in_some_string, _len_some_string, _tmp_some_string, _len_some_string)) {
+		if (memcpy_s(_in_pool_one, _len_pool_one, _tmp_pool_one, _len_pool_one)) {
+			status = SGX_ERROR_UNEXPECTED;
+			goto err;
+		}
+
+	}
+	if (_tmp_pool_two != NULL && _len_pool_two != 0) {
+		if ( _len_pool_two % sizeof(*_tmp_pool_two) != 0)
+		{
+			status = SGX_ERROR_INVALID_PARAMETER;
+			goto err;
+		}
+		_in_pool_two = (uint8_t*)malloc(_len_pool_two);
+		if (_in_pool_two == NULL) {
+			status = SGX_ERROR_OUT_OF_MEMORY;
+			goto err;
+		}
+
+		if (memcpy_s(_in_pool_two, _len_pool_two, _tmp_pool_two, _len_pool_two)) {
 			status = SGX_ERROR_UNEXPECTED;
 			goto err;
 		}
 
 	}
 
-	ms->ms_retval = append_data((const uint8_t*)_in_some_string, _tmp_len);
+	ms->ms_retval = append_data((const uint8_t*)_in_pool_one, _tmp_len, (const uint8_t*)_in_pool_two, _tmp_len_two);
 
 err:
-	if (_in_some_string) free(_in_some_string);
+	if (_in_pool_one) free(_in_pool_one);
+	if (_in_pool_two) free(_in_pool_two);
 	return status;
 }
 
